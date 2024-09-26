@@ -9,7 +9,9 @@
     background-color: #182628;
     font-family: Tahoma, sans-serif;
     margin: 0;
-    min-width: 1000px
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
  }
 
  /* HOME PAGE */
@@ -24,19 +26,25 @@
     margin: 30px auto;
     clear: both;
  }
+ @media (max-width: 410px) {
+    h1 {
+        width: 80%;
+    }
+ }
  #homePageAllNavs {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
  }
  .homePageNavContainer {
-    float: left;
     display: flex;
-    margin: 0 30px;
+    margin: 10px 20px;
     position: relative;
-    width: 400px;
+    max-width: 400px;
     height: fit-content;
-    padding: 10px;
-    border: 2px white solid;
+ }
+ .homePageNavLink:hover {
+    border: 1px white dashed;
  }
  .homePageNavImg {
     display: flex;
@@ -47,12 +55,11 @@
  }
  .homePageNavLabel {
     margin: auto auto 10px;
+    font-size: 1.5em;
     width: 80%;
     text-align: center;
     padding: 10px;
-    border: white solid 1px;
-    background-color: #182628;
-    opacity: 50%;
+    background-color: #18262850;
  }
  .homePageNavDescr {
     margin: 10px 0;
@@ -61,15 +68,16 @@
     text-align: justify;
  }
  a.homePageNavLink, a.homePageNavLink:visited, a.homePageNavLink:active, a.homePageNavLink:hover {
+    padding: 10px;
     color: white;
     text-decoration: none;
  }
 
  #footer {
-    position: absolute;
-    width: 100%;
-    bottom: 5px;
-    background-color: #3b945e;
+    float: left;
+    margin-top: auto;
+    width: 100% - 20px;
+    background-color: #65ccb850;
     color: white;
     padding: 10px;
     font-size: 0.8em;
