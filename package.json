@@ -4,7 +4,7 @@
   "description": "Chemistry study tool",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.jsx -t babelify --outfile bundle.js",
+    "build": "browserify index.jsx -o bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
