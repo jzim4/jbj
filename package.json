@@ -1,0 +1,29 @@
+{
+  "name": "jbj",
+  "version": "1.0.0",
+  "description": "Chemistry study tool",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify index.jsx -t babelify --outfile bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jzim4/jbj.git"
+  },
+  "author": "Jonah, Bresy, James",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jzim4/jbj/issues"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "browserify": "^17.0.0"
+  },
+  "homepage": "https://github.com/jzim4/jbj#readme"
+}

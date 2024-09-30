@@ -17,7 +17,7 @@
  /* HOME PAGE */
  h1 {
     color: #65ccb8;
-    font-weight: 200;
+    font-weight: 400;
     border: #65ccb8 solid 2px;
     border-radius: 10px;
     text-align: center;
@@ -48,7 +48,6 @@
  }
  .homePageNavImg {
     display: flex;
-    width: auto;
     height: 300px;
     position:relative;
     background-color:#65ccb8;
