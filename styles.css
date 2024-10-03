@@ -3,10 +3,12 @@
 #57ba98
 #3b945e
 #f2f2f2
+
+#6082B6
  */
 
  body {
-    background-color: #182628;
+    background-color: #839dc6;
     font-family: Tahoma, sans-serif;
     margin: 0;
     min-height: 100vh;
@@ -16,9 +18,9 @@
 
  /* HOME PAGE */
  h1 {
-    color: #65ccb8;
+    color: #182628;
     font-weight: 400;
-    border: #65ccb8 solid 2px;
+    border: #182628 solid 2px;
     border-radius: 10px;
     text-align: center;
     padding: 30px;
@@ -44,13 +46,17 @@
     height: fit-content;
  }
  .homePageNavLink:hover {
-    border: 1px white dashed;
+   padding: 10px;
+   color: #182628;
+   text-decoration: none;
+   border-style: inset;
+   border: 1px #182628 dashed !important;
  }
  .homePageNavImg {
     display: flex;
     height: 300px;
     position:relative;
-    background-color:#65ccb8;
+    background-color:#6082B6;
  }
  .homePageNavLabel {
     margin: auto auto 10px;
@@ -58,7 +64,7 @@
     width: 80%;
     text-align: center;
     padding: 10px;
-    background-color: #18262850;
+    background-color: #18262825;
  }
  .homePageNavDescr {
     margin: 10px 0;
@@ -66,18 +72,45 @@
     font-size: 0.9em;
     text-align: justify;
  }
- a.homePageNavLink, a.homePageNavLink:visited, a.homePageNavLink:active, a.homePageNavLink:hover {
+ a.homePageNavLink, a.homePageNavLink:visited, a.homePageNavLink:active {
     padding: 10px;
-    color: white;
+    color: #182628;
     text-decoration: none;
+    border: 1px solid #839dc6;
  }
 
  #footer {
     float: left;
     margin-top: auto;
     width: 100% - 20px;
-    background-color: #65ccb850;
-    color: white;
+    background-color: #18262825;
+    color: #182628;
     padding: 10px;
     font-size: 0.8em;
+ }
+
+ iframe {
+   transform:scale(.75);
+   transform-origin: top;
+ }
+ #iframeContainer {
+   width: 1050px;
+   height: 600px;
+ }
+
+ @media (max-width: 1399px) {
+   iframe {
+      display: none;
+    }
+    #errorMessage {
+      position: relative;
+      top: 50%;
+      text-align: center;
+    }
+ }
+
+ @media (min-width: 1400px) {
+    #errorMessage {
+      display: none;
+    }
  }
