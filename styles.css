@@ -100,7 +100,8 @@
  }
  #errorMessage {
    float: left;
-   margin: 0 auto;
+   text-align: center;
+   margin: 10px;
    display: block;
  }
 
