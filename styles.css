@@ -82,7 +82,6 @@
  #footer {
     float: left;
     margin-top: auto;
-    width: 100% - 20px;
     background-color: #18262825;
     color: #182628;
     padding: 10px;
@@ -90,6 +89,8 @@
  }
 
  iframe {
+   float: left;
+   margin: 30px auto;
    transform:scale(.75);
    transform-origin: top;
  }
@@ -97,8 +98,16 @@
    width: 1050px;
    height: 600px;
  }
+ #errorMessage {
+   float: left;
+   margin: 0 auto;
+   display: block;
+ }
 
  @media (max-width: 1399px) {
+   #iframeContainer {
+      height: 0;
+   }
    iframe {
       display: none;
     }
