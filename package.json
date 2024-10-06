@@ -4,8 +4,13 @@
   "description": "Chemistry study tool",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.jsx -o bundle.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "browserify index.js -t babelify -o bundle.js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      "@babel/preset-env"
+    ]
   },
   "repository": {
     "type": "git",
@@ -27,5 +32,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
-  "homepage": "https://github.com/jzim4/jbj#readme"
+  "homepage": "https://github.com/jzim4/jbj#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.25.7",
+    "@babel/core": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "@babel/preset-react": "^7.25.7",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0"
+  }
 }
