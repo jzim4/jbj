@@ -1,28 +1,31 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
-var _index = _interopRequireDefault(require("./index.jsx"));
-function _interopRequireDefault(e) {
-  return e && e.__esModule ? e : {
-    "default": e
-  };
-}
-var root = ReactDOM.createRoot(document.getElementById('homePageAllNavs'));
-root.render(/*#__PURE__*/React.createElement(_index["default"], null));
-
-},{"./index.jsx":2}],2:[function(require,module,exports){
-"use strict";
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = LandingPage;
+exports["default"] = HomePage;
 var _react = _interopRequireDefault(require("react"));
+var _homePageModules = _interopRequireDefault(require("./homePageModules.jsx"));
 function _interopRequireDefault(e) {
   return e && e.__esModule ? e : {
     "default": e
   };
 }
+function Title() {
+  return /*#__PURE__*/_react["default"].createElement("h1", {
+    id: "landingPageTitle"
+  }, "ChemBox");
+}
+;
+function HomePage() {
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(Title, null), /*#__PURE__*/_react["default"].createElement(_homePageModules["default"], null));
+}
+;
+
+},{"./homePageModules.jsx":2,"react":8}],2:[function(require,module,exports){
+"use strict";
+
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -31,6 +34,17 @@ function _typeof(o) {
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
+}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = LandingPage;
+var _react = _interopRequireDefault(require("react"));
+var _simulations = _interopRequireDefault(require("./simulations.json"));
+function _interopRequireDefault(e) {
+  return e && e.__esModule ? e : {
+    "default": e
+  };
 }
 function _defineProperties(e, r) {
   for (var t = 0; t < r.length; t++) {
@@ -42,17 +56,6 @@ function _createClass(e, r, t) {
   return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
     writable: !1
   }), e;
-}
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
-}
-function _defineProperty(e, r, t) {
-  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
-    value: t,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
-  }) : e[r] = t, e;
 }
 function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
@@ -68,32 +71,35 @@ function _toPrimitive(t, r) {
   }
   return ("string" === r ? String : Number)(t);
 }
-var Simulation = /*#__PURE__*/_createClass(function Simulation(name, shortName, link, p5js, description) {
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+var Simulation = /*#__PURE__*/_createClass(function Simulation(name, _short, html, p5js, homePageDescr, instructions) {
   _classCallCheck(this, Simulation);
-  _defineProperty(this, "name", void 0);
-  _defineProperty(this, "shortName", void 0);
-  _defineProperty(this, "link", void 0);
-  _defineProperty(this, "p5js", void 0);
-  _defineProperty(this, "description", void 0);
   this.name = name;
-  this.shortName = shortName;
-  this.link = link;
+  this["short"] = _short;
+  this.html = html;
   this.p5js = p5js;
-  this.description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse illo earum, recusandae est fuga harum ipsa nisi cupiditate reprehenderit perspiciatis voluptatum velit impedit aliquam deleniti sapiente in dicta sit molestiae!";
+  this.homePageDescr = homePageDescr;
+  this.instructions = this.instructions;
 });
 ;
-var igl = new Simulation("Ideal Gas Law", "igl", "igl.html", "https://editor.p5js.org/bresypedraza/full/51SPYMqzt", "");
-var orbital = new Simulation("Orbital Combinations", "orbital", "orbital.html", "", "");
-var simulations = [igl, orbital];
+var simulations = [];
+for (var i in _simulations["default"]) {
+  var s = _simulations["default"][i];
+  var newSim = new Simulation(s.name, s["short"], s.html, s.p5js, s.homePageDescr, s.instructions);
+  console.log(newSim);
+  simulations.push(newSim);
+}
 function SimulationModule(s) {
-  var imgId = s.shortName.concat("NavImg");
-  var key = s.shortName.concat("Module");
+  var imgId = s["short"].concat("NavImg");
+  var key = s["short"].concat("Module");
   return /*#__PURE__*/_react["default"].createElement("div", {
     key: key,
     className: "homePageNavContainer"
   }, /*#__PURE__*/_react["default"].createElement("a", {
     className: "homePageNavLink",
-    href: s.link
+    href: s.html
   }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "homePageNavImg",
     id: imgId
@@ -101,14 +107,46 @@ function SimulationModule(s) {
     className: "homePageNavLabel"
   }, s.name)), /*#__PURE__*/_react["default"].createElement("div", {
     className: "homePageNavDescr"
-  }, s.description)));
+  }, s.homePageDescr)));
 }
 function LandingPage() {
-  console.log(simulations.map(SimulationModule));
-  return simulations.map(SimulationModule);
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    id: "homePageAllNavs"
+  }, simulations.map(SimulationModule));
 }
 
-},{"react":6}],3:[function(require,module,exports){
+},{"./simulations.json":4,"react":8}],3:[function(require,module,exports){
+"use strict";
+
+var _homePage = _interopRequireDefault(require("./homePage.jsx"));
+function _interopRequireDefault(e) {
+  return e && e.__esModule ? e : {
+    "default": e
+  };
+}
+var root = ReactDOM.createRoot(document.getElementById('body'));
+root.render(/*#__PURE__*/React.createElement(_homePage["default"], null));
+
+},{"./homePage.jsx":1}],4:[function(require,module,exports){
+module.exports={
+    "igl": {
+        "name": "Ideal Gas Law",
+        "short": "igl",
+        "html": "igl.html",
+        "p5js": "https://editor.p5js.org/bresypedraza/full/51SPYMqzt",
+        "homePageDescr": "The ideal gas law, PV = nRT, is an equation that shows the relationship of the properties of a gas in a sealed container. Use this simulation to see how pressure and temperature relate.",
+        "instruction": "The ideal gas law is an equation that shows the relationship of the properties of a gas in a sealed container. The equation is PV = nRT, where P is pressure, V is volume, n is moles, R is the constant 0.0821, and T is temperature.\n\nIn this simulation, we have made V and n constant. This is therefore simulating a sealed metal container that can withstand high pressure, and we do not add or remove any matter. To interact with the simulation, move the sliders to change temperature in order to see how it relates to pressure."
+    },
+    "orbital": {
+        "name": "Orbital Combinations",
+        "short": "orbital",
+        "html": "orbital.html",
+        "p5js": "",
+        "homePageDescr": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. Use this simulation to test your knowledge of the result of S and P orbital combinations.",
+        "instructions": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. \n\nTo test your knowledge of the result of S and P orbital combinations, click on one orbital on each side of the box, and see what the combination is in the center box. The light part of the orbital represents the positive lobe, and the dark part represents the negative lobe."
+    }
+}
+},{}],5:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -294,7 +332,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function (process){(function (){
 /**
  * @license React
@@ -3038,7 +3076,7 @@ if (
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":3}],5:[function(require,module,exports){
+},{"_process":5}],7:[function(require,module,exports){
 /**
  * @license React
  * react.production.min.js
@@ -3066,7 +3104,7 @@ exports.forwardRef=function(a){return{$$typeof:v,render:a}};exports.isValidEleme
 exports.useDebugValue=function(){};exports.useDeferredValue=function(a){return U.current.useDeferredValue(a)};exports.useEffect=function(a,b){return U.current.useEffect(a,b)};exports.useId=function(){return U.current.useId()};exports.useImperativeHandle=function(a,b,e){return U.current.useImperativeHandle(a,b,e)};exports.useInsertionEffect=function(a,b){return U.current.useInsertionEffect(a,b)};exports.useLayoutEffect=function(a,b){return U.current.useLayoutEffect(a,b)};
 exports.useMemo=function(a,b){return U.current.useMemo(a,b)};exports.useReducer=function(a,b,e){return U.current.useReducer(a,b,e)};exports.useRef=function(a){return U.current.useRef(a)};exports.useState=function(a){return U.current.useState(a)};exports.useSyncExternalStore=function(a,b,e){return U.current.useSyncExternalStore(a,b,e)};exports.useTransition=function(){return U.current.useTransition()};exports.version="18.3.1";
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -3077,4 +3115,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":4,"./cjs/react.production.min.js":5,"_process":3}]},{},[1]);
+},{"./cjs/react.development.js":6,"./cjs/react.production.min.js":7,"_process":5}]},{},[3]);

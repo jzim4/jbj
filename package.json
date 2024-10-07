@@ -4,7 +4,7 @@
   "description": "Chemistry study tool",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -t babelify -o bundle.js"
+    "build": "browserify js/index.js -t babelify -o bundle.js"
   },
   "babel": {
     "presets": [
