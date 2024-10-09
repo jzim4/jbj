@@ -2,7 +2,7 @@ import React from 'react'
 import LandingPage from './homePageModules.jsx'
 
 function Title() {
-    return <h1 id="landingPageTitle"><div id="titleText">ChemBox</div><div id="titleStreak"></div></h1>
+    return <div id="landingPageTitle"><h1 id="titleText">ChemBox</h1><div id="titleStreak"></div></div>
 };
 
 function Icons() {

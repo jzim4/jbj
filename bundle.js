@@ -13,9 +13,9 @@ function _interopRequireDefault(e) {
   };
 }
 function Title() {
-  return /*#__PURE__*/_react["default"].createElement("h1", {
+  return /*#__PURE__*/_react["default"].createElement("div", {
     id: "landingPageTitle"
-  }, /*#__PURE__*/_react["default"].createElement("div", {
+  }, /*#__PURE__*/_react["default"].createElement("h1", {
     id: "titleText"
   }, "ChemBox"), /*#__PURE__*/_react["default"].createElement("div", {
     id: "titleStreak"

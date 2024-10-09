@@ -31,17 +31,18 @@ Black: #000000
    transform: translateX(-50%);
  }
  #titleText {
-   z-index: 2;
-   position: absolute;
-   top: 35px;
-   left: 50%;
-   transform: translateX(-50%);
- }
- h1 {
    font-family: "Oswald", sans-serif;
    color: #182628;
    font-weight: 400;
    font-size: 5em;
+   z-index: 2;
+   position: absolute;
+   top: 30px;
+   left: 50%;
+   transform: translateX(-50%);
+   margin: 0;
+ }
+ #landingPageTitle {
    margin: 0 auto;
    height: 200px;
  }
@@ -174,20 +175,20 @@ Black: #000000
    left: 50%;
    transform: translateX(-50%);
 }
-h2 {
+#simulationHeader {
+   height: 120px;
+ }
+ #simulationTitle {
    font-family: "Oswald", sans-serif;
    color: #182628;
    font-weight: 400;
    font-size: 3em;
-   margin: 0 auto;
-   height: 120px;
- }
- #simulationTitle {
    z-index: 2;
    position: absolute;
    top: 16px;
    left: 50%;
    transform: translateX(-50%);
+   margin: 0;
  }
  
  /* Simulation */
