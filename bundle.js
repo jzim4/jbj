@@ -15,11 +15,30 @@ function _interopRequireDefault(e) {
 function Title() {
   return /*#__PURE__*/_react["default"].createElement("h1", {
     id: "landingPageTitle"
-  }, "ChemBox");
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    id: "titleText"
+  }, "ChemBox"), /*#__PURE__*/_react["default"].createElement("div", {
+    id: "titleStreak"
+  }));
 }
 ;
+function Icons() {
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "icon",
+    id: "icon1"
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "icon",
+    id: "icon2"
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "icon",
+    id: "icon3"
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    "class": "icon",
+    id: "icon4"
+  }));
+}
 function HomePage() {
-  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(Title, null), /*#__PURE__*/_react["default"].createElement(_homePageModules["default"], null));
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(Title, null), /*#__PURE__*/_react["default"].createElement(Icons, null), /*#__PURE__*/_react["default"].createElement(_homePageModules["default"], null));
 }
 ;
 
