@@ -2,19 +2,40 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>JBJ Chemistry Sandbox</title>
-        <link rel="icon" type="" href=""/>
+        <title>ChemBox</title>
+        <link rel="icon" type="image/x-icon" href="/img/jbj.png"/>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
         
-        <script src=""></script>
-    
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
         <link rel="stylesheet" href="./styles.css">
-    
     </head>
     <body>
 
+        <h2 id="simulationHeader"><div id="simulationTitle">Orbital Combinations</div><div id="simulationStreak"></div></h2>
+
+        <a id="homeButton" href="index.html">Home</a>
+
+        <div id="helpIcon">?
+            <div id="helpContent">Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.<br><br>To test your knowledge of the result of S and P orbital combinations, click on one orbital on each side of the box, and see what the combination is in the center box. The light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.
+                </div>
+        </div>
+
+        <div id="iframeContainer">
+            <iframe src="" width="1225" height="700"></iframe>
+        </div>
+        <div id="errorMessage">Please use a computer and make the window full width in order to see the simulation.</div>
+
 
         <div id="footer">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse illo earum, recusandae est fuga harum ipsa nisi cupiditate reprehenderit perspiciatis voluptatum velit impedit aliquam deleniti sapiente in dicta sit molestiae!
+            Created by James Bradley, Bresy Pedraza Perez, Jonah Zimmer during the fall of 2024 in Software Development at Macalester College.<br>
+            Style and images from Canva, dependencies include React and p5.js
         </div>
 
     </body>

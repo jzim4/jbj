@@ -7,7 +7,10 @@ function Title() {
 
 function Icons() {
     return <>
-    
+    <div className="icon" id="icon1"></div>
+    <div className="icon" id="icon2"></div>
+    <div className="icon" id="icon3"></div>
+    <div className="icon" id="icon4"></div>
     </>
 }
 

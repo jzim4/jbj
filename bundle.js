@@ -24,16 +24,16 @@ function Title() {
 ;
 function Icons() {
   return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
-    "class": "icon",
+    className: "icon",
     id: "icon1"
   }), /*#__PURE__*/_react["default"].createElement("div", {
-    "class": "icon",
+    className: "icon",
     id: "icon2"
   }), /*#__PURE__*/_react["default"].createElement("div", {
-    "class": "icon",
+    className: "icon",
     id: "icon3"
   }), /*#__PURE__*/_react["default"].createElement("div", {
-    "class": "icon",
+    className: "icon",
     id: "icon4"
   }));
 }

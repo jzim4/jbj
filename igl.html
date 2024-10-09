@@ -2,27 +2,38 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>JBJ Chemistry Sandbox</title>
-        <link rel="icon" type="" href=""/>
+        <title>ChemBox</title>
+        <link rel="icon" type="image/x-icon" href="/img/jbj.png"/>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
         
-        <script src=""></script>
-    
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
         <link rel="stylesheet" href="./styles.css">
     </head>
     <body>
 
+        <h2 id="simulationHeader"><div id="simulationTitle">Ideal Gas Law</div><div id="simulationStreak"></div></h2>
+
+        <a id="homeButton" href="index.html">Home</a>
+
         <div id="helpIcon">?
-            <span id="helpContent">The ideal gas law is an equation that shows the relationship of the properties of a gas in a sealed container. The equation is PV = nRT, where P is pressure, V is volume, n is moles, R is the constant 0.0821, and T is temperature.\n\nIn this simulation, we have made V and n constant. This is therefore simulating a sealed metal container that can withstand high pressure, and we do not add or remove any matter. To interact with the simulation, move the sliders to change temperature in order to see how it relates to pressure.</span>
-
-
+            <div id="helpContent">The ideal gas law is an equation that shows the relationship of the properties of a gas in a sealed container. The equation is PV = nRT, where P is pressure, V is volume, n is moles, R is the constant 0.0821, and T is temperature.<br><br>In this simulation, we have made V and n constant. This is therefore simulating a sealed metal container that can withstand high pressure, and we do not add or remove any matter. To interact with the simulation, move the sliders to see the relationship between temperature and pressure under these conditions.</div>
         </div>
+
         <div id="iframeContainer">
-            <iframe src="https://editor.p5js.org/bresypedraza/full/51SPYMqzt" width="1400" height="800"></iframe>
+            <iframe src="https://editor.p5js.org/bresypedraza/full/51SPYMqzt" width="1225" height="700"></iframe>
         </div>
         <div id="errorMessage">Please use a computer and make the window full width in order to see the simulation.</div>
 
         <div id="footer">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse illo earum, recusandae est fuga harum ipsa nisi cupiditate reprehenderit perspiciatis voluptatum velit impedit aliquam deleniti sapiente in dicta sit molestiae!
+            Created by James Bradley, Bresy Pedraza Perez, Jonah Zimmer during the fall of 2024 in Software Development at Macalester College.<br>
+            Style and images from Canva, dependencies include React and p5.js
         </div>
 
     </body>

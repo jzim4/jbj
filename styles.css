@@ -8,6 +8,7 @@ Black: #000000
  body {
     background-color: #fdfdfa;
     font-family: "Open Sans", sans-serif;
+    font-weight: 100;
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -41,12 +42,8 @@ Black: #000000
    color: #182628;
    font-weight: 400;
    font-size: 5em;
-   text-align: center;
    margin: 0 auto;
-   clear: both;
-   position: relative;
    height: 200px;
-   clear: both;
  }
 
    /* Icons */
@@ -151,13 +148,55 @@ Black: #000000
 
 
 /* SIMULATIONS PAGE */
+   /* Home Button */
+
+#homeButton, #homeButton:active, #homeButton:visited {
+   color: #000000;
+   border: #000000 solid 1px;
+   border-radius: 3px;
+   padding: 5px;
+   position: absolute;
+   top: 40px;
+   left: 60px;
+   text-decoration: none;
+}
+   /* Header */
+#simulationStreak {
+   background-image: url("./img/yellowStreak.png");
+   background-size: cover;
+   background-position: center;
+   width: 500px;
+   max-width: 90%;
+   height: 90px;
+   z-index: 1;
+   position: absolute;
+   top: 10px;
+   left: 50%;
+   transform: translateX(-50%);
+}
+h2 {
+   font-family: "Oswald", sans-serif;
+   color: #182628;
+   font-weight: 400;
+   font-size: 3em;
+   margin: 0 auto;
+   height: 120px;
+ }
+ #simulationTitle {
+   z-index: 2;
+   position: absolute;
+   top: 16px;
+   left: 50%;
+   transform: translateX(-50%);
+ }
+ 
+ /* Simulation */
  iframe {
    transform:scale(.75);
    transform-origin: top center;
  }
  #iframeContainer {
-   margin-top: 30px;
-   height: 600px;
+   height: 525px;
    display: flex;
    justify-content: center;
  }
@@ -167,30 +206,6 @@ Black: #000000
    margin: 10px;
    display: block;
  }
-
- #helpIcon {
-   font-size: 2em;
-   border: solid 2px white;
-   color: white;
-   border-radius: 50%;
-   width: 40px;
-   height: 40px;
-   line-height: 40px;
-   text-align: center;
-   position: absolute;
-   left: 60px;
-   top: 40vh;
- }
- #helpContent {
-   visibility: hidden;
- }
- #helpIcon:hover {
-    cursor: help;
- }
- #helpIcon:hover #helpContent {
-   visibility: visible;
- }
-
  @media (max-width: 1399px) {
    #iframeContainer {
       height: 0;
@@ -204,12 +219,51 @@ Black: #000000
       text-align: center;
     }
  }
-
  @media (min-width: 1400px) {
-    #errorMessage {
-      display: none;
-    }
+   #errorMessage {
+     display: none;
+   }
+}
+   /* help section */
+
+#helpSection{
+   position: relative;
+}
+ #helpIcon {
+   font-size: 2em;
+   border: solid 2px #000000;
+   color: #000000;
+   border-radius: 50%;
+   width: 40px;
+   height: 40px;
+   line-height: 40px;
+   text-align: center;
+   position: absolute;
+   left: 60px;
+   top: 40vh;
  }
+ #helpContent {
+   visibility: hidden;
+   text-align: left;
+   padding: 10px;
+   line-height: 20px;
+   position: relative;
+   transform: translateY(-50%);
+   left: 45px;
+   font-size: 16px;
+   width: 600px;
+   background-color: #000000;
+   color: #fdfdfa;
+   z-index: 10;
+
+ }
+ #helpIcon:hover {
+    cursor: help;
+ }
+ #helpIcon:hover #helpContent {
+   visibility: visible;
+ }
+
 
  /* MISC */
  #footer {
