@@ -11,7 +11,7 @@
         "name": "Orbital Combinations",
         "short": "orbital",
         "html": "orbital.html",
-        "p5js": "",
+        "p5js": "https://editor.p5js.org/jbradley2003/full/Mtv8MuoLZ",
         "homePageDescr": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. Use this simulation to test your knowledge of the result of S and P orbital combinations.",
         "instructions": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. \n\nTo test your knowledge of the result of S and P orbital combinations, click on one orbital on each side of the box, and see what the combination is in the center box. The light part of the orbital represents the positive lobe, and the dark part represents the negative lobe."
     }
