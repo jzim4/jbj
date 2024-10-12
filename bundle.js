@@ -92,7 +92,7 @@ function SimulationNav(sim) {
   sim = sim.sim;
   var imgId = sim["short"].concat("NavImg");
   var key = sim["short"].concat("Nav");
-  var link = '/'.concat(sim["short"]);
+  var link = '/jbj/'.concat(sim["short"]);
   return /*#__PURE__*/React.createElement("div", {
     key: key,
     className: "homePageNavContainer"
@@ -246,7 +246,7 @@ function Header(sim) {
 function HomeButton() {
   return /*#__PURE__*/React.createElement(_reactRouterDom.Link, {
     id: "homeButton",
-    to: "/"
+    to: "/jbj/"
   }, "Home");
 }
 function Help(sim) {
