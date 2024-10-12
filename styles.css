@@ -50,26 +50,15 @@ Black: #000000
    /* Icons */
 
 .icon {
-   position: absolute;
+   position: fixed;
    height: 100px;
    width: 100px;
    background-size: cover;
    background-position: center;
    z-index: -1;
-   position: absolute;
-}
-@media (max-width: 700px) {
-   .icon {
-      visibility: hidden;
-   }
 }
 @media (max-width: 1160px) {
-   #icon3, #icon2 {
-      visibility: hidden;
-   }
-}
-@media (max-width: 820px) {
-   #icon4 {
+   .icon {
       visibility: hidden;
    }
 }
@@ -83,13 +72,13 @@ Black: #000000
    background-image: url("./img/icon2.png");
    transform: rotate(-20deg);
    height: 150px;
-   top: 300px;
+   bottom: 70px;
    right: 15px;
 }
 #icon3 {
    background-image: url("./img/icon3.png");
    height: 200px;
-   top: 450px;
+   bottom: 60px;
    left: 15px;
 }
 #icon4 {
