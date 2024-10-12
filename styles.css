@@ -176,7 +176,6 @@ Black: #000000
    background-size: cover;
    background-position: center;
    width: 500px;
-   max-width: 90%;
    height: 90px;
    z-index: 1;
    position: absolute;
@@ -198,6 +197,23 @@ Black: #000000
    left: 50%;
    transform: translateX(-50%);
    margin: 0;
+ }
+ @media(max-width: 735px) {
+   #simulationTitle {
+      font-size: 2em;
+   }
+   #simulationStreak {
+      height: 60px;
+      width: 90%;
+   }
+ }
+ @media(max-width: 500px) {
+   #simulationTitle {
+      font-size: 1.5em;
+   }
+   #simulationStreak {
+      height: 45px;
+   }
  }
 
  /* Simulation content container */
