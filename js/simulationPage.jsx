@@ -7,7 +7,7 @@ function Header(sim) {
 }
 
 function HomeButton() {
-    return <Link id="homeButton" to="/">Home</Link>
+    return <Link id="homeButton" to="/jbj/">Home</Link>
 }
 
 function Help(sim) {

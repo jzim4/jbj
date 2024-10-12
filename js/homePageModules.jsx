@@ -8,7 +8,7 @@ function SimulationNav (sim) {
     
     let imgId = sim.short.concat("NavImg");
     let key = sim.short.concat("Nav");
-    let link = '/'.concat(sim.short);
+    let link = '/jbj/'.concat(sim.short);
     return (<div key={key} className="homePageNavContainer">
         <Link to={link} className="homePageNavLink">
             <div className="homePageNavImg" id={imgId}>
