@@ -12,9 +12,9 @@ root.render(
    <React.StrictMode>
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/igl" element={<SimulationPage sim={data.igl}/>} />
-        <Route path="/orbital" element={<SimulationPage sim={data.orbital}/>} />
+        <Route path="/jbj/" element={<HomePage />} />
+        <Route path="/jbj/igl" element={<SimulationPage sim={data.igl}/>} />
+        <Route path="/jbj/orbital" element={<SimulationPage sim={data.orbital}/>} />
       </Routes>
       </BrowserRouter>
    </React.StrictMode>

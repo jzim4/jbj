@@ -176,15 +176,15 @@ function _interopRequireDefault(e) {
 
 var root = _client["default"].createRoot(document.getElementById('mainContent'));
 root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].StrictMode, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/",
+  path: "/jbj/",
   element: /*#__PURE__*/_react["default"].createElement(_homePage["default"], null)
 }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/igl",
+  path: "/jbj/igl",
   element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
     sim: data.igl
   })
 }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/orbital",
+  path: "/jbj/orbital",
   element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
     sim: data.orbital
   })
