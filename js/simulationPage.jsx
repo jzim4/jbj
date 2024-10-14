@@ -11,8 +11,11 @@ function HomeButton() {
 }
 
 function Help(sim) {
-    console.log(sim.sim.instruction);
     return <div id="helpContent">{sim.sim.instructions}</div>
+}
+
+function ErrorMessage() {
+    return <div id="errorMessage">Please view simulation on computer with window at full screen. If simulation is still not opening, try zooming out with cmd + minus/ctrl + minus.</div>
 }
 
 function IFrame(sim) {
@@ -32,5 +35,6 @@ export default function SimulationPage(sim) {
         <Header sim={sim}/>
         <HomeButton/>
         <IFrame sim={sim}/>
+        <ErrorMessage/>
     </>
 }

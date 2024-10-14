@@ -256,10 +256,14 @@ function HomeButton() {
   }, "Home");
 }
 function Help(sim) {
-  console.log(sim.sim.instruction);
   return /*#__PURE__*/React.createElement("div", {
     id: "helpContent"
   }, sim.sim.instructions);
+}
+function ErrorMessage() {
+  return /*#__PURE__*/React.createElement("div", {
+    id: "errorMessage"
+  }, "Please view simulation on computer with window at full screen. If simulation is still not opening, try zooming out with cmd + minus/ctrl + minus.");
 }
 function IFrame(sim) {
   console.log(sim.sim.p5js);
@@ -289,7 +293,7 @@ function SimulationPage(sim) {
     sim: sim
   }), /*#__PURE__*/React.createElement(HomeButton, null), /*#__PURE__*/React.createElement(IFrame, {
     sim: sim
-  }));
+  }), /*#__PURE__*/React.createElement(ErrorMessage, null));
 }
 
 },{"react":20,"react-router-dom":12}],5:[function(require,module,exports){
