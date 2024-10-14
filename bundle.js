@@ -92,7 +92,7 @@ function SimulationNav(sim) {
   sim = sim.sim;
   var imgId = sim["short"].concat("NavImg");
   var key = sim["short"].concat("Nav");
-  var link = '/jbj/'.concat(sim["short"]);
+  var link = '/'.concat(sim["short"]);
   return /*#__PURE__*/React.createElement("div", {
     key: key,
     className: "homePageNavContainer"
@@ -175,19 +175,25 @@ function _interopRequireDefault(e) {
 // index.js
 
 var root = _client["default"].createRoot(document.getElementById('mainContent'));
-root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].StrictMode, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/jbj/",
+root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].StrictMode, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.HashRouter, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
+  index: true,
   element: /*#__PURE__*/_react["default"].createElement(_homePage["default"], null)
 }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/jbj/igl",
+  path: "/",
+  element: /*#__PURE__*/_react["default"].createElement(_homePage["default"], null)
+}), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
+  path: "/igl",
   element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
     sim: data.igl
   })
 }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/jbj/orbital",
+  path: "/orbital",
   element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
     sim: data.orbital
   })
+}), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
+  path: "*",
+  element: /*#__PURE__*/_react["default"].createElement(_homePage["default"], null)
 })))));
 
 },{"./homePage.jsx":1,"./simulationPage.jsx":4,"./simulations.json":5,"react":20,"react-dom/client":10,"react-router-dom":12}],4:[function(require,module,exports){
@@ -246,7 +252,7 @@ function Header(sim) {
 function HomeButton() {
   return /*#__PURE__*/React.createElement(_reactRouterDom.Link, {
     id: "homeButton",
-    to: "/jbj/"
+    to: "/"
   }, "Home");
 }
 function Help(sim) {
