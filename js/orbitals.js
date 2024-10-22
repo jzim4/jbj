@@ -54,20 +54,20 @@ let draw = function(img, context){
 }
 
 let makeLeftOrbitals = function () {
-    let pxNegL = new Orbital('../assets/Px-.png', "Px, negative", 140, 120, 100, 50);
-    let pxPosL = new Orbital('../assets/Px+.png', "Px, positive", 140, 190, 100, 50);
-    let pzNegL = new Orbital('../assets/Pz+.png', "Pz", 165, 260, 50, 100);
-    let pzPosL = new Orbital('../assets/Pz-.png', "Pz", 165, 400, 50, 100);
+    let pxNegL = new Orbital('./assets/Px-.png', "Px, negative", 140, 120, 100, 50);
+    let pxPosL = new Orbital('./assets/Px+.png', "Px, positive", 140, 190, 100, 50);
+    let pzNegL = new Orbital('./assets/Pz+.png', "Pz", 165, 260, 50, 100);
+    let pzPosL = new Orbital('./assets/Pz-.png', "Pz", 165, 400, 50, 100);
     
     let left = [pxNegL, pxPosL, pzNegL, pzPosL];
     return left;
 }
 
 let makeRightOrbitals = function () {
-    let pxNegR = new Orbital('../assets/Px-.png', "Px, postive", 650,120, 100, 50);
-    let pxPosR = new Orbital('../assets/Px+.png', "Px, negative", 650, 190, 100, 50);
-    let pzNegR = new Orbital('../assets/Pz+.png', "Pz", 675, 260, 50, 100);
-    let pzPosR = new Orbital('../assets/Pz-.png', "Pz", 675, 400, 50, 100);
+    let pxNegR = new Orbital('./assets/Px-.png', "Px, postive", 650,120, 100, 50);
+    let pxPosR = new Orbital('./assets/Px+.png', "Px, negative", 650, 190, 100, 50);
+    let pzNegR = new Orbital('./assets/Pz+.png', "Pz", 675, 260, 50, 100);
+    let pzPosR = new Orbital('./assets/Pz-.png', "Pz", 675, 400, 50, 100);
 
     let right = [pxNegR, pxPosR, pzNegR, pzPosR];
     return right;
@@ -139,14 +139,14 @@ let highlightSelections = function(selectedL, selectedR, left, right, context) {
 }
 
 let drawCombination = function(selectedL, selectedR, context) {
-    let constructivePx = new Orbital('../assets/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
-    let pcombconst = new Orbital('../assets/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
+    let constructivePx = new Orbital('./assets/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
+    let pcombconst = new Orbital('./assets/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
     if (selectedL && selectedR) {
-        if (selectedL.imgPath == '../assets/Px+.png' && selectedR.imgPath == '../assets/Px-.png') {
+        if (selectedL.imgPath == './assets/Px+.png' && selectedR.imgPath == './assets/Px-.png') {
             console.log('constructive');
             draw(constructivePx, context);
         }
-        if (selectedL.imgPath == '../assets/Pz+.png' && selectedR.imgPath == '../assets/Pz+.png') {
+        if (selectedL.imgPath == './assets/Pz+.png' && selectedR.imgPath == './assets/Pz+.png') {
             console.log('pcombconst');
             draw(pcombconst, context);
         }

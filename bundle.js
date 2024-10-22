@@ -286,18 +286,18 @@ var draw = function draw(img, context) {
   };
 };
 var makeLeftOrbitals = function makeLeftOrbitals() {
-  var pxNegL = new Orbital('../assets/Px-.png', "Px, negative", 140, 120, 100, 50);
-  var pxPosL = new Orbital('../assets/Px+.png', "Px, positive", 140, 190, 100, 50);
-  var pzNegL = new Orbital('../assets/Pz+.png', "Pz", 165, 260, 50, 100);
-  var pzPosL = new Orbital('../assets/Pz-.png', "Pz", 165, 400, 50, 100);
+  var pxNegL = new Orbital('./assets/Px-.png', "Px, negative", 140, 120, 100, 50);
+  var pxPosL = new Orbital('./assets/Px+.png', "Px, positive", 140, 190, 100, 50);
+  var pzNegL = new Orbital('./assets/Pz+.png', "Pz", 165, 260, 50, 100);
+  var pzPosL = new Orbital('./assets/Pz-.png', "Pz", 165, 400, 50, 100);
   var left = [pxNegL, pxPosL, pzNegL, pzPosL];
   return left;
 };
 var makeRightOrbitals = function makeRightOrbitals() {
-  var pxNegR = new Orbital('../assets/Px-.png', "Px, postive", 650, 120, 100, 50);
-  var pxPosR = new Orbital('../assets/Px+.png', "Px, negative", 650, 190, 100, 50);
-  var pzNegR = new Orbital('../assets/Pz+.png', "Pz", 675, 260, 50, 100);
-  var pzPosR = new Orbital('../assets/Pz-.png', "Pz", 675, 400, 50, 100);
+  var pxNegR = new Orbital('./assets/Px-.png', "Px, postive", 650, 120, 100, 50);
+  var pxPosR = new Orbital('./assets/Px+.png', "Px, negative", 650, 190, 100, 50);
+  var pzNegR = new Orbital('./assets/Pz+.png', "Pz", 675, 260, 50, 100);
+  var pzPosR = new Orbital('./assets/Pz-.png', "Pz", 675, 400, 50, 100);
   var right = [pxNegR, pxPosR, pzNegR, pzPosR];
   return right;
 };
@@ -359,14 +359,14 @@ var highlightSelections = function highlightSelections(selectedL, selectedR, lef
   }
 };
 var drawCombination = function drawCombination(selectedL, selectedR, context) {
-  var constructivePx = new Orbital('../assets/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
-  var pcombconst = new Orbital('../assets/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
+  var constructivePx = new Orbital('./assets/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
+  var pcombconst = new Orbital('./assets/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
   if (selectedL && selectedR) {
-    if (selectedL.imgPath == '../assets/Px+.png' && selectedR.imgPath == '../assets/Px-.png') {
+    if (selectedL.imgPath == './assets/Px+.png' && selectedR.imgPath == './assets/Px-.png') {
       console.log('constructive');
       draw(constructivePx, context);
     }
-    if (selectedL.imgPath == '../assets/Pz+.png' && selectedR.imgPath == '../assets/Pz+.png') {
+    if (selectedL.imgPath == './assets/Pz+.png' && selectedR.imgPath == './assets/Pz+.png') {
       console.log('pcombconst');
       draw(pcombconst, context);
     }
