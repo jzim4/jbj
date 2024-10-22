@@ -214,7 +214,7 @@ Black: #000000
  }
 
  #simIconContainer {
-   width: 10vw;
+   width: 15vw;
    height: 100%;
    display: flex;
    flex-direction: column;
@@ -222,7 +222,7 @@ Black: #000000
    justify-content: space-evenly;
  }
 .simIcon {
-   width: 75%;
+   width: 60%;
 } 
 
  /* Simulation */

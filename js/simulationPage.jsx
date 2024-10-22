@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useRef, useEffect } from 'react';
+import orbitals from './orbitals.js';
 import { Link } from 'react-router-dom';
 
 function Header(sim) {
@@ -18,15 +19,42 @@ function ErrorMessage() {
     return <div id="errorMessage">Please view simulation on computer with window at full screen. If simulation is still not opening, try zooming out with cmd + minus/ctrl + minus.</div>
 }
 
-function IFrame(sim) {
-    console.log(sim.sim.p5js);
+function AllSimulationContent(sim) {
+    console.log(sim);
     return <div id="simulationContentContainer">
             <div id="simIconContainer"><img className="simIcon" src="./img/icon1.png"></img><img className="simIcon" src="./img/icon2.png"></img></div>
             <div id="iframeContainer">
-                <iframe src={sim.sim.p5js} width="1225" height="700"></iframe>
+                <SimulationContent sim={sim.sim}/>
             </div>
             <Help sim={sim.sim}/>
             </div>
+}
+
+function IGL(sim) {
+    return <iframe src={sim.sim.p5js} width="1225" height="700"></iframe>
+}
+
+function Orbitals() {
+    const canvasRef = useRef(null);
+    
+    useEffect(() => {
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        orbitals(canvas, context);
+    });
+    return (
+        <canvas ref={canvasRef} id="canvas"/>
+    );
+}
+
+function SimulationContent(sim) {
+    console.log(sim.sim.short);
+    if (sim.sim.short == "igl") {
+        return <IGL sim={sim.sim}/>
+    }
+    else if (sim.sim.short == "orbital") {
+        return <Orbitals/>
+    }
 }
 
 export default function SimulationPage(sim) {
@@ -34,7 +62,7 @@ export default function SimulationPage(sim) {
     return <>
         <Header sim={sim}/>
         <HomeButton/>
-        <IFrame sim={sim}/>
+        <AllSimulationContent sim={sim}/>
         <ErrorMessage/>
     </>
 }
