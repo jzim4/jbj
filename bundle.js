@@ -266,6 +266,9 @@ var orbitals = function orbitals(canvas, context) {
     highlightSelections(selectedL, selectedR, left, right, context);
     drawCombination(selectedL, selectedR, context);
   });
+  canvas.addEventListener('mousemove', function (event) {
+    changeCursor(event.clientX, event.clientY, left, right);
+  });
 };
 var _default = exports["default"] = orbitals;
 var Orbital = /*#__PURE__*/_createClass(function Orbital(imgPath, name, xpos, ypos, width, height) {
@@ -278,12 +281,39 @@ var Orbital = /*#__PURE__*/_createClass(function Orbital(imgPath, name, xpos, yp
   this.height = height;
   this.selected = false;
 });
-var draw = function draw(img, context) {
+var drawImg = function drawImg(img, context) {
   var newImg = document.createElement('img');
   newImg.src = img.imgPath;
   newImg.onload = function () {
     context.drawImage(newImg, img.xpos, img.ypos, img.width, img.height);
   };
+};
+var changeCursor = function changeCursor(x, y, left, right) {
+  var rect = canvas.getBoundingClientRect();
+  var mouseX = x - rect.left;
+  var mouseY = y - rect.top;
+  var pointer = false;
+  for (var orb in left) {
+    var o = left[orb];
+    if (o.xpos <= mouseX && o.xpos + o.width >= mouseX && o.ypos <= mouseY && o.ypos + o.height >= mouseY) {
+      pointer = true;
+    }
+  }
+  for (var _orb in right) {
+    var _o = right[_orb];
+    if (_o.xpos <= mouseX && _o.xpos + _o.width >= mouseX && _o.ypos <= mouseY && _o.ypos + _o.height >= mouseY) {
+      pointer = true;
+    }
+  }
+  //reset button
+  if (400 <= mouseX && 485 >= mouseX && 440 <= mouseY && 480 >= mouseY) {
+    pointer = true;
+  }
+  if (pointer) {
+    document.body.style.cursor = "pointer";
+  } else {
+    document.body.style.cursor = "default";
+  }
 };
 var makeLeftOrbitals = function makeLeftOrbitals() {
   var pxNegL = new Orbital('./assets/Px-.png', "Px, negative", 140, 120, 100, 50);
@@ -309,10 +339,10 @@ var resetCanvas = function resetCanvas(left, right, context, selectedL, selected
 };
 var drawOrbitals = function drawOrbitals(left, right, context) {
   for (var img in left) {
-    draw(left[img], context);
+    drawImg(left[img], context);
   }
   for (var _img in right) {
-    draw(right[_img], context);
+    drawImg(right[_img], context);
   }
 };
 var drawRect = function drawRect(i, context) {
@@ -364,11 +394,11 @@ var drawCombination = function drawCombination(selectedL, selectedR, context) {
   if (selectedL && selectedR) {
     if (selectedL.imgPath == './assets/Px+.png' && selectedR.imgPath == './assets/Px-.png') {
       console.log('constructive');
-      draw(constructivePx, context);
+      drawImg(constructivePx, context);
     }
     if (selectedL.imgPath == './assets/Pz+.png' && selectedR.imgPath == './assets/Pz+.png') {
       console.log('pcombconst');
-      draw(pcombconst, context);
+      drawImg(pcombconst, context);
     }
   }
 };

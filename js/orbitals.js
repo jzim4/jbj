@@ -13,6 +13,7 @@ let orbitals = function(canvas, context) {
     resetCanvas(left, right, context, null, null);
 
     const rect = canvas.getBoundingClientRect();
+
     canvas.addEventListener("click", (event) => {
         let clickX = event.clientX - rect.left;
         let clickY = event.clientY - rect.top;
@@ -30,6 +31,10 @@ let orbitals = function(canvas, context) {
         highlightSelections(selectedL, selectedR, left, right, context);
         drawCombination(selectedL, selectedR, context);
     });
+
+    canvas.addEventListener('mousemove', (event) => {
+        changeCursor(event.clientX, event.clientY, left, right);
+    });
 }
 export default orbitals;
 
@@ -45,12 +50,46 @@ class Orbital {
         this.selected = false;
     }
 }
-let draw = function(img, context){
+
+let drawImg = function(img, context){
     let newImg = document.createElement('img');
     newImg.src = img.imgPath;
     newImg.onload = function() {
         context.drawImage(newImg, img.xpos, img.ypos, img.width, img.height);
     }
+}
+
+let changeCursor = function(x, y, left, right) {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = x - rect.left;
+    const mouseY = y - rect.top;
+
+    let pointer = false;
+
+    for (let orb in left) {
+        let o = left[orb];
+        if (o.xpos <= mouseX && o.xpos+o.width >= mouseX && o.ypos<=mouseY && o.ypos+o.height>=mouseY) {
+            pointer = true;
+        }
+    }
+    for (let orb in right) {
+        let o = right[orb];
+        if (o.xpos <= mouseX && o.xpos+o.width >= mouseX && o.ypos<=mouseY && o.ypos+o.height>=mouseY) {
+            pointer = true;
+        }
+    }
+    //reset button
+    if (400<=mouseX && 485>=mouseX && 440<=mouseY && 480>=mouseY) {
+        pointer = true;
+    }
+    if (pointer) {
+        document.body.style.cursor = "pointer";
+    }
+    else {
+        document.body.style.cursor = "default";
+    }
+
+      
 }
 
 let makeLeftOrbitals = function () {
@@ -81,10 +120,10 @@ let resetCanvas = function(left, right, context, selectedL, selectedR) {
 }
 let drawOrbitals = function(left, right, context) {
     for (let img in left) {
-        draw(left[img], context);
+        drawImg(left[img], context);
     }
     for(let img in right) {
-        draw(right[img], context);
+        drawImg(right[img], context);
     }
 }
 
@@ -144,11 +183,11 @@ let drawCombination = function(selectedL, selectedR, context) {
     if (selectedL && selectedR) {
         if (selectedL.imgPath == './assets/Px+.png' && selectedR.imgPath == './assets/Px-.png') {
             console.log('constructive');
-            draw(constructivePx, context);
+            drawImg(constructivePx, context);
         }
         if (selectedL.imgPath == './assets/Pz+.png' && selectedR.imgPath == './assets/Pz+.png') {
             console.log('pcombconst');
-            draw(pcombconst, context);
+            drawImg(pcombconst, context);
         }
     }
 }
