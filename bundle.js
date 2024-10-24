@@ -22,6 +22,13 @@ function Title() {
   }));
 }
 ;
+function Subtitle() {
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    id: "landingPageSubtitle"
+  }, /*#__PURE__*/_react["default"].createElement("h2", {
+    id: "subTitleText"
+  }, "Simulations and learning tools for Macalester's General Chemistry students"));
+}
 function Icons() {
   return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
     className: "icon",
@@ -39,7 +46,7 @@ function Icons() {
 }
 ;
 function HomePage() {
-  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(Title, null), /*#__PURE__*/_react["default"].createElement(Icons, null), /*#__PURE__*/_react["default"].createElement(_homePageModules["default"], null));
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(Title, null), /*#__PURE__*/_react["default"].createElement(Subtitle, null), /*#__PURE__*/_react["default"].createElement(Icons, null), /*#__PURE__*/_react["default"].createElement(_homePageModules["default"], null));
 }
 ;
 
@@ -102,11 +109,13 @@ function SimulationNav(sim) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "homePageNavImg",
     id: imgId
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "homePageNavLabel"
-  }, sim.name)), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", {
     className: "homePageNavDescr"
-  }, sim.homePageDescr)));
+  }, /*#__PURE__*/React.createElement("div", {
+    "class": "navStreak"
+  }), /*#__PURE__*/React.createElement("div", {
+    "class": "navName"
+  }, sim.name))));
 }
 function LandingPage() {
   var sims = [];
@@ -578,7 +587,6 @@ module.exports={
         "short": "igl",
         "html": "igl.html",
         "p5js": "https://editor.p5js.org/bresypedraza/full/51SPYMqzt",
-        "homePageDescr": "The ideal gas law, PV = nRT, is an equation that shows the relationship of the properties of a gas in a sealed container. Use this simulation to see how pressure and temperature relate.",
         "instructions": "The ideal gas law is an equation that shows the relationship of the properties of a gas in a sealed container. The equation is PV = nRT, where P is pressure, V is volume, n is moles, R is the constant 0.0821, and T is temperature.\n\nIn this simulation, we have made V and n constant. This is therefore simulating a sealed metal container that can withstand high pressure, and we do not add or remove any matter. To interact with the simulation, move the sliders to change temperature in order to see how it relates to pressure."
     },
     "orbital": {
@@ -586,7 +594,6 @@ module.exports={
         "short": "orbital",
         "html": "orbital.html",
         "p5js": "https://editor.p5js.org/jbradley2003/full/Mtv8MuoLZ",
-        "homePageDescr": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. Use this simulation to test your knowledge of the result of S and P orbital combinations.",
         "instructions": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. \n\nTo test your knowledge of the result of S and P orbital combinations, click on one orbital on each side of the box, and see what the combination is in the center box. The light part of the orbital represents the positive lobe, and the dark part represents the negative lobe."
     }
 }

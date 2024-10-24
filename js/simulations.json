@@ -4,7 +4,6 @@
         "short": "igl",
         "html": "igl.html",
         "p5js": "https://editor.p5js.org/bresypedraza/full/51SPYMqzt",
-        "homePageDescr": "The ideal gas law, PV = nRT, is an equation that shows the relationship of the properties of a gas in a sealed container. Use this simulation to see how pressure and temperature relate.",
         "instructions": "The ideal gas law is an equation that shows the relationship of the properties of a gas in a sealed container. The equation is PV = nRT, where P is pressure, V is volume, n is moles, R is the constant 0.0821, and T is temperature.\n\nIn this simulation, we have made V and n constant. This is therefore simulating a sealed metal container that can withstand high pressure, and we do not add or remove any matter. To interact with the simulation, move the sliders to change temperature in order to see how it relates to pressure."
     },
     "orbital": {
@@ -12,7 +11,6 @@
         "short": "orbital",
         "html": "orbital.html",
         "p5js": "https://editor.p5js.org/jbradley2003/full/Mtv8MuoLZ",
-        "homePageDescr": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. Use this simulation to test your knowledge of the result of S and P orbital combinations.",
         "instructions": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. \n\nTo test your knowledge of the result of S and P orbital combinations, click on one orbital on each side of the box, and see what the combination is in the center box. The light part of the orbital represents the positive lobe, and the dark part represents the negative lobe."
     }
 }

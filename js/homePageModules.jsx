@@ -5,16 +5,15 @@ import { Link } from 'react-router-dom';
 function SimulationNav (sim) {
     console.log(sim.sim);
     sim = sim.sim;
-    
+
     let imgId = sim.short.concat("NavImg");
     let key = sim.short.concat("Nav");
     let link = '/'.concat(sim.short);
     return (<div key={key} className="homePageNavContainer">
         <Link to={link} className="homePageNavLink">
             <div className="homePageNavImg" id={imgId}>
-                <div className="homePageNavLabel">{sim.name}</div>
             </div>
-            <div className="homePageNavDescr">{sim.homePageDescr}</div>
+            <div className="homePageNavDescr"><div class="navStreak"></div><div class="navName">{sim.name}</div></div>
         </Link>
     </div>)
 }

@@ -5,6 +5,10 @@ function Title() {
     return <div id="landingPageTitle"><h1 id="titleText">ChemBox</h1><div id="titleStreak"></div></div>
 };
 
+function Subtitle() {
+    return <div id="landingPageSubtitle"><h2 id="subTitleText">Simulations and learning tools for Macalester's General Chemistry students</h2></div>
+}
+
 function Icons() {
     return <>
     <div className="icon" id="icon1"></div>
@@ -17,6 +21,7 @@ function Icons() {
 export default function HomePage() {
     return <>
         <Title/>
+        <Subtitle/>
         <Icons/>
         <LandingPage/>
     </>

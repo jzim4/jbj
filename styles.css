@@ -23,7 +23,7 @@ Black: #000000
    background-position: center;
    width: 500px;
    max-width: 90%;
-   height: 150px;
+   height: 110px;
    z-index: 1;
    position: absolute;
    top: 20px;
@@ -34,10 +34,10 @@ Black: #000000
    font-family: "Oswald", sans-serif;
    color: #182628;
    font-weight: 400;
-   font-size: 5em;
+   font-size: 4.5em;
    z-index: 2;
    position: absolute;
-   top: 30px;
+   top: 20px;
    left: 50%;
    transform: translateX(-50%);
    margin: 0;
@@ -45,6 +45,23 @@ Black: #000000
  #landingPageTitle {
    margin: 0 auto;
    height: 200px;
+ }
+ #landingPageSubtitle h2 {
+   text-wrap: balance;
+   font-size: 20px;
+   font-weight: 100;
+   position: absolute;
+   width: 50vw;
+   text-align: center;
+   top: 130px;
+   left: 50%;
+   transform: translateX(-50%);
+ }
+ @media (max-width: 900px) {
+   #landingPageSubtitle h2 {
+      width: 80%;
+      font-size: 16px;
+   }
  }
 
    /* Icons */
@@ -111,23 +128,32 @@ Black: #000000
  }
  .homePageNavImg {
     display: flex;
+    width: 400px;
     height: 300px;
     position:relative;
     background-color:#6082B6;
  }
- .homePageNavLabel {
-    margin: auto auto 10px;
-    font-size: 1.5em;
-    width: 80%;
-    text-align: center;
-    padding: 10px;
-    background-color: #18262825;
+ @media (max-width: 600px) {
+   .homePageNavImg {
+      width: 90vw;
+   }
  }
- .homePageNavDescr {
-    margin: 10px 0;
-    font-weight: 100;
-    font-size: 0.9em;
-    text-align: justify;
+ .navStreak {
+   margin: 10px auto;
+   width: 90%;
+   height: 40px;
+   background-image: url("./img/yellowStreak.png");
+   background-size: cover;
+   background-position: center;
+ }
+ .navName {
+   width: 90%;
+   font-size: 25px;
+   position: absolute;
+   text-align: center;
+   left: 50%;
+   transform: translateX(-45%);
+   bottom: 25px;
  }
  a.homePageNavLink, a.homePageNavLink:visited, a.homePageNavLink:active {
     padding: 10px;
