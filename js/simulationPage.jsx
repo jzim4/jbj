@@ -3,8 +3,8 @@ import orbitals from './orbitals.js';
 import { Link } from 'react-router-dom';
 
 function Header(sim) {
-    console.log(sim.sim.name);
-    return <div id="simulationHeader"><h2 id="simulationTitle">{sim.sim.name}</h2><div id="simulationStreak"></div></div>
+    sim = sim.sim;
+    return <div id="simulationHeader"><h2 id="simulationTitle">{sim.name}</h2><div id="simulationStreak"></div></div>
 }
 
 function HomeButton() {
@@ -12,7 +12,8 @@ function HomeButton() {
 }
 
 function Help(sim) {
-    return <div id="helpContent">{sim.sim.instructions}</div>
+    sim = sim.sim;
+    return <div id="helpContent">{sim.moreInfo}</div>
 }
 
 function ErrorMessage() {
@@ -20,18 +21,20 @@ function ErrorMessage() {
 }
 
 function AllSimulationContent(sim) {
-    console.log(sim);
+    sim = sim.sim;
     return <div id="simulationContentContainer">
-            <div id="simIconContainer"><img className="simIcon" src="./img/icon1.png"></img><img className="simIcon" src="./img/icon2.png"></img></div>
+            <div id="simIconContainer"><img className="simIcon" src="./assets/other/icon1.png"></img><img className="simIcon" src="./assets/other/icon2.png"></img></div>
             <div id="iframeContainer">
-                <SimulationContent sim={sim.sim}/>
+                <div id="simulationSubheader">{sim.instructions}</div>
+                <SimulationContent sim={sim}/>
             </div>
-            <Help sim={sim.sim}/>
+            <Help sim={sim}/>
             </div>
 }
 
 function IGL(sim) {
-    return <iframe src={sim.sim.p5js} width="1225" height="700"></iframe>
+    sim = sim.sim;
+    return <iframe src={sim.p5js} width="922" height="525"></iframe>
 }
 
 function Orbitals() {
@@ -48,11 +51,11 @@ function Orbitals() {
 }
 
 function SimulationContent(sim) {
-    console.log(sim.sim.short);
-    if (sim.sim.short == "igl") {
-        return <IGL sim={sim.sim}/>
+    sim = sim.sim;
+    if (sim.short == "igl") {
+        return <IGL sim={sim}/>
     }
-    else if (sim.sim.short == "orbital") {
+    else if (sim.short == "orbital") {
         return <Orbitals/>
     }
 }

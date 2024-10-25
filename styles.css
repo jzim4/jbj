@@ -18,7 +18,7 @@ Black: #000000
  /* HOME PAGE */
    /* Title */
  #titleStreak {
-   background-image: url("./img/orangeStreak.png");
+   background-image: url("./assets/other/orangeStreak.png");
    background-size: cover;
    background-position: center;
    width: 500px;
@@ -80,26 +80,26 @@ Black: #000000
    }
 }
 #icon1 {
-   background-image: url("./img/icon1.png");
+   background-image: url("./assets/other/icon1.png");
    transform: rotate(20deg);
    top: 20px;
    left: 15px;
 }
 #icon2 {
-   background-image: url("./img/icon2.png");
+   background-image: url("./assets/other/icon2.png");
    transform: rotate(-20deg);
    height: 150px;
    bottom: 70px;
    right: 15px;
 }
 #icon3 {
-   background-image: url("./img/icon3.png");
+   background-image: url("./assets/other/icon3.png");
    height: 200px;
    bottom: 60px;
    left: 15px;
 }
 #icon4 {
-   background-image: url("./img/icon4.png");
+   background-image: url("./assets/other/icon4.png");
    top: 20px;
    right: 15px;
    width: 150px;
@@ -127,7 +127,6 @@ Black: #000000
    border: 1px #182628 dashed !important;
  }
  .homePageNavImg {
-    display: flex;
     width: 400px;
     height: 300px;
     position:relative;
@@ -135,14 +134,14 @@ Black: #000000
  }
  @media (max-width: 600px) {
    .homePageNavImg {
-      width: 90vw;
+      max-width: 90vw;
    }
  }
  .navStreak {
    margin: 10px auto;
    width: 90%;
    height: 40px;
-   background-image: url("./img/yellowStreak.png");
+   background-image: url("./assets/other/yellowStreak.png");
    background-size: cover;
    background-position: center;
  }
@@ -177,7 +176,7 @@ Black: #000000
    text-decoration: none;
 }
 
-@media (max-width: 1399px) {
+@media (max-width: 1200px) {
    a#homeButton {
       top: 150px;
       left: 50vw;
@@ -188,11 +187,11 @@ Black: #000000
 }
    /* Header */
 #simulationStreak {
-   background-image: url("./img/yellowStreak.png");
+   background-image: url("./assets/other/yellowStreak.png");
    background-size: cover;
    background-position: center;
    width: 500px;
-   height: 90px;
+   height: 70px;
    z-index: 1;
    position: absolute;
    top: 10px;
@@ -200,13 +199,13 @@ Black: #000000
    transform: translateX(-50%);
 }
 #simulationHeader {
-   height: 120px;
+   height: 80px;
  }
  #simulationTitle {
    font-family: "Oswald", sans-serif;
    color: #182628;
    font-weight: 400;
-   font-size: 3em;
+   font-size: 2.5em;
    z-index: 2;
    position: absolute;
    top: 16px;
@@ -214,6 +213,17 @@ Black: #000000
    transform: translateX(-50%);
    margin: 0;
  }
+ #simulationSubheader {
+   font-size: 15px;
+   padding: 5px;
+   font-weight: 500;
+   width: 98%;
+   align-self: center;
+   background-color: #eeeeee;
+   text-align: center;
+   margin: 10px 0;
+ }
+
  @media(max-width: 735px) {
    #simulationTitle {
       font-size: 2em;
@@ -241,6 +251,7 @@ Black: #000000
 
  #simIconContainer {
    width: 15vw;
+   padding: 10px;
    height: 100%;
    display: flex;
    flex-direction: column;
@@ -250,14 +261,21 @@ Black: #000000
 .simIcon {
    width: 60%;
 } 
+@media (max-width: 1399px) {
+   #simIconContainer {
+      display: none;
+   }
+ }
 
  /* Simulation */
- iframe {
+ /* iframe {
    transform:scale(.75);
    transform-origin: top left;
- }
+ } */
  #iframeContainer {
-   height: 525px;
+   display: flex;
+   flex-direction:column;
+   height: 575px;
    width: 922px;
  }
  #errorMessage {
@@ -270,30 +288,31 @@ Black: #000000
    width: 90%;
    text-wrap: balance;
  }
- @media (max-width: 1399px) {
-   #simulationContentContainer {
+ @media (max-width: 1200px) {
+   #simulationContentContainer, #simulationSubheader {
       display: none;
    }
  }
- @media (min-width: 1400px) {
+ @media (min-width: 1201px) {
    #errorMessage {
      display: none;
    }
 }
    /* help section */
  #helpContent {
-   text-align: justify;
-   padding: 10px;
-   line-height: 20px;
-   top: 0px;
-   left: 13vw;
-   width: 15vw;
-   height: fit-content;
-   font-size: 16px;
-   background-color: #dddddd;
+    padding: 10px;
+    line-height: 20px;
+    top: 0px;
+    left: 13vw;
+    width: 15vw;
+    height: fit-content;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: pre-wrap;
+   background-color: #eeeeee;
    color: #182628;
    z-index: 10;
-
+   box-shadow: 10px 10px #6082B6;
  }
 
  @media (max-width: 1399px) {
@@ -306,7 +325,7 @@ Black: #000000
  /* MISC */
  #footer {
    margin-top: auto;
-   background-color: #dddddd;
+   background-color: #eeeeee;
    color: #182628;
    padding: 10px;
    font-size: 0.8em;

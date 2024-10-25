@@ -95,9 +95,7 @@ function _interopRequireWildcard(e, r) {
   return n["default"] = e, t && t.set(e, n), n;
 }
 function SimulationNav(sim) {
-  console.log(sim.sim);
   sim = sim.sim;
-  var imgId = sim["short"].concat("NavImg");
   var key = sim["short"].concat("Nav");
   var link = '/'.concat(sim["short"]);
   return /*#__PURE__*/React.createElement("div", {
@@ -106,9 +104,9 @@ function SimulationNav(sim) {
   }, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {
     to: link,
     className: "homePageNavLink"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("img", {
     className: "homePageNavImg",
-    id: imgId
+    src: sim.navImg
   }), /*#__PURE__*/React.createElement("div", {
     className: "homePageNavDescr"
   }, /*#__PURE__*/React.createElement("div", {
@@ -325,18 +323,18 @@ var changeCursor = function changeCursor(x, y, left, right) {
   }
 };
 var makeLeftOrbitals = function makeLeftOrbitals() {
-  var pxNegL = new Orbital('./assets/Px-.png', "Px, negative", 140, 120, 100, 50);
-  var pxPosL = new Orbital('./assets/Px+.png', "Px, positive", 140, 190, 100, 50);
-  var pzNegL = new Orbital('./assets/Pz+.png', "Pz", 165, 260, 50, 100);
-  var pzPosL = new Orbital('./assets/Pz-.png', "Pz", 165, 400, 50, 100);
+  var pxNegL = new Orbital('./assets/orbitals/Px-.png', "Px, negative", 140, 120, 100, 50);
+  var pxPosL = new Orbital('./assets/orbitals/Px+.png', "Px, positive", 140, 190, 100, 50);
+  var pzNegL = new Orbital('./assets/orbitals/Pz+.png', "Pz", 165, 260, 50, 100);
+  var pzPosL = new Orbital('./assets/orbitals/Pz-.png', "Pz", 165, 400, 50, 100);
   var left = [pxNegL, pxPosL, pzNegL, pzPosL];
   return left;
 };
 var makeRightOrbitals = function makeRightOrbitals() {
-  var pxNegR = new Orbital('./assets/Px-.png', "Px, postive", 650, 120, 100, 50);
-  var pxPosR = new Orbital('./assets/Px+.png', "Px, negative", 650, 190, 100, 50);
-  var pzNegR = new Orbital('./assets/Pz+.png', "Pz", 675, 260, 50, 100);
-  var pzPosR = new Orbital('./assets/Pz-.png', "Pz", 675, 400, 50, 100);
+  var pxNegR = new Orbital('./assets/orbitals/Px-.png', "Px, postive", 650, 120, 100, 50);
+  var pxPosR = new Orbital('./assets/orbitals/Px+.png', "Px, negative", 650, 190, 100, 50);
+  var pzNegR = new Orbital('./assets/orbitals/Pz+.png', "Pz", 675, 260, 50, 100);
+  var pzPosR = new Orbital('./assets/orbitals/Pz-.png', "Pz", 675, 400, 50, 100);
   var right = [pxNegR, pxPosR, pzNegR, pzPosR];
   return right;
 };
@@ -398,14 +396,14 @@ var highlightSelections = function highlightSelections(selectedL, selectedR, lef
   }
 };
 var drawCombination = function drawCombination(selectedL, selectedR, context) {
-  var constructivePx = new Orbital('./assets/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
-  var pcombconst = new Orbital('./assets/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
+  var constructivePx = new Orbital('./assets/orbitals/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
+  var pcombconst = new Orbital('./assets/orbitals/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
   if (selectedL && selectedR) {
-    if (selectedL.imgPath == './assets/Px+.png' && selectedR.imgPath == './assets/Px-.png') {
+    if (selectedL.imgPath == './assets/orbitals/Px+.png' && selectedR.imgPath == './assets/orbitals/Px-.png') {
       console.log('constructive');
       drawImg(constructivePx, context);
     }
-    if (selectedL.imgPath == './assets/Pz+.png' && selectedR.imgPath == './assets/Pz+.png') {
+    if (selectedL.imgPath == './assets/orbitals/Pz+.png' && selectedR.imgPath == './assets/orbitals/Pz+.png') {
       console.log('pcombconst');
       drawImg(pcombconst, context);
     }
@@ -497,12 +495,12 @@ function _interopRequireWildcard(e, r) {
   return n["default"] = e, t && t.set(e, n), n;
 }
 function Header(sim) {
-  console.log(sim.sim.name);
+  sim = sim.sim;
   return /*#__PURE__*/_react["default"].createElement("div", {
     id: "simulationHeader"
   }, /*#__PURE__*/_react["default"].createElement("h2", {
     id: "simulationTitle"
-  }, sim.sim.name), /*#__PURE__*/_react["default"].createElement("div", {
+  }, sim.name), /*#__PURE__*/_react["default"].createElement("div", {
     id: "simulationStreak"
   }));
 }
@@ -513,9 +511,10 @@ function HomeButton() {
   }, "Home");
 }
 function Help(sim) {
+  sim = sim.sim;
   return /*#__PURE__*/_react["default"].createElement("div", {
     id: "helpContent"
-  }, sim.sim.instructions);
+  }, sim.moreInfo);
 }
 function ErrorMessage() {
   return /*#__PURE__*/_react["default"].createElement("div", {
@@ -523,30 +522,33 @@ function ErrorMessage() {
   }, "Please view simulation on computer with window at full screen. If simulation is still not opening, try zooming out with cmd + minus/ctrl + minus.");
 }
 function AllSimulationContent(sim) {
-  console.log(sim);
+  sim = sim.sim;
   return /*#__PURE__*/_react["default"].createElement("div", {
     id: "simulationContentContainer"
   }, /*#__PURE__*/_react["default"].createElement("div", {
     id: "simIconContainer"
   }, /*#__PURE__*/_react["default"].createElement("img", {
     className: "simIcon",
-    src: "./img/icon1.png"
+    src: "./assets/other/icon1.png"
   }), /*#__PURE__*/_react["default"].createElement("img", {
     className: "simIcon",
-    src: "./img/icon2.png"
+    src: "./assets/other/icon2.png"
   })), /*#__PURE__*/_react["default"].createElement("div", {
     id: "iframeContainer"
-  }, /*#__PURE__*/_react["default"].createElement(SimulationContent, {
-    sim: sim.sim
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    id: "simulationSubheader"
+  }, sim.instructions), /*#__PURE__*/_react["default"].createElement(SimulationContent, {
+    sim: sim
   })), /*#__PURE__*/_react["default"].createElement(Help, {
-    sim: sim.sim
+    sim: sim
   }));
 }
 function IGL(sim) {
+  sim = sim.sim;
   return /*#__PURE__*/_react["default"].createElement("iframe", {
-    src: sim.sim.p5js,
-    width: "1225",
-    height: "700"
+    src: sim.p5js,
+    width: "922",
+    height: "525"
   });
 }
 function Orbitals() {
@@ -562,12 +564,12 @@ function Orbitals() {
   });
 }
 function SimulationContent(sim) {
-  console.log(sim.sim["short"]);
-  if (sim.sim["short"] == "igl") {
+  sim = sim.sim;
+  if (sim["short"] == "igl") {
     return /*#__PURE__*/_react["default"].createElement(IGL, {
-      sim: sim.sim
+      sim: sim
     });
-  } else if (sim.sim["short"] == "orbital") {
+  } else if (sim["short"] == "orbital") {
     return /*#__PURE__*/_react["default"].createElement(Orbitals, null);
   }
 }
@@ -586,15 +588,19 @@ module.exports={
         "name": "Ideal Gas Law",
         "short": "igl",
         "html": "igl.html",
+        "navImg": "./assets/navImg/placeHolder.png",
         "p5js": "https://editor.p5js.org/bresypedraza/full/51SPYMqzt",
-        "instructions": "The ideal gas law is an equation that shows the relationship of the properties of a gas in a sealed container. The equation is PV = nRT, where P is pressure, V is volume, n is moles, R is the constant 0.0821, and T is temperature.\n\nIn this simulation, we have made V and n constant. This is therefore simulating a sealed metal container that can withstand high pressure, and we do not add or remove any matter. To interact with the simulation, move the sliders to change temperature in order to see how it relates to pressure."
+        "instructions": "To interact with the simulation, move the sliders to see how volume, moles, and temperature, each relate to pressure.",
+        "moreInfo": "The ideal gas law models the rudimentary relationship between pressure, temperature, volume, and moles of gasses in a sealed container.\n\nIn this simulation, temperature is shown as the speed of the molecules, volume is the size of the container, and moles are the number of molecules. Notice how changing these values affects the visualization and the pressure."
     },
     "orbital": {
         "name": "Orbital Combinations",
         "short": "orbital",
         "html": "orbital.html",
+        "navImg": "./assets/navImg/orbitalsHomePage.png",
         "p5js": "https://editor.p5js.org/jbradley2003/full/Mtv8MuoLZ",
-        "instructions": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals. \n\nTo test your knowledge of the result of S and P orbital combinations, click on one orbital on each side of the box, and see what the combination is in the center box. The light part of the orbital represents the positive lobe, and the dark part represents the negative lobe."
+        "instructions" : "To test your knowledge of orbital combinations, click on one orbital on each side, and see their combination in the center.",
+        "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe."
     }
 }
 },{}],7:[function(require,module,exports){
