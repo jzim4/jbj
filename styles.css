@@ -250,7 +250,7 @@ Black: #000000
  }
 
  #simIconContainer {
-   width: 15vw;
+   width: 13vw;
    padding: 10px;
    height: 100%;
    display: flex;
@@ -268,10 +268,6 @@ Black: #000000
  }
 
  /* Simulation */
- /* iframe {
-   transform:scale(.75);
-   transform-origin: top left;
- } */
  #iframeContainer {
    display: flex;
    flex-direction:column;
@@ -304,7 +300,7 @@ Black: #000000
     line-height: 20px;
     top: 0px;
     left: 13vw;
-    width: 15vw;
+    width: 13vw;
     height: fit-content;
     font-size: 16px;
     font-weight: 500;
@@ -312,7 +308,7 @@ Black: #000000
    background-color: #eeeeee;
    color: #182628;
    z-index: 10;
-   box-shadow: 10px 10px #6082B6;
+   box-shadow: 5px 5px #6082B6;
  }
 
  @media (max-width: 1399px) {
