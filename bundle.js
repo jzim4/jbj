@@ -288,6 +288,13 @@ var Orbital = /*#__PURE__*/_createClass(function Orbital(imgPath, name, xpos, yp
   this.height = height;
   this.selected = false;
 });
+var resetCanvas = function resetCanvas(left, right, context, selectedL, selectedR) {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  drawOrbitals(left, right, context);
+  drawResetButton(context);
+  drawInstructions(selectedL, selectedR, context);
+  drawCenterBox(context);
+};
 var drawImg = function drawImg(img, context) {
   var newImg = document.createElement('img');
   newImg.src = img.imgPath;
@@ -323,34 +330,51 @@ var changeCursor = function changeCursor(x, y, left, right) {
   }
 };
 var makeLeftOrbitals = function makeLeftOrbitals() {
-  var pxNegL = new Orbital('./assets/orbitals/Px-.png', "Px, negative", 140, 120, 100, 50);
-  var pxPosL = new Orbital('./assets/orbitals/Px+.png', "Px, positive", 140, 190, 100, 50);
+  var pxNegL = new Orbital('./assets/orbitals/Px-.png', "Px", 140, 120, 100, 50);
+  var pxPosL = new Orbital('./assets/orbitals/Px+.png', "Px", 140, 190, 100, 50);
   var pzNegL = new Orbital('./assets/orbitals/Pz+.png', "Pz", 165, 260, 50, 100);
   var pzPosL = new Orbital('./assets/orbitals/Pz-.png', "Pz", 165, 400, 50, 100);
   var left = [pxNegL, pxPosL, pzNegL, pzPosL];
   return left;
 };
 var makeRightOrbitals = function makeRightOrbitals() {
-  var pxNegR = new Orbital('./assets/orbitals/Px-.png', "Px, postive", 650, 120, 100, 50);
-  var pxPosR = new Orbital('./assets/orbitals/Px+.png', "Px, negative", 650, 190, 100, 50);
+  var pxNegR = new Orbital('./assets/orbitals/Px-.png', "Px", 650, 120, 100, 50);
+  var pxPosR = new Orbital('./assets/orbitals/Px+.png', "Px", 650, 190, 100, 50);
   var pzNegR = new Orbital('./assets/orbitals/Pz+.png', "Pz", 675, 260, 50, 100);
   var pzPosR = new Orbital('./assets/orbitals/Pz-.png', "Pz", 675, 400, 50, 100);
   var right = [pxNegR, pxPosR, pzNegR, pzPosR];
   return right;
 };
-var resetCanvas = function resetCanvas(left, right, context, selectedL, selectedR) {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  drawOrbitals(left, right, context);
-  drawResetButton(context);
-  drawInstructions(selectedL, selectedR, context);
-};
 var drawOrbitals = function drawOrbitals(left, right, context) {
   for (var img in left) {
     drawImg(left[img], context);
+    drawOrbLabel(context, left[img].name, true, left[img].ypos + left[img].height / 2 + 5);
   }
   for (var _img in right) {
     drawImg(right[_img], context);
+    drawOrbLabel(context, right[_img].name, false, right[_img].ypos + right[_img].height / 2 + 5);
   }
+};
+var drawOrbLabel = function drawOrbLabel(context, label, left, ypos) {
+  var xpos = 780;
+  if (left) {
+    xpos = 85;
+  }
+  context.beginPath();
+  context.font = context.font = "20px Oswald";
+  context.fillText(label, xpos, ypos);
+  context.strokeStyle = 'black';
+  context.lineWidth = 2;
+  context.stroke();
+  context.closePath();
+};
+var drawCenterBox = function drawCenterBox(context) {
+  context.beginPath();
+  context.rect(361, 150, 200, 200);
+  context.strokeStyle = 'black';
+  context.lineWidth = 4;
+  context.stroke();
+  context.closePath();
 };
 var drawRect = function drawRect(i, context) {
   context.beginPath();
@@ -395,17 +419,24 @@ var highlightSelections = function highlightSelections(selectedL, selectedR, lef
     }
   }
 };
+var drawCombLabel = function drawCombLabel(context, label, xpos) {
+  context.font = "30px Oswald";
+  context.beginPath();
+  context.strokeStyle = 'black';
+  context.fillText(label, 350, 130);
+  context.stroke();
+};
 var drawCombination = function drawCombination(selectedL, selectedR, context) {
   var constructivePx = new Orbital('./assets/orbitals/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
-  var pcombconst = new Orbital('./assets/orbitals/Pcombconst.png', 'Pcombconst', 386, 200, 150, 150);
+  var pcombconst = new Orbital('./assets/orbitals/Pcombconst.png', 'Pcombconst', 386, 170, 150, 150);
   if (selectedL && selectedR) {
     if (selectedL.imgPath == './assets/orbitals/Px+.png' && selectedR.imgPath == './assets/orbitals/Px-.png') {
-      console.log('constructive');
       drawImg(constructivePx, context);
+      drawCombLabel(context, constructivePx.name, 400);
     }
     if (selectedL.imgPath == './assets/orbitals/Pz+.png' && selectedR.imgPath == './assets/orbitals/Pz+.png') {
-      console.log('pcombconst');
       drawImg(pcombconst, context);
+      drawCombLabel(context, pcombconst.name, 350);
     }
   }
 };
@@ -413,8 +444,8 @@ var drawResetButton = function drawResetButton(context) {
   context.font = "30px Oswald";
   context.beginPath();
   context.lineWidth = 3;
-  context.rect(400, 440, 85, 40);
-  context.fillText("Reset", 410, 470);
+  context.rect(419, 440, 85, 40);
+  context.fillText("Reset", 429, 470);
   context.stroke();
   context.closePath();
 };
