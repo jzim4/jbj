@@ -69,7 +69,7 @@ function Orbitals() {
   }
   
   function resetCanvas(p5) {
-    p5.background(220);
+    p5.background(255);
     drawOrbitals(p5);
     drawResetButton(p5);
     drawInstructions(p5);

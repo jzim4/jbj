@@ -459,7 +459,7 @@ function Orbitals() {
     changeCursor(p5.mouseX, p5.mouseY);
   }
   function resetCanvas(p5) {
-    p5.background(220);
+    p5.background(255);
     drawOrbitals(p5);
     drawResetButton(p5);
     drawInstructions(p5);

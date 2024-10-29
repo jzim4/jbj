@@ -250,6 +250,10 @@ Black: #000000
    align-items: center;
  }
 
+ #p5Canvas {
+   border: black dotted 2px;
+ }
+
  #simIconContainer {
    width: 13vw;
    padding: 10px;
