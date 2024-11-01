@@ -1,79 +1,139 @@
-let orbitals = function(canvas, context) {
-    
-    canvas.style.width = "922px";
-    canvas.style.height = "525px";
-    canvas.style.border = "dotted black 2px";
-    canvas.width = 922;
-    canvas.height = 525;
-    let left = makeLeftOrbitals();
-    let right = makeRightOrbitals();
-    let selectedL = null;
-    let selectedR = null;
+import React from 'react';
+import Sketch from 'react-p5';
 
-    resetCanvas(left, right, context, null, null);
-
-    const rect = canvas.getBoundingClientRect();
-
-    canvas.addEventListener("click", (event) => {
-        let clickX = event.clientX - rect.left;
-        let clickY = event.clientY - rect.top;
-    
-        if (detectResetClick(clickX, clickY, context, left, right)) {
-            selectedL = null;
-            selectedR = null;
-        } else if (clickX < 400) {
-            selectedL = detectLeftOrbitalClick(selectedL, clickX, clickY, left);
-        }
-        else {
-            selectedR = detectRightOrbitalClick(selectedR, clickX, clickY, right);
-        }
-        
-        highlightSelections(selectedL, selectedR, left, right, context);
-        drawCombination(selectedL, selectedR, context);
-    });
-
-    canvas.addEventListener('mousemove', (event) => {
-        changeCursor(event.clientX, event.clientY, left, right);
-    });
-}
-export default orbitals;
-
-class Orbital {
-    constructor(imgPath, name, xpos, ypos, width, height) {
-        this.imgPath = imgPath;
+function Orbitals() {
+  
+  class Orbital {
+    constructor(imgName, name, xpos, ypos, width, height) {
+        this.imgName = imgName;
         this.name = name;
         this.xpos = xpos;
         this.ypos = ypos;
         this.width = width;
         this.height = height;
+      }
+  }
+  
+  const width = 922;
+  const height = 525;
+  const left = makeLeftOrbitals();
+  const right = makeRightOrbitals();
+  
+  let selectedL = null;
+  let selectedR = null;
 
-        this.selected = false;
+  let px;
+  let pxAlt;
+  let constructivePx;
+  let constructivePxAlt;
+  let destructivePx;
+  let destructivePxAlt;
+
+  let pz;
+  let pzAlt;
+  let constructivePz;
+  let constructivePzAlt;
+  let destructivePz;
+  let destructivePzAlt;
+
+  let s;
+  let sAlt;
+  let constructiveS;
+  let constructiveSAlt;
+  let destructiveS;
+  let destructiveSAlt;
+
+
+  let spx;
+  let spxAlt;
+  let spz;
+  let spzAlt;
+  let sAltpx;
+  let sAltpxAlt;
+  let sAltpz;
+  let sAltpzAlt;
+
+  let font;
+
+  function preload(p5) {
+    px = p5.loadImage('./assets/orbitals/px/Px.png');
+    pxAlt = p5.loadImage('./assets/orbitals/px/PxAlt.png');
+    constructivePx = p5.loadImage('./assets/orbitals/px/constructivePx.png');
+    constructivePxAlt = p5.loadImage('./assets/orbitals/px/constructivePxAlt.png');
+    destructivePx = p5.loadImage('./assets/orbitals/px/destructivePx.png');
+    destructivePxAlt = p5.loadImage('./assets/orbitals/px/destructivePxAlt.png');
+
+    pz = p5.loadImage('./assets/orbitals/pz/Pz.png');
+    pzAlt = p5.loadImage('./assets/orbitals/pz/PzAlt.png');
+    constructivePz = ('./assets/orbitals/pz/constructivePz.png');
+    constructivePzAlt = ('./assets/orbitals/pz/constructivePAlt.png');
+    destructivePz = p5.loadImage('./assets/orbitals/pz/destructivePz.png');
+    destructivePzAlt = p5.loadImage('./assets/orbitals/pz/destructivePzAlt.png');
+
+    s = p5.loadImage('./assets/orbitals/s/s.png');
+    sAlt = p5.loadImage('./assets/orbitals/s/IMCONFUSED.PNG');
+    constructiveS = ('./assets/orbitals/s/constructiveS.png');
+    constructiveSAlt = ('./assets/orbitals/s/constructiveSAlt.png');
+    destructiveS = ('./assets/orbitals/s/destructiveS.png');
+    destructiveSAlt = ('./assets/orbitals/s/destructiveSAlt.png');
+
+    spx = p5.loadImage('./assets/orbitals/s-p/spx.png');
+    spxAlt = p5.loadImage('./assets/orbitals/s-p/spxAlt.png');
+    spz = p5.loadImage('./assets/orbitals/s-p/spz.png');
+    spzAlt = p5.loadImage('./assets/orbitals/s-p/spzAlt.png');
+    sAltpx = p5.loadImage('./assets/orbitals/s-p/sAltpx.png');
+    sAltpxAlt = p5.loadImage('./assets/orbitals/s-p/sAltpxAlt.png');
+    sAltpz = p5.loadImage('./assets/orbitals/s-p/sAltpz.png');
+    sAltpzAlt = p5.loadImage('./assets/orbitals/s-p/sAltpzAlt.png');
+
+
+    font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
+  }
+
+  function setup(p5) {
+    let canvas = document.getElementById('p5Canvas');
+    console.log(canvas);
+    let p5Canvas = p5.createCanvas(width, height, canvas);
+    p5Canvas.position(0,0,'relative');
+    resetCanvas(p5);
+  }
+ 
+  function mousePressed (p5) {
+    if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
+        selectedL = null;
+        selectedR = null;
+    } else if (p5.mouseX < 400) {
+        selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
     }
-}
-
-let resetCanvas = function(left, right, context, selectedL, selectedR) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawOrbitals(left, right, context);
-    drawResetButton(context);
-    drawInstructions(selectedL, selectedR, context);
-    drawCenterBox(context);
-}
-
-let drawImg = function(img, context){
-    let newImg = document.createElement('img');
-    newImg.src = img.imgPath;
-    newImg.onload = function() {
-        context.drawImage(newImg, img.xpos, img.ypos, img.width, img.height);
+    else {
+        selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
     }
-}
-
-let changeCursor = function(x, y, left, right) {
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = x - rect.left;
-    const mouseY = y - rect.top;
-
+    highlightSelections(p5);
+    drawCombination(p5);
+  }
+  
+  function mouseMoved(p5) {
+    changeCursor(p5.mouseX, p5.mouseY);
+  }
+  
+  function resetCanvas(p5) {
+    p5.background(255);
+    drawOrbitals(p5);
+    drawResetButton(p5);
+    drawInstructions(p5);
+    drawCenterBox(p5);
+  }
+  
+  function drawImg(img, p5) {
+    p5.image(eval(img.imgName), img.xpos, img.ypos, img.width, img.height);
+  }
+  
+  function changeCursor(x, y) {
+    let mouseX = x;
+    let mouseY = y;
+  
     let pointer = false;
-
+  
     for (let orb in left) {
         let o = left[orb];
         if (o.xpos <= mouseX && o.xpos+o.width >= mouseX && o.ypos<=mouseY && o.ypos+o.height>=mouseY) {
@@ -87,7 +147,7 @@ let changeCursor = function(x, y, left, right) {
         }
     }
     //reset button
-    if (400<=mouseX && 485>=mouseX && 440<=mouseY && 480>=mouseY) {
+    if (419<=mouseX && 504>=mouseX && 440<=mouseY && 480>=mouseY) {
         pointer = true;
     }
     if (pointer) {
@@ -96,169 +156,189 @@ let changeCursor = function(x, y, left, right) {
     else {
         document.body.style.cursor = "default";
     }   
-}
-
-let makeLeftOrbitals = function () {
-    let pxNegL = new Orbital('./assets/orbitals/Px-.png', "Px", 140, 120, 100, 50);
-    let pxPosL = new Orbital('./assets/orbitals/Px+.png', "Px", 140, 190, 100, 50);
-    let pzNegL = new Orbital('./assets/orbitals/Pz+.png', "Pz", 165, 260, 50, 100);
-    let pzPosL = new Orbital('./assets/orbitals/Pz-.png', "Pz", 165, 400, 50, 100);
+  }
+  
+  function makeLeftOrbitals() {
+    let s = new Orbital("s", "S", 200, 100, 40, 40);
+    let sAlt = new Orbital("sAlt", "S", 200, 155, 40, 40);
+    let px = new Orbital("px", "Px", 180, 270, 80, 40);
+    let pxAlt = new Orbital("pxAlt", "Px", 180, 215, 80, 40);
+    let pz = new Orbital("pz", "Pz", 200, 330, 40, 80);
+    let pzAlt = new Orbital("pzAlt", "Pz", 200, 425, 40, 80);
     
-    let left = [pxNegL, pxPosL, pzNegL, pzPosL];
+    let left = [s, sAlt, px, pxAlt, pz, pzAlt];
     return left;
-}
-
-let makeRightOrbitals = function () {
-    let pxNegR = new Orbital('./assets/orbitals/Px-.png', "Px", 650,120, 100, 50);
-    let pxPosR = new Orbital('./assets/orbitals/Px+.png', "Px", 650, 190, 100, 50);
-    let pzNegR = new Orbital('./assets/orbitals/Pz+.png', "Pz", 675, 260, 50, 100);
-    let pzPosR = new Orbital('./assets/orbitals/Pz-.png', "Pz", 675, 400, 50, 100);
-
-    let right = [pxNegR, pxPosR, pzNegR, pzPosR];
+  }
+  
+  function makeRightOrbitals() {
+    let s = new Orbital("s", "S", 670,100, 40, 40);
+    let sAlt = new Orbital("sAlt", "S", 670, 155, 40, 40);
+    let px = new Orbital("px", "Px", 650, 270, 80, 40);
+    let pxAlt = new Orbital("pxAlt", "Px", 650, 215, 80, 40);
+    let pz = new Orbital("pz", "Pz", 670, 339, 40, 80);
+    let pzAlt = new Orbital("pzAlt", "Pz", 670, 425, 40, 80);
+  
+    let right = [s, sAlt, px, pxAlt, pz, pzAlt];
     return right;
-}
-
-let drawOrbitals = function(left, right, context) {
+  }
+  
+  function drawOrbitals(p5) {
+    p5.textFont(font, 20);
     for (let img in left) {
-        drawImg(left[img], context);
-        drawOrbLabel(context, left[img].name, true, left[img].ypos + left[img].height/2 + 5);
+        drawImg(left[img], p5);
+        drawOrbLabel(left[img].name, true, left[img].ypos + left[img].height/2 + 5, p5);
     }
     for(let img in right) {
-        drawImg(right[img], context);
-        drawOrbLabel(context, right[img].name, false, right[img].ypos + right[img].height/2 + 5);
+        drawImg(right[img], p5);
+        drawOrbLabel(right[img].name, false, right[img].ypos + right[img].height/2 + 5, p5);
     }
-}
-
-let drawOrbLabel = function(context, label, left, ypos) {
+  }
+  
+  function drawOrbLabel(label, left, ypos, p5) {
     let xpos = 780;
     if (left) {
         xpos = 85;
     }
-    context.beginPath();
-    context.font = context.font = "20px Oswald";
-    context.fillText(label, xpos, ypos);
-    context.strokeStyle = 'black';
-    context.lineWidth = 2;
-    context.stroke();
-    context.closePath();
-}
-
-let drawCenterBox = function(context) {
-    context.beginPath();
-    context.rect(361, 150, 200, 200);
-    context.strokeStyle = 'black';
-    context.lineWidth = 4;
-    context.stroke(); 
-    context.closePath();
-}
-
-let drawRect = function (i, context) {
-    context.beginPath();
-    context.rect(i.xpos-3, i.ypos - 3, i.width + 3, i.height + 3);
-    context.strokeStyle = 'black';
-    context.lineWidth = 4;
-    context.stroke(); 
-    context.closePath();
-}
-
-let instructions = function(left, words, context) {
+    p5.textFont(font, 20);
+    p5.text(label, xpos, ypos);
+  }
+  
+  function drawCenterBox(p5) {
+    p5.strokeWeight(4);
+    p5.noFill();
+    p5.rect(361, 150, 200, 200);
+    p5.fill('black');
+  }
+  
+  function drawRect (i, p5) {
+    p5.strokeWeight(4);
+    p5.noFill();
+    p5.rect(i.xpos-3, i.ypos - 3, i.width + 6, i.height + 6);
+    p5.fill('black');
+  }
+  
+  function instructions(left, words, p5) {
     let xpos = 650;
     if (left) {
         xpos = 140;
     }
-    context.font = "30px Oswald";
-    context.beginPath();
-    context.strokeStyle = 'black';
-    context.fillText(words, xpos, 60);
-    context.stroke();
-    context.closePath();
-
-}
-
-let drawInstructions = function(drawLeft, drawRight, context) {
-    if (!drawLeft) {
-        instructions(true, "Select an orbital", context);
+    p5.textFont(font, 30);
+    p5.text(words, xpos, 60);
+  }
+  
+  function drawInstructions(p5) {
+    p5.textFont(font, 20);
+    if (!selectedL) {
+        instructions(true, "Select an orbital", p5);
     }
     else {
-        instructions(true, drawLeft.name, context);
+        instructions(true, selectedL.name, p5);
     }
-    if (!drawRight) {
-        instructions(false, "Select an orbital", context);
+    if (!selectedR) {
+        instructions(false, "Select an orbital", p5);
     }
     else {
-        instructions(false, drawRight.name, context);
+        instructions(false, selectedR.name, p5);
     }
-}
-
-let highlightSelections = function(selectedL, selectedR, left, right, context) {
+  }
+  
+  function highlightSelections(p5) {
     if (selectedL != null || selectedR != null) {
-        resetCanvas(left, right, context, selectedL, selectedR);
+        resetCanvas(p5);
         if (selectedL) {
-            drawRect(selectedL, context);
+            drawRect(selectedL, p5);
         }
         if (selectedR) {
-            drawRect(selectedR, context);
+            drawRect(selectedR, p5);
         }
     }
-}
+  }
+  
+  function drawCombLabel(label, xpos, p5) {
+    p5.textFont(font, 30);
+    p5.text(label, 350, 130);
+  }
+  
+  function drawCombination(p5) {
+    let constructivePx = new Orbital('constructivePx', 'Constructive Px', 361, 200, 200, 100);
+    let constructivePxAlt = new Orbital('constructivePxAlt', 'Constructive Px', 361, 200, 200, 100);
+    let destructivePx = new Orbital('destructivePx', 'Destructive Px', 361, 200, 200, 100);
+    let destructivePxAlt = new Orbital('destructivePxAlt', 'Destructive Px', 361, 200, 200, 100);
 
-let drawCombLabel = function(context, label, xpos) {
-    context.font = "30px Oswald";
-    context.beginPath();
-    context.strokeStyle = 'black';
-    context.fillText(label, 350, 130);
-    context.stroke();
-}
+    let constructivePz = new Orbital('constructivePz', 'Constructive Pz', 361, 200, 200, 100);
+    let constructivePzAlt = new Orbital('constructivePzAlt', 'Constructive Pz', 361, 200, 200, 100);
+    let destructivePz = new Orbital('destructivePz', 'Destructive Pz', 361, 200, 200, 100);
+    let destructivePzAlt = new Orbital('destructivePzAlt', 'Destructive Pz', 361, 200, 200, 100);
 
-let drawCombination = function(selectedL, selectedR, context) {
-    let constructivePx = new Orbital('./assets/orbitals/constructivePx.png', 'constructivePx', 361, 200, 200, 100);
-    let pcombconst = new Orbital('./assets/orbitals/Pcombconst.png', 'Pcombconst', 386, 170, 150, 150);
+    let constructiveS = new Orbital('constructiveS', 'Constructive S', 361, 200, 200, 100);
+    let constructiveSAlt = new Orbital('constructiveSAlt', 'Constructive S', 361, 200, 200, 100);
+    let destructiveS = new Orbital('destructiveS', 'Destructive S', 361, 200, 200, 100);
+    let destructiveSAlt = new Orbital('destructiveSAlt', 'Destructive S', 361, 200, 200, 100);
+
+    let spx = new Orbital('spx', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let spxAlt = new Orbital('spxAlt', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let spz = new Orbital('spz', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let spzAlt = new Orbital('spzAlt', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let sAltpx = new Orbital('sAltpx', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let sAltpxAlt = new Orbital('sAltpxAlt', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let sAltpz = new Orbital('sAltpz', 'I DON\'T KNOW', 361, 200, 200, 100);
+    let sAltpzAlt = new Orbital('sAltpzAlt', 'I DON\'T KNOW', 361, 200, 200, 100);
+     
     if (selectedL && selectedR) {
-        if (selectedL.imgPath == './assets/orbitals/Px+.png' && selectedR.imgPath == './assets/orbitals/Px-.png') {
-            drawImg(constructivePx, context);
-            drawCombLabel(context, constructivePx.name, 400);
+        if (selectedL.imgName == 'px' && selectedR.imgName == 'pxAlt') {
+            drawImg(constructivePx, p5);
+            drawCombLabel(constructivePx.name, 400, p5);
         }
-        if (selectedL.imgPath == './assets/orbitals/Pz+.png' && selectedR.imgPath == './assets/orbitals/Pz+.png') {
-            drawImg(pcombconst, context);
-            drawCombLabel(context, pcombconst.name, 350);
-        }
+
+        // TODO: WRITE IN ALL THE COMBINATIONS... FML
+
+
+
+
     }
-}
-
-let drawResetButton = function(context) {
-    context.font = "30px Oswald";
-    context.beginPath();
-    context.lineWidth = 3;
-    context.rect(419, 440, 85, 40);
-    context.fillText("Reset", 429, 470);
-    context.stroke();
-    context.closePath();
-}
-
-let detectResetClick = function(clickX, clickY, context, left, right) {
-    if (clickX >= 400 && clickX <= 485 && clickY >= 440 && clickY <= 480) {
-        resetCanvas(left, right, context, null, null);
+  }
+  
+  function drawResetButton(p5) {
+    p5.textFont(font, 30);
+    p5.noFill();
+    p5.strokeWeight(4);
+    p5.rect(419, 440, 85, 40);
+    p5.fill('black');
+    p5.text("Reset", 429, 470);
+  }
+  
+  function detectResetClick(mouseX, mouseY, p5) {
+    if (mouseX >= 400 && mouseX <= 485 && mouseY >= 440 && mouseY <= 480) {
+        resetCanvas(p5);
         return true;
     }
-}
-
-let detectLeftOrbitalClick = function (selectedL, clickX, clickY, left) {
+  }
+  
+  function detectLeftOrbitalClick (mouseX, mouseY) {
     let prev = selectedL;
     for (let img in left) {
         let i = left[img];
-        if (clickX >= i.xpos && clickX <= i.xpos + i.width && clickY >= i.ypos && clickY <= i.ypos + i.height) {
+        if (mouseX >= i.xpos && mouseX <= i.xpos + i.width && mouseY >= i.ypos && mouseY <= i.ypos + i.height) {
             return i;
         }
     } 
     return prev;
-}
-let detectRightOrbitalClick = function (selectedR, clickX, clickY, right) {
+  }
+  function detectRightOrbitalClick (mouseX, mouseY) {
     let prev = selectedR;
     for (let img in right) {
         let i = right[img];
-        if (clickX >= i.xpos && clickX <= i.xpos + i.width && clickY >= i.ypos && clickY <= i.ypos + i.height) {
+        if (mouseX >= i.xpos && mouseX <= i.xpos + i.width && mouseY >= i.ypos && mouseY <= i.ypos + i.height) {
             return i;
         }
     }
     return prev;
+  }
+
+  console.log('run');
+  return (
+      <Sketch preload={preload} mousePressed={mousePressed} mouseMoved={mouseMoved} setup={setup} />
+  )
 }
+
+export default Orbitals;
