@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import Orbitals from './sketch.js';
+import Orbitals from './orbitals.js';
 import { Link } from 'react-router-dom';
 
 function Header(sim) {
@@ -27,7 +27,7 @@ function AllSimulationContent(sim) {
             <div id="iframeContainer">
                 <div id="simulationSubheader">{sim.instructions}</div>
                 <SimulationContent sim={sim}/>
-                <canvas id="p5Canvas"></canvas>
+                
             </div>
             <Help sim={sim}/>
             </div>
@@ -35,7 +35,10 @@ function AllSimulationContent(sim) {
 
 function IGL(sim) {
     sim = sim.sim;
-    return <iframe src={sim.p5js} width="922" height="525"></iframe>
+    return <>
+    <iframe src={sim.p5js} width="922" height="525"></iframe>
+    
+    </>
 }
 
 function SimulationContent(sim) {
@@ -44,7 +47,10 @@ function SimulationContent(sim) {
         return <IGL sim={sim}/>
     }
     else if (sim.short == "orbital") {
-        return <Orbitals/>
+        return <>
+        <Orbitals/>
+        <canvas id="p5Canvas"></canvas>
+        </>
     }
 }
 
