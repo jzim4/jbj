@@ -658,9 +658,9 @@ function SimulationContent(sim) {
       sim: sim
     });
   } else if (sim["short"] == "orbital") {
-    return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_orbitals["default"], null), /*#__PURE__*/_react["default"].createElement("canvas", {
+    return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("canvas", {
       id: "p5Canvas"
-    }));
+    }), /*#__PURE__*/_react["default"].createElement(_orbitals["default"], null));
   }
 }
 function SimulationPage(sim) {

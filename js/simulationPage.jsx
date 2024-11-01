@@ -48,8 +48,8 @@ function SimulationContent(sim) {
     }
     else if (sim.short == "orbital") {
         return <>
-        <Orbitals/>
         <canvas id="p5Canvas"></canvas>
+        <Orbitals/>
         </>
     }
 }
