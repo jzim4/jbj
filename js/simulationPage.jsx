@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import Orbitals from './orbitals.js';
+import Coulomb from './coulomb.js';
 import { Link } from 'react-router-dom';
 
 function Header(sim) {
@@ -50,6 +51,12 @@ function SimulationContent(sim) {
         return <>
         <canvas id="p5Canvas"></canvas>
         <Orbitals/>
+        </>
+    }
+    else if (sim.short == "coulomb") {
+        return <>
+        <canvas id="p5Canvas"></canvas>
+        <Coulomb/>
         </>
     }
 }

@@ -16,6 +16,7 @@ root.render(
         <Route path="/" element={<HomePage />} />
         <Route path="/igl" element={<SimulationPage sim={data.igl}/>} />
         <Route path="/orbital" element={<SimulationPage sim={data.orbital}/>} />
+        <Route path="/coulomb" element={<SimulationPage sim={data.coulomb}/>} />
         <Route path="*" element={<HomePage />} />
       </Routes>
       </HashRouter>
