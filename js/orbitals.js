@@ -101,14 +101,19 @@ function Orbitals() {
     if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
         selectedL = null;
         selectedR = null;
-    } else if (p5.mouseX < 400) {
-        selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
-    }
+    } 
     else {
-        selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
+      highlightSelections(p5);
+      if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
+        drawCombination(p5);
+      }
+      else if (p5.mouseX < 400) {
+          selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
+      }
+      else {
+          selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
+      }
     }
-    highlightSelections(p5);
-    drawCombination(p5);
   }
   
   function mouseMoved(p5) {
@@ -119,6 +124,7 @@ function Orbitals() {
     p5.background(255);
     drawOrbitals(p5);
     drawResetButton(p5);
+    drawSubmitButton(p5);
     drawInstructions(p5);
     drawCenterBox(p5);
   }
@@ -145,8 +151,12 @@ function Orbitals() {
             pointer = true;
         }
     }
+    // submit button
+    if (401<=mouseX && 521>=mouseX && 400<=mouseY && 440>=mouseY) {
+      pointer = true;
+    }
     //reset button
-    if (419<=mouseX && 504>=mouseX && 440<=mouseY && 480>=mouseY) {
+    if (426<=mouseX && 496>=mouseX && 460<=mouseY && 490>=mouseY) {
         pointer = true;
     }
     if (pointer) {
@@ -307,162 +317,178 @@ function Orbitals() {
     let sAltpzOrb = new Orbital('sAltpz', 'S Pz Hybrid', left + maxSize*0.52/2, top, maxSize*0.48, maxSize);
     let sAltpzAltOrb = new Orbital('sAltpzAlt', 'S Pz Hybrid', left + maxSize*0.52/2, top, maxSize*0.48, maxSize);
     
-    if (selectedL && selectedR) {
-      let combOrbital = null;
-        if (selectedL.imgName == 'px') {
-          if (selectedR.imgName == 'px') {
-            combOrbital = destructivePxOrb;
-          }
-          else if (selectedR.imgName == 'pxAlt') {
-            combOrbital = constructivePxOrb;
-          }
-          else if (selectedR.imgName == 'pz') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 'pzAlt') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 's') {
-            combOrbital = spxOrb;
-          }
-          else if (selectedR.imgName == 'sAlt') {
-            // TODO
-            combOrbital = sAltpxOrb;
-          }
-        }
-        else if (selectedL.imgName == 'pxAlt') {
-          if (selectedR.imgName == 'px') {
-            combOrbital = constructivePxAltOrb;
-          }
-          else if (selectedR.imgName == 'pxAlt') {
-            combOrbital = destructivePxAltOrb;
-          }
-          else if (selectedR.imgName == 'pz') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 'pzAlt') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 's') {
-            combOrbital = spxAltOrb;
-          }
-          else if (selectedR.imgName == 'sAlt') {
-            combOrbital = sAltpxAltOrb;
-          }
-        }
-        else if (selectedL.imgName == 'pz') {
-          if (selectedR.imgName == 'px') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 'pxAlt') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 'pz') {
-            combOrbital = constructivePzOrb;
-          }
-          else if (selectedR.imgName == 'pzAlt') {
-            combOrbital = destructivePzOrb;
-          }
-          else if (selectedR.imgName == 's') {
-            combOrbital = spzOrb;
-          }
-          else if (selectedR.imgName == 'sAlt') {
-            combOrbital = sAltpzOrb;
-          }
-        }
-        else if (selectedL.imgName == 'pzAlt') {
-          if (selectedR.imgName == 'px') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 'pxAlt') {
-            // TODO
-            combOrbital = null;
-          }
-          else if (selectedR.imgName == 'pz') {
-            combOrbital = destructivePzAltOrb;
-          }
-          else if (selectedR.imgName == 'pzAlt') {
-            combOrbital = constructivePzAltOrb;
-          }
-          else if (selectedR.imgName == 's') {
-            combOrbital = spzAltOrb;
-          }
-          else if (selectedR.imgName == 'sAlt') {
-            combOrbital = sAltpzAltOrb;
-          }
-        }
-        else if (selectedL.imgName == 's') {
-          if (selectedR.imgName == 'px') {
-            combOrbital = spxOrb;
-          }
-          else if (selectedR.imgName == 'pxAlt') {
-            combOrbital = spxAltOrb;
-          }
-          else if (selectedR.imgName == 'pz') {
-            combOrbital = spzOrb;
-          }
-          else if (selectedR.imgName == 'pzAlt') {
-            combOrbital = spzAltOrb;
-          }
-          else if (selectedR.imgName == 's') {
-            combOrbital = constructiveSOrb;
-          }
-          else if (selectedR.imgName == 'sAlt') {
-            combOrbital = destructiveSOrb;
-          }
-        }
-        else if (selectedL.imgName == 'sAlt') {
-          if (selectedR.imgName == 'px') {
-            combOrbital = sAltpxOrb;
-          }
-          else if (selectedR.imgName == 'pxAlt') {
 
-            combOrbital = sAltpxAltOrb;
-          }
-          else if (selectedR.imgName == 'pz') {
-            combOrbital = sAltpzOrb;
-          }
-          else if (selectedR.imgName == 'pzAlt') {
-            combOrbital = sAltpzAltOrb;
-          }
-          else if (selectedR.imgName == 's') {
-            combOrbital = destructiveSAltOrb;
-          }
-          else if (selectedR.imgName == 'sAlt') {
-            combOrbital = constructiveSAltOrb;
-          }
-        }
+    let combOrbital = null;
+    if (selectedL.imgName == 'px') {
+      if (selectedR.imgName == 'px') {
+        combOrbital = destructivePxOrb;
+      }
+      else if (selectedR.imgName == 'pxAlt') {
+        combOrbital = constructivePxOrb;
+      }
+      else if (selectedR.imgName == 'pz') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 'pzAlt') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 's') {
+        combOrbital = spxOrb;
+      }
+      else if (selectedR.imgName == 'sAlt') {
+        // TODO
+        combOrbital = sAltpxOrb;
+      }
+    }
+    else if (selectedL.imgName == 'pxAlt') {
+      if (selectedR.imgName == 'px') {
+        combOrbital = constructivePxAltOrb;
+      }
+      else if (selectedR.imgName == 'pxAlt') {
+        combOrbital = destructivePxAltOrb;
+      }
+      else if (selectedR.imgName == 'pz') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 'pzAlt') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 's') {
+        combOrbital = spxAltOrb;
+      }
+      else if (selectedR.imgName == 'sAlt') {
+        combOrbital = sAltpxAltOrb;
+      }
+    }
+    else if (selectedL.imgName == 'pz') {
+      if (selectedR.imgName == 'px') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 'pxAlt') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 'pz') {
+        combOrbital = constructivePzOrb;
+      }
+      else if (selectedR.imgName == 'pzAlt') {
+        combOrbital = destructivePzOrb;
+      }
+      else if (selectedR.imgName == 's') {
+        combOrbital = spzOrb;
+      }
+      else if (selectedR.imgName == 'sAlt') {
+        combOrbital = sAltpzOrb;
+      }
+    }
+    else if (selectedL.imgName == 'pzAlt') {
+      if (selectedR.imgName == 'px') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 'pxAlt') {
+        // TODO
+        combOrbital = null;
+      }
+      else if (selectedR.imgName == 'pz') {
+        combOrbital = destructivePzAltOrb;
+      }
+      else if (selectedR.imgName == 'pzAlt') {
+        combOrbital = constructivePzAltOrb;
+      }
+      else if (selectedR.imgName == 's') {
+        combOrbital = spzAltOrb;
+      }
+      else if (selectedR.imgName == 'sAlt') {
+        combOrbital = sAltpzAltOrb;
+      }
+    }
+    else if (selectedL.imgName == 's') {
+      if (selectedR.imgName == 'px') {
+        combOrbital = spxOrb;
+      }
+      else if (selectedR.imgName == 'pxAlt') {
+        combOrbital = spxAltOrb;
+      }
+      else if (selectedR.imgName == 'pz') {
+        combOrbital = spzOrb;
+      }
+      else if (selectedR.imgName == 'pzAlt') {
+        combOrbital = spzAltOrb;
+      }
+      else if (selectedR.imgName == 's') {
+        combOrbital = constructiveSOrb;
+      }
+      else if (selectedR.imgName == 'sAlt') {
+        combOrbital = destructiveSOrb;
+      }
+    }
+    else if (selectedL.imgName == 'sAlt') {
+      if (selectedR.imgName == 'px') {
+        combOrbital = sAltpxOrb;
+      }
+      else if (selectedR.imgName == 'pxAlt') {
 
-        if (combOrbital) {
-          drawImg(combOrbital, p5);
-          drawCombLabel(combOrbital.name, p5);
-        }
-        else {
-          drawCombError(p5);
-        }
+        combOrbital = sAltpxAltOrb;
+      }
+      else if (selectedR.imgName == 'pz') {
+        combOrbital = sAltpzOrb;
+      }
+      else if (selectedR.imgName == 'pzAlt') {
+        combOrbital = sAltpzAltOrb;
+      }
+      else if (selectedR.imgName == 's') {
+        combOrbital = destructiveSAltOrb;
+      }
+      else if (selectedR.imgName == 'sAlt') {
+        combOrbital = constructiveSAltOrb;
+      }
+    }
 
-
+    if (combOrbital) {
+      drawImg(combOrbital, p5);
+      drawCombLabel(combOrbital.name, p5);
+    }
+    else {
+      drawCombError(p5);
     }
   }
-  
-  function drawResetButton(p5) {
+
+  function drawSubmitButton(p5) {
     p5.textFont(font, 30);
     p5.noFill();
     p5.strokeWeight(4);
-    p5.rect(419, 440, 85, 40);
+    p5.rect(401, 400, 120, 40);
     p5.fill('black');
-    p5.text("Reset", 461, 470);
+    p5.text("Combine", 461, 430);
+  }
+
+  function detectSubmitClick(mouseX, mouseY) {
+    // mouse location
+    if (401<=mouseX && 521>=mouseX && 400<=mouseY && 440>=mouseY) {
+        if (selectedL && selectedR) {
+          return true;
+        }
+    }
+    return false;
+  }
+  
+  function drawResetButton(p5) {
+    p5.textFont(font, 20);
+    p5.noFill();
+    p5.strokeWeight(4);
+    p5.rect(426, 460, 70, 30);
+    p5.fill('black');
+    p5.text("Reset", 461, 482);
   }
   
   function detectResetClick(mouseX, mouseY, p5) {
-    if (mouseX >= 400 && mouseX <= 485 && mouseY >= 440 && mouseY <= 480) {
+    if (mouseX >= 426 && mouseX <= 496 && mouseY >= 460 && mouseY <= 490) {
         resetCanvas(p5);
         return true;
     }
