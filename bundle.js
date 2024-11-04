@@ -611,6 +611,8 @@ function Orbitals() {
       highlightSelections(p5);
       if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
         drawCombination(p5);
+      } else if (selectedL && selectedR) {
+        drawRedSubmitButton(p5);
       } else if (p5.mouseX < 400) {
         selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
       } else {
@@ -899,6 +901,15 @@ function Orbitals() {
     p5.rect(401, 400, 120, 40);
     p5.fill('black');
     p5.text("Combine", 461, 430);
+  }
+  function drawRedSubmitButton(p5) {
+    p5.textFont(font, 30);
+    p5.noFill();
+    p5.strokeWeight(4);
+    p5.rect(401, 400, 120, 40);
+    p5.fill(237, 91, 45);
+    p5.text("Combine", 461, 430);
+    p5.fill(0);
   }
   function detectSubmitClick(mouseX, mouseY) {
     // mouse location
