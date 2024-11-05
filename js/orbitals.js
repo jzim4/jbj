@@ -96,6 +96,71 @@ function Orbitals() {
     p5Canvas.position(0,0,'relative');
     resetCanvas(p5);
   }
+
+  function keyPressed(p5) {
+    let newSelection = false;
+    if (p5.key == '1') {
+      selectedL = left[0];
+      newSelection = true;
+    }
+    if (p5.key == '2') {
+      selectedL = left[1];
+      newSelection = true;
+    }
+    if (p5.key == '3') {
+      selectedL = left[2];
+      newSelection = true;
+    }
+    if (p5.key == '4') {
+      selectedL = left[3];
+      newSelection = true;
+    }
+    if (p5.key == '5') {
+      selectedL = left[4];
+      newSelection = true;
+    }
+    if (p5.key == '6') {
+      selectedL = left[5];
+      newSelection = true;
+    }
+    if (p5.key == 'a') {
+      selectedR = right[0];
+      newSelection = true;
+    }
+    if (p5.key == 'b') {
+      selectedR = right[1];
+      newSelection = true;
+    }
+    if (p5.key == 'c') {
+      selectedR = right[2];
+      newSelection = true;
+    }
+    if (p5.key == 'd') {
+      selectedR = right[3];
+      newSelection = true;
+    }
+    if (p5.key == 'e') {
+      selectedR = right[4];
+      newSelection = true;
+    }
+    if (p5.key == 'f') {
+      selectedR = right[5];
+      newSelection = true;
+    }
+    if (newSelection) {
+      highlightSelections(p5);
+      drawRedSubmitButton(p5);
+    }
+    if (p5.keyCode == p5.ENTER) {
+      highlightSelections(p5);
+      drawCombination(p5);
+    }
+    if (p5.keyCode == p5.BACKSPACE) {
+      resetCanvas(p5);
+      selectedL = null;
+      selectedR = null;
+    }
+  }
  
   function mousePressed (p5) {
     if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
@@ -103,21 +168,24 @@ function Orbitals() {
         selectedR = null;
     }
     else {
-      highlightSelections(p5);
       if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
+        highlightSelections(p5);
         drawCombination(p5);
-      } else if (selectedL && selectedR) {
-        drawRedSubmitButton(p5);
-      }
+      } 
       else if (p5.mouseX < 400) {
           selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
+          highlightSelections(p5);
+          drawRedSubmitButton(p5);
       }
       else {
           selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
+          highlightSelections(p5);
+          drawRedSubmitButton(p5);
       }
+
     }
   }
-  
+
   function mouseMoved(p5) {
     changeCursor(p5.mouseX, p5.mouseY);
   }
@@ -172,8 +240,8 @@ function Orbitals() {
   function makeLeftOrbitals() {
     let s = new Orbital("s", "S", 200, 100, 40, 40);
     let sAlt = new Orbital("sAlt", "S", 200, 155, 40, 40);
-    let px = new Orbital("px", "Px", 180, 270, 80, 40);
-    let pxAlt = new Orbital("pxAlt", "Px", 180, 215, 80, 40);
+    let px = new Orbital("px", "Px", 180, 215, 80, 40);
+    let pxAlt = new Orbital("pxAlt", "Px", 180, 270, 80, 40);
     let pz = new Orbital("pz", "Pz", 200, 330, 40, 80);
     let pzAlt = new Orbital("pzAlt", "Pz", 200, 425, 40, 80);
     
@@ -184,8 +252,8 @@ function Orbitals() {
   function makeRightOrbitals() {
     let s = new Orbital("s", "S", 670,100, 40, 40);
     let sAlt = new Orbital("sAlt", "S", 670, 155, 40, 40);
-    let px = new Orbital("px", "Px", 650, 270, 80, 40);
-    let pxAlt = new Orbital("pxAlt", "Px", 650, 215, 80, 40);
+    let px = new Orbital("px", "Px", 650, 215, 80, 40);
+    let pxAlt = new Orbital("pxAlt", "Px", 650, 270, 80, 40);
     let pz = new Orbital("pz", "Pz", 670, 339, 40, 80);
     let pzAlt = new Orbital("pzAlt", "Pz", 670, 425, 40, 80);
   
@@ -197,6 +265,7 @@ function Orbitals() {
     p5.textFont(font, 20);
     for (let img in left) {
         drawImg(left[img], p5);
+        p5.fill(0);
         drawOrbLabel(left[img].name, true, left[img].ypos + left[img].height/2 + 5, p5);
     }
     for(let img in right) {
@@ -207,26 +276,29 @@ function Orbitals() {
   
   function drawOrbLabel(label, left, ypos, p5) {
     p5.textAlign(p5.CENTER);
+    p5.noStroke();
     let xpos = 780;
     if (left) {
-        xpos = 85;
+      xpos = 85;
     }
     p5.textFont(font, 20);
+    p5.fill(0);
     p5.text(label, xpos, ypos);
   }
   
   function drawCenterBox(p5) {
     p5.strokeWeight(4);
+    p5.stroke(0);
     p5.noFill();
     p5.rect(361, 150, 200, 200);
-    p5.fill('black');
+    p5.fill(0);
   }
   
   function drawRect (i, p5) {
     p5.strokeWeight(4);
     p5.noFill();
     p5.rect(i.xpos-3, i.ypos - 3, i.width + 6, i.height + 6);
-    p5.fill('black');
+    p5.fill(0);
   }
   
   function instructions(left, words, p5) {
@@ -259,6 +331,7 @@ function Orbitals() {
     else {
         instructions(false, selectedR.name, p5);
     }
+
   }
   
   function highlightSelections(p5) {
@@ -277,17 +350,16 @@ function Orbitals() {
     p5.textAlign(p5.CENTER);
     p5.textFont(font, 30);
     p5.fill(98, 130, 184);
+    p5.noStroke();
     p5.text(label, 461, 130);
-    p5.fill(0);
-
   }
 
   function drawCombError(p5) {
     p5.textAlign(p5.CENTER);
     p5.fill(237, 91, 45);
     p5.textFont(font, 25);
+    p5.noStroke();
     p5.text("These orbitals \ndo not mix", 461, 250);
-    p5.fill(0);
   }
   
   function drawCombination(p5) {
@@ -459,6 +531,7 @@ function Orbitals() {
     else {
       drawCombError(p5);
     }
+    drawResetButton(p5);
   }
 
   function drawSubmitButton(p5) {
@@ -466,18 +539,23 @@ function Orbitals() {
     p5.noFill();
     p5.strokeWeight(4);
     p5.rect(401, 400, 120, 40);
-    p5.fill('black');
+    p5.stroke(0);
+    p5.fill(0);
+    p5.noStroke();
     p5.text("Combine", 461, 430);
   }
 
   function drawRedSubmitButton(p5) {
-    p5.textFont(font, 30);
-    p5.noFill();
-    p5.strokeWeight(4);
-    p5.rect(401, 400, 120, 40);
-    p5.fill(237, 91, 45);
-    p5.text("Combine", 461, 430);
-
+    if (selectedL && selectedR) {
+      p5.textFont(font, 30);
+      p5.noFill();
+      p5.strokeWeight(4);
+      p5.stroke(237, 91, 45);
+      p5.rect(401, 400, 120, 40);
+      p5.fill(237, 91, 45);
+      p5.noStroke();
+      p5.text("Combine", 461, 430);
+    }
     p5.fill(0);
   }
 
@@ -495,9 +573,12 @@ function Orbitals() {
     p5.textFont(font, 20);
     p5.noFill();
     p5.strokeWeight(4);
+    p5.stroke(0);
     p5.rect(426, 460, 70, 30);
-    p5.fill('black');
+    p5.noStroke();
+    p5.fill(0);
     p5.text("Reset", 461, 482);
+    p5.stroke(0);
   }
   
   function detectResetClick(mouseX, mouseY, p5) {
@@ -529,7 +610,7 @@ function Orbitals() {
   }
 
   return (
-      <Sketch preload={preload} mousePressed={mousePressed} mouseMoved={mouseMoved} setup={setup} />
+      <Sketch keyPressed={keyPressed} preload={preload} mousePressed={mousePressed} mouseMoved={mouseMoved} setup={setup} />
   )
 }
 
