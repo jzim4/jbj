@@ -107,27 +107,80 @@ function mouseReleased(p5) {
 }
 
 function mouseDragged(p5) {
-  // within vertical bounds
-  if (p5.mouseY + diameter/2 <= atomsSimHeight + atomsSimPosY && p5.mouseY - diameter/2 >= atomsSimPosY + 35) {
+  let overlapped = false;
+  let newXPos = null;
+  let newYPos = null;
+  
+  let still = 'q2';
+  if (moving == 'q2') {
+    still = 'q1';
+  }
+
+  let mouseX = p5.mouseX;
+  let mouseY = p5.mouseY;
+
+  if (mouseX < atomsSimPosX + diameter/2) {
+    mouseX =  atomsSimPosX + diameter/2;
+  }
+  if (mouseX > atomsSimPosX + atomsSimWidth - diameter/2) {
+    mouseX = atomsSimPosX + atomsSimWidth - diameter/2;
+  }
+  if (mouseY < atomsSimPosY + diameter/2) {
+    mouseY =  atomsSimPosY + diameter/2;
+  }
+  if (mouseY > atomsSimPosY + atomsSimHeight - diameter/2) {
+    mouseY = atomsSimPosY + atomsSimHeight - diameter/2;
+  }
+
+  if (Math.hypot(eval(still + "PosX") - mouseX, eval(still + "PosY") - mouseY) <= diameter) {
+    overlapped = true;
+    let mousePos = p5.createVector(mouseX, mouseY);
+    let stillPos = p5.createVector(eval(still + "PosX"), eval(still + "PosY"));
+    let angle = Math.atan2(mousePos.y - stillPos.y, mousePos.x - stillPos.x);
+
+    newXPos = eval(still + "PosX") + Math.cos(angle) * diameter;
+    newYPos = eval(still + "PosY") + Math.sin(angle) * diameter;
+  } else {
+    newXPos = mouseX;
+    newYPos = mouseY;
+  }
+
+  let inYBounds = newYPos + diameter/2 <= atomsSimHeight + atomsSimPosY && newYPos - diameter/2 >= atomsSimPosY + 35;
+  let inXBounds = newXPos + diameter/2 <= atomsSimWidth + atomsSimPosX && newXPos - diameter/2 >= atomsSimPosX;
+
+  let moveX = false;
+  let moveY = false;
+  if (overlapped && inXBounds && inYBounds) {
+    moveX = true;
+    moveY = true;
+  }
+  if (!overlapped && inXBounds) {
+    moveX = true;
+  }
+  if (!overlapped && inYBounds) {
+    moveY = true;
+  }
+
+  if (moveX) {
     if (moving == 'q1') {
-      q1PosY = p5.mouseY;
+      q1PosX = newXPos;
     }
-    else if (moving == 'q2') {
-      q2PosY = p5.mouseY;
+    else {
+      q2PosX = newXPos;
     }
   }
-    // within horizontal bounds
-    if (p5.mouseX + diameter/2 <= atomsSimWidth + atomsSimPosX && p5.mouseX - diameter/2 >= atomsSimPosX) {
-      // dragging q1
-      if (moving == 'q1') {
-        q1PosX = p5.mouseX;
-      }
-      // dragging q2
-      else if (moving == 'q2') {
-        q2PosX = p5.mouseX;
-      }
+  if (moveY) {
+    if (moving == 'q1') {
+      q1PosY = newYPos;
     }
+    else {
+      q2PosY = newYPos;
+    }
+  }
+  
+
 }
+
 
 // ATOMS
 
@@ -173,10 +226,7 @@ function r(p5) {
 
 function equations(p5) {
   constantEquation(p5);
-  q1Val(p5);
-  q2Val(p5);
-  distVal(p5);
-  force(p5);
+  force(p5, q1Val(p5), q2Val(p5), distVal(p5));
 }
 
 function constantEquation(p5) {
@@ -187,24 +237,25 @@ function q1Val(p5) {
   let val = q1Mag * q1Sign;
   p5.fill(237, 91, 45);
   p5.text("("+val+")", 550, 280);
+  return val;
 }
 
 function q2Val(p5) {
   let val = q2Mag * q2Sign;
   p5.fill(255, 206, 109);
   p5.text("("+val+")", 600, 280);
+  return val;
 }
 function distVal(p5) {
-  let val = Math.trunc(Math.hypot(q1PosX, q1PosY, q2PosX, q2PosY));
+  let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
   p5.fill(98, 130, 184);
   p5.text("("+val+")", 540, 340);
   p5.text("2", 600, 330);
-
+  return val;
 }
 
-function force(p5) {
-  let r = Math.hypot(q1PosX - q2PosX, q1PosY - q2PosY);
-  let f = (q1Mag * q1Sign * q2Mag * q2Sign / (r*r)).toFixed(5);
+function force(p5, q1, q2, r) {
+  let f = (q1 * q2 / (r*r)).toFixed(5);
   p5.textFont('Oswald', 30);
   p5.fill(0);
   p5.text(f, 750, 300);
