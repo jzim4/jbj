@@ -106,58 +106,29 @@ function mouseReleased(p5) {
   moving = null;
 }
 
-function mouseDragged(p5) {
-  let overlapped = false;
-  let newXPos = null;
-  let newYPos = null;
-  
+function mouseDragged(p5) { 
   let still = 'q2';
   if (moving == 'q2') {
     still = 'q1';
   }
 
-  let mouseX = p5.mouseX;
-  let mouseY = p5.mouseY;
+  let newXPos = xInBounds(p5.mouseX);
+  let newYPos = yInBounds(p5.mouseY);
 
-  if (mouseX < atomsSimPosX + diameter/2) {
-    mouseX =  atomsSimPosX + diameter/2;
-  }
-  if (mouseX > atomsSimPosX + atomsSimWidth - diameter/2) {
-    mouseX = atomsSimPosX + atomsSimWidth - diameter/2;
-  }
-  if (mouseY < atomsSimPosY + diameter/2) {
-    mouseY =  atomsSimPosY + diameter/2;
-  }
-  if (mouseY > atomsSimPosY + atomsSimHeight - diameter/2) {
-    mouseY = atomsSimPosY + atomsSimHeight - diameter/2;
-  }
+  let overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
 
-  if (Math.hypot(eval(still + "PosX") - mouseX, eval(still + "PosY") - mouseY) <= diameter) {
-    overlapped = true;
-    let mousePos = p5.createVector(mouseX, mouseY);
-    let stillPos = p5.createVector(eval(still + "PosX"), eval(still + "PosY"));
-    let angle = Math.atan2(mousePos.y - stillPos.y, mousePos.x - stillPos.x);
-
+  if (overlapping) {
+    let angle = Math.atan2(newYPos - eval(still + "PosY"), newXPos - eval(still + "PosX"));
     newXPos = eval(still + "PosX") + Math.cos(angle) * diameter;
     newYPos = eval(still + "PosY") + Math.sin(angle) * diameter;
-  } else {
-    newXPos = mouseX;
-    newYPos = mouseY;
   }
 
-  let inYBounds = newYPos + diameter/2 <= atomsSimHeight + atomsSimPosY && newYPos - diameter/2 >= atomsSimPosY + 35;
-  let inXBounds = newXPos + diameter/2 <= atomsSimWidth + atomsSimPosX && newXPos - diameter/2 >= atomsSimPosX;
+  overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
 
   let moveX = false;
   let moveY = false;
-  if (overlapped && inXBounds && inYBounds) {
+  if (newXPos == xInBounds(newXPos) && newYPos == yInBounds(newYPos)) {
     moveX = true;
-    moveY = true;
-  }
-  if (!overlapped && inXBounds) {
-    moveX = true;
-  }
-  if (!overlapped && inYBounds) {
     moveY = true;
   }
 
@@ -177,8 +148,30 @@ function mouseDragged(p5) {
       q2PosY = newYPos;
     }
   }
-  
+}
 
+function xInBounds(x) {
+  if (x < atomsSimPosX + diameter/2) {
+    return atomsSimPosX + diameter/2;
+  }
+  if (x > atomsSimPosX + atomsSimWidth - diameter/2) {
+    return atomsSimPosX + atomsSimWidth - diameter/2;
+  }
+  else {
+    return x;
+  }
+}
+
+function yInBounds(y) {
+  if (y < atomsSimPosY + diameter/2 + 36) {
+    return atomsSimPosY + diameter/2 + 36;
+  }
+  if (y > atomsSimPosY + atomsSimHeight - diameter/2) {
+    return atomsSimPosY + atomsSimHeight - diameter/2;
+  }
+  else {
+    return y;
+  }
 }
 
 
