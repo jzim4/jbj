@@ -19,12 +19,12 @@ function Coulomb() {
   var magMin = 10;
   var q1Sign = 1;
   var q1Mag = 20;
-  var q2Sign = true;
+  var q2Sign = 1;
   var q2Mag = 10;
   var diameter = 50;
-  var q1PosX = 800;
+  var q1PosX = 150;
   var q1PosY = 130;
-  var q2PosX = 150;
+  var q2PosX = 800;
   var q2PosY = 130;
   var atomsSimPosX = 60;
   var atomsSimPosY = 20;
@@ -52,9 +52,10 @@ function Coulomb() {
     // click atoms
     if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter) {
       moving = 'q1';
-    }
-    if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter) {
+    } else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter) {
       moving = 'q2';
+    } else {
+      moving = null;
     }
 
     // click sign
@@ -101,9 +102,13 @@ function Coulomb() {
     moving = null;
   }
   function mouseDragged(p5) {
-    var still = 'q2';
-    if (moving == 'q2') {
+    var still = null;
+    if (moving == 'q1') {
+      still = 'q2';
+    } else if (moving == 'q2') {
       still = 'q1';
+    } else {
+      return;
     }
     var newXPos = xInBounds(p5.mouseX);
     var newYPos = yInBounds(p5.mouseY);
@@ -160,7 +165,7 @@ function Coulomb() {
 
   function atomsSim(p5) {
     p5.strokeWeight(3);
-    p5.fill(98, 130, 184);
+    p5.fill(255);
     p5.rect(atomsSimPosX, atomsSimPosY, atomsSimWidth, atomsSimHeight, 5);
     atomsLabel(p5);
     q1(p5);
@@ -168,29 +173,35 @@ function Coulomb() {
     r(p5);
   }
   function atomsLabel(p5) {
-    p5.fill(0);
+    p5.fill(98, 130, 184);
     p5.textFont('Oswald', 30);
     p5.strokeWeight(2);
     p5.line(atomsSimPosX, 55, atomsSimPosX + atomsSimWidth, 55);
     p5.strokeWeight(3);
+    p5.noStroke();
     p5.text("Distance", 425, 50);
   }
   function q1(p5) {
     p5.fill(237, 91, 45);
+    p5.stroke(0);
     p5.strokeWeight(3);
     p5.circle(q1PosX, q1PosY, diameter);
-    p5.fill(0);
-    p5.circle(q1PosX, q1PosY, 2);
+    p5.fill(98, 130, 184);
+    p5.noStroke();
+    p5.circle(q1PosX, q1PosY, 6);
   }
   function q2(p5) {
     p5.fill(255, 206, 109);
     p5.strokeWeight(3);
+    p5.stroke(0);
     p5.circle(q2PosX, q2PosY, diameter);
-    p5.fill(0);
-    p5.circle(q2PosX, q2PosY, 2);
+    p5.fill(98, 130, 184);
+    p5.noStroke();
+    p5.circle(q2PosX, q2PosY, 6);
   }
   function r(p5) {
-    p5.strokeWeight(2);
+    p5.strokeWeight(3);
+    p5.stroke(98, 130, 184);
     p5.line(q1PosX, q1PosY, q2PosX, q2PosY);
   }
 
@@ -206,18 +217,21 @@ function Coulomb() {
   function q1Val(p5) {
     var val = q1Mag * q1Sign;
     p5.fill(237, 91, 45);
+    p5.noStroke();
     p5.text("(" + val + ")", 550, 280);
     return val;
   }
   function q2Val(p5) {
     var val = q2Mag * q2Sign;
     p5.fill(255, 206, 109);
+    p5.noStroke();
     p5.text("(" + val + ")", 600, 280);
     return val;
   }
   function distVal(p5) {
     var val = Math.trunc(Math.hypot(q1PosX - q2PosX, q1PosY - q2PosY) / 3);
     p5.fill(98, 130, 184);
+    p5.noStroke();
     p5.text("(" + val + ")", 540, 340);
     p5.text("2", 600, 330);
     return val;
@@ -226,6 +240,7 @@ function Coulomb() {
     var f = (q1 * q2 / (r * r)).toFixed(5);
     p5.textFont('Oswald', 30);
     p5.fill(0);
+    p5.noStroke();
     p5.text(f, 750, 300);
   }
 
@@ -233,12 +248,14 @@ function Coulomb() {
   function leftControlCenter(p5) {
     p5.strokeWeight(2);
     p5.fill(237, 91, 45);
+    p5.stroke(0);
     p5.rect(60, 375, 300, 125, 5);
     signButtons(120, q1Sign, p5);
     magnitudeButtons(245, true, p5);
   }
   function rightControlCenter(p5) {
     p5.strokeWeight(2);
+    p5.stroke(0);
     p5.fill(255, 206, 109);
     p5.rect(562, 375, 300, 125, 5);
     signButtons(622, q2Sign, p5);
@@ -262,6 +279,7 @@ function Coulomb() {
     p5.circle(xpos + 60, circleYpos, 40);
     p5.textFont('Oswald', 25);
     p5.fill(0);
+    p5.noStroke();
     p5.text("Sign", xpos + 10, 405);
     p5.textFont('Oswald', 50);
     p5.text("+", xpos - 10, circleYpos + 20);
@@ -270,12 +288,14 @@ function Coulomb() {
   }
   function magnitudeButtons(xpos, q1, p5) {
     p5.textFont('Oswald', 25);
+    p5.noStroke();
     p5.text("Magnitude", xpos - 5, 405);
     if (q1) {
       p5.text(q1Mag + " C", xpos, 460);
     } else {
       p5.text(q2Mag + " C", xpos, 460);
     }
+    p5.stroke(0);
     p5.strokeWeight(5);
     if (q1 && q1Mag < magMax || !q1 && q2Mag < magMax) {
       p5.line(xpos + 60, 445, xpos + 70, 435);
