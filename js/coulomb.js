@@ -53,9 +53,11 @@ function mousePressed(p5) {
   // click atoms
   if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter) {
     moving = 'q1';
+    document.body.style.cursor = "grabbing";
   }
   else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter) {
     moving = 'q2';
+    document.body.style.cursor = "grabbing";
   }
   else {
     moving = null;
@@ -79,12 +81,12 @@ function mousePressed(p5) {
   if (p5.mouseX >= 305 && p5.mouseX <=325) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
       if (q1Mag < magMax) {
-        q1Mag += 0.5;
+        q1Mag += 1;
       }
     }
     if (p5.mouseY >= 465 && p5.mouseY <= 475) {
       if (q1Mag > magMin) {
-        q1Mag -= 0.5;
+        q1Mag -= 1;
       }
     }
   }
@@ -92,12 +94,12 @@ function mousePressed(p5) {
   if (p5.mouseX >= 812 && p5.mouseX <=832) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
       if (q2Mag < magMax) {
-        q2Mag += 0.5;
+        q2Mag += 1;
       }
     }
     if (p5.mouseY >= 465 && p5.mouseY <= 475) {
       if (q2Mag > magMin) {
-        q2Mag -= 0.5;
+        q2Mag -= 1;
       }
     }
   }
@@ -105,6 +107,11 @@ function mousePressed(p5) {
 
 function mouseReleased(p5) {
   moving = null;
+  changeCursor(p5.mouseX, p5.mouseY);
+}
+
+function mouseMoved(p5) {
+  changeCursor(p5.mouseX, p5.mouseY);
 }
 
 function mouseDragged(p5) { 
@@ -179,6 +186,62 @@ function yInBounds(y) {
   else {
     return y;
   }
+}
+
+function changeCursor(mouseX, mouseY) {
+
+  let pointer = false;
+  let grab = false;
+
+  // atoms
+  if (Math.hypot(mouseX-q1PosX, mouseY-q1PosY) <= diameter/2) {
+    grab = true;
+  }
+  if (Math.hypot(mouseX-q2PosX, mouseY-q2PosY) <= diameter/2) {
+    grab = true;
+  }
+
+  //signs
+  if (Math.hypot(mouseX-120, mouseY-455) <= 20) {
+    pointer = true;
+  }
+  if (Math.hypot(mouseX-180, mouseY-455) <= 20) {
+    pointer = true;
+  }
+  if (Math.hypot(mouseX-622, mouseY-455) <= 20) {
+    pointer = true;
+  }
+  if (Math.hypot(mouseX-682, mouseY-455) <= 20) {
+    pointer = true;
+  }
+
+  // magnitude
+  if (mouseX >= 305 && mouseX <= 325){
+    if (mouseY >= 435 && mouseY <= 445 && q1Mag<magMax) {
+      pointer = true;
+    }
+    if (mouseY >= 465 && mouseY <= 475 && q1Mag>magMin) {
+      pointer = true;
+    }
+  }
+  if (mouseX >= 812 && mouseX <= 832) {
+    if (mouseY >= 435 && mouseY <= 445 && q2Mag<magMax) {
+      pointer = true;
+    }
+    if (mouseY >= 465 && mouseY <= 475 && q2Mag>magMin) {
+      pointer = true;
+    }
+  }
+
+  if (pointer) {
+      document.body.style.cursor = "pointer";
+  }
+  else if (grab && !moving) {
+    document.body.style.cursor = "grab";
+  }
+  else {
+      document.body.style.cursor = "default";
+  }   
 }
 
 
@@ -342,7 +405,7 @@ function magnitudeButtons(xpos, q1, p5) {
 }
 
 return (
-    <Sketch setup={setup} preload={preload} draw={draw} mousePressed={mousePressed} mouseReleased={mouseReleased} mouseDragged={mouseDragged} />
+    <Sketch setup={setup} preload={preload} draw={draw} mouseMoved={mouseMoved} mousePressed={mousePressed} mouseReleased={mouseReleased} mouseDragged={mouseDragged} />
 )
 }
 
