@@ -17,7 +17,7 @@
     "coulomb": {
         "name": "Coulomb's Law",
         "short": "coulomb",
-        "navImg": "./assets/navImg/placeHolder.png",
+        "navImg": "./assets/navImg/coulombHomePage.png",
         "instructions" : "THIS IS WHERE INSTRUCTIONS WILL GO",
         "moreInfo": "THIS IS WHERE MORE INFO WILL GO"
     }

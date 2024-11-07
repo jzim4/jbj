@@ -149,6 +149,7 @@ function Coulomb() {
         q2PosY = newYPos;
       }
     }
+    // console.log(q1PosX, q1PosY);
   }
   function xInBounds(x) {
     if (x < atomsSimPosX + diameter / 2) {
@@ -1322,7 +1323,7 @@ module.exports={
     "coulomb": {
         "name": "Coulomb's Law",
         "short": "coulomb",
-        "navImg": "./assets/navImg/placeHolder.png",
+        "navImg": "./assets/navImg/coulombHomePage.png",
         "instructions" : "THIS IS WHERE INSTRUCTIONS WILL GO",
         "moreInfo": "THIS IS WHERE MORE INFO WILL GO"
     }

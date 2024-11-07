@@ -166,6 +166,7 @@ function mouseDragged(p5) {
       q2PosY = newYPos;
     }
   }
+  // console.log(q1PosX, q1PosY);
 }
 
 function xInBounds(x) {
