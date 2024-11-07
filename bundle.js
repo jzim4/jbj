@@ -37,11 +37,15 @@ function Coulomb() {
     p5Canvas.position(0, 0, 'relative');
   }
   var varEqImg;
+  var oswaldMedium;
+  var oswaldBold;
   function preload(p5) {
     varEqImg = p5.loadImage('./assets/coulomb/coulombsLaw.png');
+    oswaldMedium = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
+    oswaldBold = p5.loadFont('./assets/fonts/Oswald-Bold.ttf');
   }
   function draw(p5) {
-    p5.textFont('Oswald', 15);
+    p5.textFont(oswaldMedium, 15);
     p5.background(255);
     atomsSim(p5);
     equations(p5);
@@ -231,7 +235,7 @@ function Coulomb() {
   }
   function atomsLabel(p5) {
     p5.fill(98, 130, 184);
-    p5.textFont('Oswald', 30);
+    p5.textFont(oswaldMedium, 30);
     p5.strokeWeight(2);
     p5.line(atomsSimPosX, 55, atomsSimPosX + atomsSimWidth, 55);
     p5.strokeWeight(3);
@@ -264,41 +268,52 @@ function Coulomb() {
 
   // EQUATION
 
+  var leftMostX = 100;
   function equations(p5) {
+    p5.textFont(oswaldBold, 30);
     constantEquation(p5);
     force(p5, q1Val(p5), q2Val(p5), distVal(p5));
   }
   function constantEquation(p5) {
-    p5.image(varEqImg, 190, 225);
+    p5.image(varEqImg, leftMostX, 225);
   }
   function q1Val(p5) {
     var val = q1Mag * q1Sign;
     p5.fill(237, 91, 45);
     p5.noStroke();
-    p5.text("(" + val + ")", 550, 280);
+    p5.text("(" + val + ")", leftMostX + 356, 274);
     return val;
   }
   function q2Val(p5) {
     var val = q2Mag * q2Sign;
     p5.fill(255, 206, 109);
     p5.noStroke();
-    p5.text("(" + val + ")", 600, 280);
+    if (q1Sign == 1) {
+      p5.text("(" + val + ")", leftMostX + 410, 274);
+    } else {
+      p5.text("(" + val + ")", leftMostX + 416, 274);
+    }
     return val;
   }
   function distVal(p5) {
     var val = Math.trunc(Math.hypot(q1PosX - q2PosX, q1PosY - q2PosY) / 3);
     p5.fill(98, 130, 184);
     p5.noStroke();
-    p5.text("(" + val + ")", 540, 340);
-    p5.text("2", 600, 330);
+    p5.text("(" + val + ")", leftMostX + 350, 340);
+    p5.textFont(oswaldBold, 20);
+    if (val < 100) {
+      p5.text("2", leftMostX + 405, 330);
+    } else {
+      p5.text("2", leftMostX + 416, 330);
+    }
     return val;
   }
   function force(p5, q1, q2, r) {
-    var f = (q1 * q2 / (r * r)).toFixed(5);
-    p5.textFont('Oswald', 30);
+    var f = (q1 * q2 / (r * r)).toFixed(5) + " N";
+    p5.textFont(oswaldMedium, 40);
     p5.fill(0);
     p5.noStroke();
-    p5.text(f, 750, 300);
+    p5.text(f, leftMostX + 530, 315);
   }
 
   // CONTROLS
@@ -334,17 +349,17 @@ function Coulomb() {
     p5.strokeWeight(3);
     p5.circle(xpos, circleYpos, 40);
     p5.circle(xpos + 60, circleYpos, 40);
-    p5.textFont('Oswald', 25);
+    p5.textFont(oswaldMedium, 25);
     p5.fill(0);
     p5.noStroke();
     p5.text("Sign", xpos + 10, 405);
-    p5.textFont('Oswald', 50);
+    p5.textFont(oswaldMedium, 50);
     p5.text("+", xpos - 10, circleYpos + 20);
     p5.text("-", xpos + 53, circleYpos + 15);
-    p5.textFont('Oswald', 20);
+    p5.textFont(oswaldMedium, 20);
   }
   function magnitudeButtons(xpos, q1, p5) {
-    p5.textFont('Oswald', 25);
+    p5.textFont(oswaldMedium, 25);
     p5.noStroke();
     p5.text("Magnitude", xpos - 5, 405);
     if (q1) {
