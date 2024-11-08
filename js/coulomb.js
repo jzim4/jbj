@@ -122,9 +122,13 @@ function mouseDragged(p5) {
   let still = null;
   if (moving == 'q1') {
     still = 'q2';
+    let oldPosX = q1PosX;
+    let oldPosY = q1PosY;
   }
   else if (moving == 'q2') {
     still = 'q1';
+    let oldPosX = q2PosX;
+    let oldPosY = q2PosY;
   }
   else {
     return;
@@ -157,6 +161,13 @@ function mouseDragged(p5) {
     else {
       q2PosX = newXPos;
     }
+  } else {
+    if (moving == 'q1') {
+      q1PosX = oldPosX;
+    }
+    else {
+      q2PosX = oldPosX;
+    }
   }
   if (moveY) {
     if (moving == 'q1') {
@@ -165,8 +176,14 @@ function mouseDragged(p5) {
     else {
       q2PosY = newYPos;
     }
+  } else {
+    if (moving == 'q1') {
+      q1PosY = oldPosY;
+    }
+    else {
+      q2PosY = oldPosY;
+    }
   }
-  // console.log(q1PosX, q1PosY);
 }
 
 function xInBounds(x) {

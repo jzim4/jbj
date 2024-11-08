@@ -115,8 +115,12 @@ function Coulomb() {
     var still = null;
     if (moving == 'q1') {
       still = 'q2';
+      var _oldPosX = q1PosX;
+      var _oldPosY = q1PosY;
     } else if (moving == 'q2') {
       still = 'q1';
+      var _oldPosX2 = q2PosX;
+      var _oldPosY2 = q2PosY;
     } else {
       return;
     }
@@ -141,6 +145,12 @@ function Coulomb() {
       } else {
         q2PosX = newXPos;
       }
+    } else {
+      if (moving == 'q1') {
+        q1PosX = oldPosX;
+      } else {
+        q2PosX = oldPosX;
+      }
     }
     if (moveY) {
       if (moving == 'q1') {
@@ -148,8 +158,13 @@ function Coulomb() {
       } else {
         q2PosY = newYPos;
       }
+    } else {
+      if (moving == 'q1') {
+        q1PosY = oldPosY;
+      } else {
+        q2PosY = oldPosY;
+      }
     }
-    // console.log(q1PosX, q1PosY);
   }
   function xInBounds(x) {
     if (x < atomsSimPosX + diameter / 2) {
