@@ -367,7 +367,13 @@ function force(p5, q1, q2, r) {
   p5.textFont(oswaldMedium, 40);
   p5.fill(0);
   p5.noStroke();
-  p5.text(f, leftMostX + 530, 315);
+  p5.text(f, leftMostX + 530, 300);
+  p5.textFont(oswaldMedium, 30);
+  if (q1*q2<0) {  
+    p5.text("Attraction", leftMostX + 560, 340);
+  } else {
+    p5.text("Repulsion", leftMostX + 550, 340);
+  }
 }
 
 // CONTROLS
