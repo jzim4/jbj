@@ -43,7 +43,7 @@ function preload(p5) {
 
 function draw(p5) {
   p5.textFont(oswaldMedium, 15);
-  p5.background(255);
+  p5.background(238);
 
   atomsSim(p5);
 

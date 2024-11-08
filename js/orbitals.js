@@ -156,9 +156,9 @@ function Orbitals() {
       drawCombination(p5);
     }
     if (p5.keyCode == p5.BACKSPACE) {
-      resetCanvas(p5);
       selectedL = null;
       selectedR = null;
+      resetCanvas(p5);
     }
   }
  
@@ -166,6 +166,7 @@ function Orbitals() {
     if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
         selectedL = null;
         selectedR = null;
+        resetCanvas(p5);
     }
     else {
       if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
@@ -191,7 +192,7 @@ function Orbitals() {
   }
   
   function resetCanvas(p5) {
-    p5.background(255);
+    p5.background(238);
     drawOrbitals(p5);
     drawResetButton(p5);
     drawSubmitButton(p5);
@@ -583,7 +584,6 @@ function Orbitals() {
   
   function detectResetClick(mouseX, mouseY, p5) {
     if (mouseX >= 426 && mouseX <= 496 && mouseY >= 460 && mouseY <= 490) {
-        resetCanvas(p5);
         return true;
     }
   }
