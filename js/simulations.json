@@ -18,7 +18,7 @@
         "name": "Coulomb's Law",
         "short": "coulomb",
         "navImg": "./assets/navImg/coulombHomePage.png",
-        "instructions" : "THIS IS WHERE INSTRUCTIONS WILL GO",
-        "moreInfo": "THIS IS WHERE MORE INFO WILL GO"
+        "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
+        "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero."
     }
 }

@@ -268,7 +268,7 @@ function Coulomb() {
     p5.circle(q1PosX, q1PosY, 6);
   }
   function q2(p5) {
-    p5.fill(255, 206, 109);
+    p5.fill(255, 181, 33);
     p5.strokeWeight(3);
     p5.stroke(0);
     p5.circle(q2PosX, q2PosY, diameter);
@@ -286,28 +286,28 @@ function Coulomb() {
 
   var leftMostX = 100;
   function equations(p5) {
-    p5.textFont(oswaldBold, 30);
+    p5.textFont(oswaldBold, 35);
     constantEquation(p5);
     force(p5, q1Val(p5), q2Val(p5), distVal(p5));
   }
   function constantEquation(p5) {
-    p5.image(varEqImg, leftMostX, 225);
+    p5.image(varEqImg, leftMostX + 43, 208);
   }
   function q1Val(p5) {
     var val = q1Mag * q1Sign;
     p5.fill(237, 91, 45);
     p5.noStroke();
-    p5.text("(" + val + ")", leftMostX + 356, 274);
+    p5.text("(" + val + ")", leftMostX + 353, 276);
     return val;
   }
   function q2Val(p5) {
     var val = q2Mag * q2Sign;
-    p5.fill(255, 206, 109);
+    p5.fill(255, 181, 33);
     p5.noStroke();
     if (q1Sign == 1) {
-      p5.text("(" + val + ")", leftMostX + 410, 274);
+      p5.text("(" + val + ")", leftMostX + 413, 276);
     } else {
-      p5.text("(" + val + ")", leftMostX + 416, 274);
+      p5.text("(" + val + ")", leftMostX + 422, 276);
     }
     return val;
   }
@@ -315,12 +315,12 @@ function Coulomb() {
     var val = Math.trunc(Math.hypot(q1PosX - q2PosX, q1PosY - q2PosY) / 3);
     p5.fill(98, 130, 184);
     p5.noStroke();
-    p5.text("(" + val + ")", leftMostX + 350, 340);
-    p5.textFont(oswaldBold, 20);
+    p5.text("(" + val + ")", leftMostX + 359, 332);
+    p5.textFont(oswaldBold, 25);
     if (val < 100) {
-      p5.text("2", leftMostX + 405, 330);
+      p5.text("2", leftMostX + 423, 322);
     } else {
-      p5.text("2", leftMostX + 416, 330);
+      p5.text("2", leftMostX + 434, 322);
     }
     return val;
   }
@@ -350,7 +350,7 @@ function Coulomb() {
   function rightControlCenter(p5) {
     p5.strokeWeight(2);
     p5.stroke(0);
-    p5.fill(255, 206, 109);
+    p5.fill(255, 181, 33);
     p5.rect(562, 375, 300, 125, 5);
     signButtons(622, q2Sign, p5);
     magnitudeButtons(752, false, p5);
@@ -1345,8 +1345,8 @@ module.exports={
         "name": "Coulomb's Law",
         "short": "coulomb",
         "navImg": "./assets/navImg/coulombHomePage.png",
-        "instructions" : "THIS IS WHERE INSTRUCTIONS WILL GO",
-        "moreInfo": "THIS IS WHERE MORE INFO WILL GO"
+        "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
+        "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero."
     }
 }
 },{}],8:[function(require,module,exports){
