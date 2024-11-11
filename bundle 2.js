@@ -625,79 +625,38 @@ root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].Stric
 },{"./homePage.jsx":2,"./simulationPage.jsx":7,"./simulations.json":8,"react":24,"react-dom/client":13,"react-router-dom":16}],5:[function(require,module,exports){
 "use strict";
 
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
-}
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = InstructionWindow;
-var _react = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(e) {
-  if ("function" != typeof WeakMap) return null;
-  var r = new WeakMap(),
-    t = new WeakMap();
-  return (_getRequireWildcardCache = function _getRequireWildcardCache(e) {
-    return e ? t : r;
-  })(e);
-}
-function _interopRequireWildcard(e, r) {
-  if (!r && e && e.__esModule) return e;
-  if (null === e || "object" != _typeof(e) && "function" != typeof e) return {
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(e) {
+  return e && e.__esModule ? e : {
     "default": e
   };
-  var t = _getRequireWildcardCache(r);
-  if (t && t.has(e)) return t.get(e);
-  var n = {
-      __proto__: null
-    },
-    a = Object.defineProperty && Object.getOwnPropertyDescriptor;
-  for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) {
-    var i = a ? Object.getOwnPropertyDescriptor(e, u) : null;
-    i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u];
-  }
-  return n["default"] = e, t && t.set(e, n), n;
 }
-function InstructionWindowContent(_ref) {
-  var sim = _ref.sim;
+function GreyBackground() {
   return /*#__PURE__*/_react["default"].createElement("div", {
-    id: "instructionsContainer"
-  }, /*#__PURE__*/_react["default"].createElement("div", {
     id: "greyBackground"
-  }), /*#__PURE__*/_react["default"].createElement("img", {
+  }, "Hello world");
+}
+function InstructionContent(sim) {
+  sim = sim.sim;
+  return /*#__PURE__*/_react["default"].createElement("img", {
     src: sim.instructionImg,
     id: "instructionImg"
-  }), /*#__PURE__*/_react["default"].createElement("button", {
-    id: "simInstructionExitButton"
-  }, "Got it, lets go!"));
-}
-function InstructionWindow(_ref2) {
-  var sim = _ref2.sim;
-  (0, _react.useEffect)(function () {
-    var button = document.getElementById("simInstructionExitButton");
-    var background = document.getElementById("instructionsContainer");
-
-    // Check if the elements exist before adding event listeners
-    if (button && background) {
-      var hideWindow = function hideWindow() {
-        background.style.visibility = "hidden";
-      };
-      button.addEventListener("click", hideWindow);
-      return function () {
-        return button.removeEventListener("click", hideWindow);
-      };
-    }
-  }, []); // Empty dependency array to run only once on mount
-
-  return /*#__PURE__*/_react["default"].createElement(InstructionWindowContent, {
-    sim: sim
   });
+}
+function ExitButton() {
+  return /*#__PURE__*/_react["default"].createElement("button", {
+    id: "simInstructionExitButton"
+  }, "Got it, lets go!");
+}
+function InstructionWindow(sim) {
+  sim = sim.sim;
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(InstructionContent, {
+    sim: sim
+  }), /*#__PURE__*/_react["default"].createElement(GreyBackground, null), /*#__PURE__*/_react["default"].createElement(ExitButton, null));
 }
 
 },{"react":24}],6:[function(require,module,exports){
@@ -716,37 +675,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 var _reactP = _interopRequireDefault(require("react-p5"));
 function _interopRequireDefault(e) {
   return e && e.__esModule ? e : {
     "default": e
   };
-}
-function _getRequireWildcardCache(e) {
-  if ("function" != typeof WeakMap) return null;
-  var r = new WeakMap(),
-    t = new WeakMap();
-  return (_getRequireWildcardCache = function _getRequireWildcardCache(e) {
-    return e ? t : r;
-  })(e);
-}
-function _interopRequireWildcard(e, r) {
-  if (!r && e && e.__esModule) return e;
-  if (null === e || "object" != _typeof(e) && "function" != typeof e) return {
-    "default": e
-  };
-  var t = _getRequireWildcardCache(r);
-  if (t && t.has(e)) return t.get(e);
-  var n = {
-      __proto__: null
-    },
-    a = Object.defineProperty && Object.getOwnPropertyDescriptor;
-  for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) {
-    var i = a ? Object.getOwnPropertyDescriptor(e, u) : null;
-    i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u];
-  }
-  return n["default"] = e, t && t.set(e, n), n;
 }
 function _defineProperties(e, r) {
   for (var t = 0; t < r.length; t++) {
@@ -777,100 +711,49 @@ function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 function Orbitals() {
-  var run = true;
-
-  // const observer = new MutationObserver(() => {
-  //   let inst = document.getElementById("#instructionsContainer");
-  //   console.log(inst);
-  //   if (inst && inst.style.visibility == "hidden") {
-  //     console.log(inst.style.visibility);
-  //     run = true;
-  //   }
-  // });
-
-  // observer.observe(document, {
-  //   subtree: true,
-  //   childList: true,
-  // });
-  var Orbital = /*#__PURE__*/_createClass(function Orbital(imgName, name, xpos, ypos, width, height) {
-    _classCallCheck(this, Orbital);
-    this.imgName = imgName;
-    this.name = name;
-    this.xpos = xpos;
-    this.ypos = ypos;
-    this.width = width;
-    this.height = height;
+  var playing = false;
+  document.addEventListener("DOMContentLoaded", function (event) {
+    if (document.getElementById('instructionImg').style.visibility == 'hidden') {
+      playing = true;
+    }
   });
-  var width = 922;
-  var height = 525;
-  var left = makeLeftOrbitals();
-  var right = makeRightOrbitals();
-  var selectedL = null;
-  var selectedR = null;
-  var px;
-  var pxAlt;
-  var constructivePx;
-  var constructivePxAlt;
-  var destructivePx;
-  var destructivePxAlt;
-  var pz;
-  var pzAlt;
-  var constructivePz;
-  var constructivePzAlt;
-  var destructivePz;
-  var destructivePzAlt;
-  var s;
-  var sAlt;
-  var constructiveS;
-  var constructiveSAlt;
-  var destructiveS;
-  var destructiveSAlt;
-  var spx;
-  var spxAlt;
-  var spz;
-  var spzAlt;
-  var sAltpx;
-  var sAltpxAlt;
-  var sAltpz;
-  var sAltpzAlt;
-  var font;
-  function preload(p5) {
-    px = p5.loadImage('./assets/orbitals/px/Px.png');
-    pxAlt = p5.loadImage('./assets/orbitals/px/PxAlt.png');
-    constructivePx = p5.loadImage('./assets/orbitals/px/constructivePx.png');
-    constructivePxAlt = p5.loadImage('./assets/orbitals/px/constructivePxAlt.png');
-    destructivePx = p5.loadImage('./assets/orbitals/px/destructivePx.png');
-    destructivePxAlt = p5.loadImage('./assets/orbitals/px/destructivePxAlt.png');
-    pz = p5.loadImage('./assets/orbitals/pz/Pz.png');
-    pzAlt = p5.loadImage('./assets/orbitals/pz/PzAlt.png');
-    constructivePz = p5.loadImage('./assets/orbitals/pz/constructivePz.png');
-    constructivePzAlt = p5.loadImage('./assets/orbitals/pz/constructivePzAlt.png');
-    destructivePz = p5.loadImage('./assets/orbitals/pz/destructivePz.png');
-    destructivePzAlt = p5.loadImage('./assets/orbitals/pz/destructivePzAlt.png');
-    s = p5.loadImage('./assets/orbitals/s/s.png');
-    sAlt = p5.loadImage('./assets/orbitals/s/sAlt.png');
-    constructiveS = p5.loadImage('./assets/orbitals/s/constructiveS.png');
-    constructiveSAlt = p5.loadImage('./assets/orbitals/s/constructiveSAlt.png');
-    destructiveS = p5.loadImage('./assets/orbitals/s/destructiveS.png');
-    destructiveSAlt = p5.loadImage('./assets/orbitals/s/destructiveSAlt.png');
-    spx = p5.loadImage('./assets/orbitals/s-p/spx.png');
-    spxAlt = p5.loadImage('./assets/orbitals/s-p/spxAlt.png');
-    spz = p5.loadImage('./assets/orbitals/s-p/spz.png');
-    spzAlt = p5.loadImage('./assets/orbitals/s-p/spzAlt.png');
-    sAltpx = p5.loadImage('./assets/orbitals/s-p/sAltpx.png');
-    sAltpxAlt = p5.loadImage('./assets/orbitals/s-p/sAltpxAlt.png');
-    sAltpz = p5.loadImage('./assets/orbitals/s-p/sAltpz.png');
-    sAltpzAlt = p5.loadImage('./assets/orbitals/s-p/sAltpzAlt.png');
-    font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
-  }
-  function setup(p5) {
-    var canvas = document.getElementById('p5Canvas');
-    var p5Canvas = p5.createCanvas(width, height, canvas);
-    p5Canvas.position(0, 0, 'relative');
-    resetCanvas(p5);
-  }
-  function keyPressed(p5) {
-    if (run) {
+  if (playing) {
+    var preload = function preload(p5) {
+      px = p5.loadImage('./assets/orbitals/px/Px.png');
+      pxAlt = p5.loadImage('./assets/orbitals/px/PxAlt.png');
+      constructivePx = p5.loadImage('./assets/orbitals/px/constructivePx.png');
+      constructivePxAlt = p5.loadImage('./assets/orbitals/px/constructivePxAlt.png');
+      destructivePx = p5.loadImage('./assets/orbitals/px/destructivePx.png');
+      destructivePxAlt = p5.loadImage('./assets/orbitals/px/destructivePxAlt.png');
+      pz = p5.loadImage('./assets/orbitals/pz/Pz.png');
+      pzAlt = p5.loadImage('./assets/orbitals/pz/PzAlt.png');
+      constructivePz = p5.loadImage('./assets/orbitals/pz/constructivePz.png');
+      constructivePzAlt = p5.loadImage('./assets/orbitals/pz/constructivePzAlt.png');
+      destructivePz = p5.loadImage('./assets/orbitals/pz/destructivePz.png');
+      destructivePzAlt = p5.loadImage('./assets/orbitals/pz/destructivePzAlt.png');
+      s = p5.loadImage('./assets/orbitals/s/s.png');
+      sAlt = p5.loadImage('./assets/orbitals/s/sAlt.png');
+      constructiveS = p5.loadImage('./assets/orbitals/s/constructiveS.png');
+      constructiveSAlt = p5.loadImage('./assets/orbitals/s/constructiveSAlt.png');
+      destructiveS = p5.loadImage('./assets/orbitals/s/destructiveS.png');
+      destructiveSAlt = p5.loadImage('./assets/orbitals/s/destructiveSAlt.png');
+      spx = p5.loadImage('./assets/orbitals/s-p/spx.png');
+      spxAlt = p5.loadImage('./assets/orbitals/s-p/spxAlt.png');
+      spz = p5.loadImage('./assets/orbitals/s-p/spz.png');
+      spzAlt = p5.loadImage('./assets/orbitals/s-p/spzAlt.png');
+      sAltpx = p5.loadImage('./assets/orbitals/s-p/sAltpx.png');
+      sAltpxAlt = p5.loadImage('./assets/orbitals/s-p/sAltpxAlt.png');
+      sAltpz = p5.loadImage('./assets/orbitals/s-p/sAltpz.png');
+      sAltpzAlt = p5.loadImage('./assets/orbitals/s-p/sAltpzAlt.png');
+      font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
+    };
+    var setup = function setup(p5) {
+      var canvas = document.getElementById('p5Canvas');
+      var p5Canvas = p5.createCanvas(width, height, canvas);
+      p5Canvas.position(0, 0, 'relative');
+      resetCanvas(p5);
+    };
+    var keyPressed = function keyPressed(p5) {
       var newSelection = false;
       if (p5.key == '1') {
         selectedL = left[0];
@@ -933,10 +816,8 @@ function Orbitals() {
         selectedR = null;
         resetCanvas(p5);
       }
-    }
-  }
-  function mousePressed(p5) {
-    if (run) {
+    };
+    var mousePressed = function mousePressed(p5) {
       if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
         selectedL = null;
         selectedR = null;
@@ -955,364 +836,404 @@ function Orbitals() {
           drawRedSubmitButton(p5);
         }
       }
-    }
-  }
-  function mouseMoved(p5) {
-    if (run) {
+    };
+    var mouseMoved = function mouseMoved(p5) {
       changeCursor(p5.mouseX, p5.mouseY);
-    }
-  }
-  function resetCanvas(p5) {
-    p5.background(238);
-    drawOrbitals(p5);
-    drawResetButton(p5);
-    drawSubmitButton(p5);
-    drawInstructions(p5);
-    drawCenterBox(p5);
-  }
-  function drawImg(img, p5) {
-    p5.image(eval(img.imgName), img.xpos, img.ypos, img.width, img.height);
-  }
-  function changeCursor(x, y) {
-    var mouseX = x;
-    var mouseY = y;
-    var pointer = false;
-    for (var orb in left) {
-      var o = left[orb];
-      if (o.xpos <= mouseX && o.xpos + o.width >= mouseX && o.ypos <= mouseY && o.ypos + o.height >= mouseY) {
+    };
+    var resetCanvas = function resetCanvas(p5) {
+      p5.background(238);
+      drawOrbitals(p5);
+      drawResetButton(p5);
+      drawSubmitButton(p5);
+      drawInstructions(p5);
+      drawCenterBox(p5);
+    };
+    var drawImg = function drawImg(img, p5) {
+      p5.image(eval(img.imgName), img.xpos, img.ypos, img.width, img.height);
+    };
+    var changeCursor = function changeCursor(x, y) {
+      var mouseX = x;
+      var mouseY = y;
+      var pointer = false;
+      for (var orb in left) {
+        var o = left[orb];
+        if (o.xpos <= mouseX && o.xpos + o.width >= mouseX && o.ypos <= mouseY && o.ypos + o.height >= mouseY) {
+          pointer = true;
+        }
+      }
+      for (var _orb in right) {
+        var _o = right[_orb];
+        if (_o.xpos <= mouseX && _o.xpos + _o.width >= mouseX && _o.ypos <= mouseY && _o.ypos + _o.height >= mouseY) {
+          pointer = true;
+        }
+      }
+      // submit button
+      if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
         pointer = true;
       }
-    }
-    for (var _orb in right) {
-      var _o = right[_orb];
-      if (_o.xpos <= mouseX && _o.xpos + _o.width >= mouseX && _o.ypos <= mouseY && _o.ypos + _o.height >= mouseY) {
+      //reset button
+      if (426 <= mouseX && 496 >= mouseX && 460 <= mouseY && 490 >= mouseY) {
         pointer = true;
       }
-    }
-    // submit button
-    if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
-      pointer = true;
-    }
-    //reset button
-    if (426 <= mouseX && 496 >= mouseX && 460 <= mouseY && 490 >= mouseY) {
-      pointer = true;
-    }
-    if (pointer) {
-      document.body.style.cursor = "pointer";
-    } else {
-      document.body.style.cursor = "default";
-    }
-  }
-  function makeLeftOrbitals() {
-    var s = new Orbital("s", "S", 200, 100, 40, 40);
-    var sAlt = new Orbital("sAlt", "S", 200, 155, 40, 40);
-    var px = new Orbital("px", "Px", 180, 215, 80, 40);
-    var pxAlt = new Orbital("pxAlt", "Px", 180, 270, 80, 40);
-    var pz = new Orbital("pz", "Pz", 200, 330, 40, 80);
-    var pzAlt = new Orbital("pzAlt", "Pz", 200, 425, 40, 80);
-    var left = [s, sAlt, px, pxAlt, pz, pzAlt];
-    return left;
-  }
-  function makeRightOrbitals() {
-    var s = new Orbital("s", "S", 670, 100, 40, 40);
-    var sAlt = new Orbital("sAlt", "S", 670, 155, 40, 40);
-    var px = new Orbital("px", "Px", 650, 215, 80, 40);
-    var pxAlt = new Orbital("pxAlt", "Px", 650, 270, 80, 40);
-    var pz = new Orbital("pz", "Pz", 670, 339, 40, 80);
-    var pzAlt = new Orbital("pzAlt", "Pz", 670, 425, 40, 80);
-    var right = [s, sAlt, px, pxAlt, pz, pzAlt];
-    return right;
-  }
-  function drawOrbitals(p5) {
-    p5.textFont(font, 20);
-    for (var img in left) {
-      drawImg(left[img], p5);
+      if (pointer) {
+        document.body.style.cursor = "pointer";
+      } else {
+        document.body.style.cursor = "default";
+      }
+    };
+    var makeLeftOrbitals = function makeLeftOrbitals() {
+      var s = new Orbital("s", "S", 200, 100, 40, 40);
+      var sAlt = new Orbital("sAlt", "S", 200, 155, 40, 40);
+      var px = new Orbital("px", "Px", 180, 215, 80, 40);
+      var pxAlt = new Orbital("pxAlt", "Px", 180, 270, 80, 40);
+      var pz = new Orbital("pz", "Pz", 200, 330, 40, 80);
+      var pzAlt = new Orbital("pzAlt", "Pz", 200, 425, 40, 80);
+      var left = [s, sAlt, px, pxAlt, pz, pzAlt];
+      return left;
+    };
+    var makeRightOrbitals = function makeRightOrbitals() {
+      var s = new Orbital("s", "S", 670, 100, 40, 40);
+      var sAlt = new Orbital("sAlt", "S", 670, 155, 40, 40);
+      var px = new Orbital("px", "Px", 650, 215, 80, 40);
+      var pxAlt = new Orbital("pxAlt", "Px", 650, 270, 80, 40);
+      var pz = new Orbital("pz", "Pz", 670, 339, 40, 80);
+      var pzAlt = new Orbital("pzAlt", "Pz", 670, 425, 40, 80);
+      var right = [s, sAlt, px, pxAlt, pz, pzAlt];
+      return right;
+    };
+    var drawOrbitals = function drawOrbitals(p5) {
+      p5.textFont(font, 20);
+      for (var img in left) {
+        drawImg(left[img], p5);
+        p5.fill(0);
+        drawOrbLabel(left[img].name, true, left[img].ypos + left[img].height / 2 + 5, p5);
+      }
+      for (var _img in right) {
+        drawImg(right[_img], p5);
+        drawOrbLabel(right[_img].name, false, right[_img].ypos + right[_img].height / 2 + 5, p5);
+      }
+    };
+    var drawOrbLabel = function drawOrbLabel(label, left, ypos, p5) {
+      p5.textAlign(p5.CENTER);
+      p5.noStroke();
+      var xpos = 780;
+      if (left) {
+        xpos = 85;
+      }
+      p5.textFont(font, 20);
       p5.fill(0);
-      drawOrbLabel(left[img].name, true, left[img].ypos + left[img].height / 2 + 5, p5);
-    }
-    for (var _img in right) {
-      drawImg(right[_img], p5);
-      drawOrbLabel(right[_img].name, false, right[_img].ypos + right[_img].height / 2 + 5, p5);
-    }
-  }
-  function drawOrbLabel(label, left, ypos, p5) {
-    p5.textAlign(p5.CENTER);
-    p5.noStroke();
-    var xpos = 780;
-    if (left) {
-      xpos = 85;
-    }
-    p5.textFont(font, 20);
-    p5.fill(0);
-    p5.text(label, xpos, ypos);
-  }
-  function drawCenterBox(p5) {
-    p5.strokeWeight(4);
-    p5.stroke(0);
-    p5.noFill();
-    p5.rect(361, 150, 200, 200);
-    p5.fill(0);
-  }
-  function drawRect(i, p5) {
-    p5.strokeWeight(4);
-    p5.noFill();
-    p5.rect(i.xpos - 3, i.ypos - 3, i.width + 6, i.height + 6);
-    p5.fill(0);
-  }
-  function instructions(left, words, p5) {
-    p5.textAlign(p5.CENTER);
-    var xpos = 690;
-    if (left) {
-      xpos = 220;
-    }
-    if (words == "Select an orbital") {
-      p5.fill(237, 91, 45);
-    } else {
+      p5.text(label, xpos, ypos);
+    };
+    var drawCenterBox = function drawCenterBox(p5) {
+      p5.strokeWeight(4);
+      p5.stroke(0);
+      p5.noFill();
+      p5.rect(361, 150, 200, 200);
+      p5.fill(0);
+    };
+    var drawRect = function drawRect(i, p5) {
+      p5.strokeWeight(4);
+      p5.noFill();
+      p5.rect(i.xpos - 3, i.ypos - 3, i.width + 6, i.height + 6);
+      p5.fill(0);
+    };
+    var instructions = function instructions(left, words, p5) {
+      p5.textAlign(p5.CENTER);
+      var xpos = 690;
+      if (left) {
+        xpos = 220;
+      }
+      if (words == "Select an orbital") {
+        p5.fill(237, 91, 45);
+      } else {
+        p5.fill(98, 130, 184);
+      }
+      p5.textFont(font, 30);
+      p5.text(words, xpos, 60);
+      p5.fill(0);
+    };
+    var drawInstructions = function drawInstructions(p5) {
+      if (!selectedL) {
+        instructions(true, "Select an orbital", p5);
+      } else {
+        instructions(true, selectedL.name, p5);
+      }
+      if (!selectedR) {
+        instructions(false, "Select an orbital", p5);
+      } else {
+        instructions(false, selectedR.name, p5);
+      }
+    };
+    var highlightSelections = function highlightSelections(p5) {
+      if (selectedL != null || selectedR != null) {
+        resetCanvas(p5);
+        if (selectedL) {
+          drawRect(selectedL, p5);
+        }
+        if (selectedR) {
+          drawRect(selectedR, p5);
+        }
+      }
+    };
+    var drawCombLabel = function drawCombLabel(label, p5) {
+      p5.textAlign(p5.CENTER);
+      p5.textFont(font, 30);
       p5.fill(98, 130, 184);
-    }
-    p5.textFont(font, 30);
-    p5.text(words, xpos, 60);
-    p5.fill(0);
-  }
-  function drawInstructions(p5) {
-    if (!selectedL) {
-      instructions(true, "Select an orbital", p5);
-    } else {
-      instructions(true, selectedL.name, p5);
-    }
-    if (!selectedR) {
-      instructions(false, "Select an orbital", p5);
-    } else {
-      instructions(false, selectedR.name, p5);
-    }
-  }
-  function highlightSelections(p5) {
-    if (selectedL != null || selectedR != null) {
-      resetCanvas(p5);
-      if (selectedL) {
-        drawRect(selectedL, p5);
+      p5.noStroke();
+      p5.text(label, 461, 130);
+    };
+    var drawCombError = function drawCombError(p5) {
+      p5.textAlign(p5.CENTER);
+      p5.fill(237, 91, 45);
+      p5.textFont(font, 25);
+      p5.noStroke();
+      p5.text("These orbitals \ndo not mix", 461, 250);
+    };
+    var drawCombination = function drawCombination(p5) {
+      var maxSize = 180;
+      var left = 361 + (200 - maxSize) / 2;
+      var top = 150 + (200 - maxSize) / 2;
+      var constructivePxOrb = new Orbital('constructivePx', 'Constructive Px', left, top + maxSize * 0.69 / 2, maxSize, maxSize * 0.31);
+      var constructivePxAltOrb = new Orbital('constructivePxAlt', 'Constructive Px', left, top + maxSize * 0.69 / 2, maxSize, maxSize * 0.31);
+      var destructivePxOrb = new Orbital('destructivePx', 'Destructive Px', left, top + maxSize * 0.76 / 2, maxSize, maxSize * 0.24);
+      var destructivePxAltOrb = new Orbital('destructivePxAlt', 'Destructive Px', left, top + maxSize * 0.76 / 2, maxSize, maxSize * 0.24);
+      var constructivePzOrb = new Orbital('constructivePz', 'Constructive Pz', left, top, maxSize, maxSize);
+      var constructivePzAltOrb = new Orbital('constructivePzAlt', 'Constructive Pz', left, top, maxSize, maxSize);
+      var destructivePzOrb = new Orbital('destructivePz', 'Destructive Pz', left, top, maxSize, maxSize);
+      var destructivePzAltOrb = new Orbital('destructivePzAlt', 'Destructive Pz', left, top, maxSize, maxSize);
+      var constructiveSOrb = new Orbital('constructiveS', 'Constructive S', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
+      var constructiveSAltOrb = new Orbital('constructiveSAlt', 'Constructive S', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
+      var destructiveSOrb = new Orbital('destructiveS', 'Destructive S', left, top + maxSize * 0.54 / 2, maxSize, maxSize * 0.46);
+      var destructiveSAltOrb = new Orbital('destructiveSAlt', 'Destructive S', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
+      var spxOrb = new Orbital('spx', 'S Px Hybrid', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
+      var spxAltOrb = new Orbital('spxAlt', 'S Px Hybrid', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
+      var spzOrb = new Orbital('spz', 'S Pz Hybrid', left + maxSize * 0.5 / 2, top, maxSize * 0.5, maxSize);
+      var spzAltOrb = new Orbital('spzAlt', 'S Pz Hybrid', left + maxSize * 0.5 / 2, top, maxSize * 0.5, maxSize);
+      var sAltpxOrb = new Orbital('sAltpx', 'S Px Hybrid', left, top + maxSize * 0.52 / 2, maxSize, maxSize * 0.48);
+      var sAltpxAltOrb = new Orbital('sAltpxAlt', 'S Px Hybrid', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
+      var sAltpzOrb = new Orbital('sAltpz', 'S Pz Hybrid', left + maxSize * 0.52 / 2, top, maxSize * 0.48, maxSize);
+      var sAltpzAltOrb = new Orbital('sAltpzAlt', 'S Pz Hybrid', left + maxSize * 0.52 / 2, top, maxSize * 0.48, maxSize);
+      var combOrbital = null;
+      if (selectedL.imgName == 'px') {
+        if (selectedR.imgName == 'px') {
+          combOrbital = destructivePxOrb;
+        } else if (selectedR.imgName == 'pxAlt') {
+          combOrbital = constructivePxOrb;
+        } else if (selectedR.imgName == 'pz') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 'pzAlt') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 's') {
+          combOrbital = spxOrb;
+        } else if (selectedR.imgName == 'sAlt') {
+          // TODO
+          combOrbital = sAltpxOrb;
+        }
+      } else if (selectedL.imgName == 'pxAlt') {
+        if (selectedR.imgName == 'px') {
+          combOrbital = constructivePxAltOrb;
+        } else if (selectedR.imgName == 'pxAlt') {
+          combOrbital = destructivePxAltOrb;
+        } else if (selectedR.imgName == 'pz') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 'pzAlt') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 's') {
+          combOrbital = spxAltOrb;
+        } else if (selectedR.imgName == 'sAlt') {
+          combOrbital = sAltpxAltOrb;
+        }
+      } else if (selectedL.imgName == 'pz') {
+        if (selectedR.imgName == 'px') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 'pxAlt') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 'pz') {
+          combOrbital = constructivePzOrb;
+        } else if (selectedR.imgName == 'pzAlt') {
+          combOrbital = destructivePzOrb;
+        } else if (selectedR.imgName == 's') {
+          combOrbital = spzOrb;
+        } else if (selectedR.imgName == 'sAlt') {
+          combOrbital = sAltpzOrb;
+        }
+      } else if (selectedL.imgName == 'pzAlt') {
+        if (selectedR.imgName == 'px') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 'pxAlt') {
+          // TODO
+          combOrbital = null;
+        } else if (selectedR.imgName == 'pz') {
+          combOrbital = destructivePzAltOrb;
+        } else if (selectedR.imgName == 'pzAlt') {
+          combOrbital = constructivePzAltOrb;
+        } else if (selectedR.imgName == 's') {
+          combOrbital = spzAltOrb;
+        } else if (selectedR.imgName == 'sAlt') {
+          combOrbital = sAltpzAltOrb;
+        }
+      } else if (selectedL.imgName == 's') {
+        if (selectedR.imgName == 'px') {
+          combOrbital = spxOrb;
+        } else if (selectedR.imgName == 'pxAlt') {
+          combOrbital = spxAltOrb;
+        } else if (selectedR.imgName == 'pz') {
+          combOrbital = spzOrb;
+        } else if (selectedR.imgName == 'pzAlt') {
+          combOrbital = spzAltOrb;
+        } else if (selectedR.imgName == 's') {
+          combOrbital = constructiveSOrb;
+        } else if (selectedR.imgName == 'sAlt') {
+          combOrbital = destructiveSOrb;
+        }
+      } else if (selectedL.imgName == 'sAlt') {
+        if (selectedR.imgName == 'px') {
+          combOrbital = sAltpxOrb;
+        } else if (selectedR.imgName == 'pxAlt') {
+          combOrbital = sAltpxAltOrb;
+        } else if (selectedR.imgName == 'pz') {
+          combOrbital = sAltpzOrb;
+        } else if (selectedR.imgName == 'pzAlt') {
+          combOrbital = sAltpzAltOrb;
+        } else if (selectedR.imgName == 's') {
+          combOrbital = destructiveSAltOrb;
+        } else if (selectedR.imgName == 'sAlt') {
+          combOrbital = constructiveSAltOrb;
+        }
       }
-      if (selectedR) {
-        drawRect(selectedR, p5);
+      if (combOrbital) {
+        drawImg(combOrbital, p5);
+        drawCombLabel(combOrbital.name, p5);
+      } else {
+        drawCombError(p5);
       }
-    }
-  }
-  function drawCombLabel(label, p5) {
-    p5.textAlign(p5.CENTER);
-    p5.textFont(font, 30);
-    p5.fill(98, 130, 184);
-    p5.noStroke();
-    p5.text(label, 461, 130);
-  }
-  function drawCombError(p5) {
-    p5.textAlign(p5.CENTER);
-    p5.fill(237, 91, 45);
-    p5.textFont(font, 25);
-    p5.noStroke();
-    p5.text("These orbitals \ndo not mix", 461, 250);
-  }
-  function drawCombination(p5) {
-    var maxSize = 180;
-    var left = 361 + (200 - maxSize) / 2;
-    var top = 150 + (200 - maxSize) / 2;
-    var constructivePxOrb = new Orbital('constructivePx', 'Constructive Px', left, top + maxSize * 0.69 / 2, maxSize, maxSize * 0.31);
-    var constructivePxAltOrb = new Orbital('constructivePxAlt', 'Constructive Px', left, top + maxSize * 0.69 / 2, maxSize, maxSize * 0.31);
-    var destructivePxOrb = new Orbital('destructivePx', 'Destructive Px', left, top + maxSize * 0.76 / 2, maxSize, maxSize * 0.24);
-    var destructivePxAltOrb = new Orbital('destructivePxAlt', 'Destructive Px', left, top + maxSize * 0.76 / 2, maxSize, maxSize * 0.24);
-    var constructivePzOrb = new Orbital('constructivePz', 'Constructive Pz', left, top, maxSize, maxSize);
-    var constructivePzAltOrb = new Orbital('constructivePzAlt', 'Constructive Pz', left, top, maxSize, maxSize);
-    var destructivePzOrb = new Orbital('destructivePz', 'Destructive Pz', left, top, maxSize, maxSize);
-    var destructivePzAltOrb = new Orbital('destructivePzAlt', 'Destructive Pz', left, top, maxSize, maxSize);
-    var constructiveSOrb = new Orbital('constructiveS', 'Constructive S', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
-    var constructiveSAltOrb = new Orbital('constructiveSAlt', 'Constructive S', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
-    var destructiveSOrb = new Orbital('destructiveS', 'Destructive S', left, top + maxSize * 0.54 / 2, maxSize, maxSize * 0.46);
-    var destructiveSAltOrb = new Orbital('destructiveSAlt', 'Destructive S', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
-    var spxOrb = new Orbital('spx', 'S Px Hybrid', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
-    var spxAltOrb = new Orbital('spxAlt', 'S Px Hybrid', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
-    var spzOrb = new Orbital('spz', 'S Pz Hybrid', left + maxSize * 0.5 / 2, top, maxSize * 0.5, maxSize);
-    var spzAltOrb = new Orbital('spzAlt', 'S Pz Hybrid', left + maxSize * 0.5 / 2, top, maxSize * 0.5, maxSize);
-    var sAltpxOrb = new Orbital('sAltpx', 'S Px Hybrid', left, top + maxSize * 0.52 / 2, maxSize, maxSize * 0.48);
-    var sAltpxAltOrb = new Orbital('sAltpxAlt', 'S Px Hybrid', left, top + maxSize * 0.5 / 2, maxSize, maxSize * 0.5);
-    var sAltpzOrb = new Orbital('sAltpz', 'S Pz Hybrid', left + maxSize * 0.52 / 2, top, maxSize * 0.48, maxSize);
-    var sAltpzAltOrb = new Orbital('sAltpzAlt', 'S Pz Hybrid', left + maxSize * 0.52 / 2, top, maxSize * 0.48, maxSize);
-    var combOrbital = null;
-    if (selectedL.imgName == 'px') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = destructivePxOrb;
-      } else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = constructivePxOrb;
-      } else if (selectedR.imgName == 'pz') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 'pzAlt') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 's') {
-        combOrbital = spxOrb;
-      } else if (selectedR.imgName == 'sAlt') {
-        // TODO
-        combOrbital = sAltpxOrb;
-      }
-    } else if (selectedL.imgName == 'pxAlt') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = constructivePxAltOrb;
-      } else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = destructivePxAltOrb;
-      } else if (selectedR.imgName == 'pz') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 'pzAlt') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 's') {
-        combOrbital = spxAltOrb;
-      } else if (selectedR.imgName == 'sAlt') {
-        combOrbital = sAltpxAltOrb;
-      }
-    } else if (selectedL.imgName == 'pz') {
-      if (selectedR.imgName == 'px') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 'pxAlt') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 'pz') {
-        combOrbital = constructivePzOrb;
-      } else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = destructivePzOrb;
-      } else if (selectedR.imgName == 's') {
-        combOrbital = spzOrb;
-      } else if (selectedR.imgName == 'sAlt') {
-        combOrbital = sAltpzOrb;
-      }
-    } else if (selectedL.imgName == 'pzAlt') {
-      if (selectedR.imgName == 'px') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 'pxAlt') {
-        // TODO
-        combOrbital = null;
-      } else if (selectedR.imgName == 'pz') {
-        combOrbital = destructivePzAltOrb;
-      } else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = constructivePzAltOrb;
-      } else if (selectedR.imgName == 's') {
-        combOrbital = spzAltOrb;
-      } else if (selectedR.imgName == 'sAlt') {
-        combOrbital = sAltpzAltOrb;
-      }
-    } else if (selectedL.imgName == 's') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = spxOrb;
-      } else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = spxAltOrb;
-      } else if (selectedR.imgName == 'pz') {
-        combOrbital = spzOrb;
-      } else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = spzAltOrb;
-      } else if (selectedR.imgName == 's') {
-        combOrbital = constructiveSOrb;
-      } else if (selectedR.imgName == 'sAlt') {
-        combOrbital = destructiveSOrb;
-      }
-    } else if (selectedL.imgName == 'sAlt') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = sAltpxOrb;
-      } else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = sAltpxAltOrb;
-      } else if (selectedR.imgName == 'pz') {
-        combOrbital = sAltpzOrb;
-      } else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = sAltpzAltOrb;
-      } else if (selectedR.imgName == 's') {
-        combOrbital = destructiveSAltOrb;
-      } else if (selectedR.imgName == 'sAlt') {
-        combOrbital = constructiveSAltOrb;
-      }
-    }
-    if (combOrbital) {
-      drawImg(combOrbital, p5);
-      drawCombLabel(combOrbital.name, p5);
-    } else {
-      drawCombError(p5);
-    }
-    drawResetButton(p5);
-  }
-  function drawSubmitButton(p5) {
-    p5.textFont(font, 30);
-    p5.noFill();
-    p5.strokeWeight(4);
-    p5.rect(401, 400, 120, 40);
-    p5.stroke(0);
-    p5.fill(0);
-    p5.noStroke();
-    p5.text("Combine", 461, 430);
-  }
-  function drawRedSubmitButton(p5) {
-    if (selectedL && selectedR) {
+      drawResetButton(p5);
+    };
+    var drawSubmitButton = function drawSubmitButton(p5) {
       p5.textFont(font, 30);
       p5.noFill();
       p5.strokeWeight(4);
-      p5.stroke(237, 91, 45);
       p5.rect(401, 400, 120, 40);
-      p5.fill(237, 91, 45);
+      p5.stroke(0);
+      p5.fill(0);
       p5.noStroke();
       p5.text("Combine", 461, 430);
-    }
-    p5.fill(0);
-  }
-  function detectSubmitClick(mouseX, mouseY) {
-    // mouse location
-    if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
+    };
+    var drawRedSubmitButton = function drawRedSubmitButton(p5) {
       if (selectedL && selectedR) {
+        p5.textFont(font, 30);
+        p5.noFill();
+        p5.strokeWeight(4);
+        p5.stroke(237, 91, 45);
+        p5.rect(401, 400, 120, 40);
+        p5.fill(237, 91, 45);
+        p5.noStroke();
+        p5.text("Combine", 461, 430);
+      }
+      p5.fill(0);
+    };
+    var detectSubmitClick = function detectSubmitClick(mouseX, mouseY) {
+      // mouse location
+      if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
+        if (selectedL && selectedR) {
+          return true;
+        }
+      }
+      return false;
+    };
+    var drawResetButton = function drawResetButton(p5) {
+      p5.textFont(font, 20);
+      p5.noFill();
+      p5.strokeWeight(4);
+      p5.stroke(0);
+      p5.rect(426, 460, 70, 30);
+      p5.noStroke();
+      p5.fill(0);
+      p5.text("Reset", 461, 482);
+      p5.stroke(0);
+    };
+    var detectResetClick = function detectResetClick(mouseX, mouseY, p5) {
+      if (mouseX >= 426 && mouseX <= 496 && mouseY >= 460 && mouseY <= 490) {
         return true;
       }
-    }
-    return false;
-  }
-  function drawResetButton(p5) {
-    p5.textFont(font, 20);
-    p5.noFill();
-    p5.strokeWeight(4);
-    p5.stroke(0);
-    p5.rect(426, 460, 70, 30);
-    p5.noStroke();
-    p5.fill(0);
-    p5.text("Reset", 461, 482);
-    p5.stroke(0);
-  }
-  function detectResetClick(mouseX, mouseY, p5) {
-    if (mouseX >= 426 && mouseX <= 496 && mouseY >= 460 && mouseY <= 490) {
-      return true;
-    }
-  }
-  function detectLeftOrbitalClick(mouseX, mouseY) {
-    var prev = selectedL;
-    for (var img in left) {
-      var i = left[img];
-      if (mouseX >= i.xpos && mouseX <= i.xpos + i.width && mouseY >= i.ypos && mouseY <= i.ypos + i.height) {
-        return i;
+    };
+    var detectLeftOrbitalClick = function detectLeftOrbitalClick(mouseX, mouseY) {
+      var prev = selectedL;
+      for (var img in left) {
+        var i = left[img];
+        if (mouseX >= i.xpos && mouseX <= i.xpos + i.width && mouseY >= i.ypos && mouseY <= i.ypos + i.height) {
+          return i;
+        }
       }
-    }
-    return prev;
-  }
-  function detectRightOrbitalClick(mouseX, mouseY) {
-    var prev = selectedR;
-    for (var img in right) {
-      var i = right[img];
-      if (mouseX >= i.xpos && mouseX <= i.xpos + i.width && mouseY >= i.ypos && mouseY <= i.ypos + i.height) {
-        return i;
+      return prev;
+    };
+    var detectRightOrbitalClick = function detectRightOrbitalClick(mouseX, mouseY) {
+      var prev = selectedR;
+      for (var img in right) {
+        var i = right[img];
+        if (mouseX >= i.xpos && mouseX <= i.xpos + i.width && mouseY >= i.ypos && mouseY <= i.ypos + i.height) {
+          return i;
+        }
       }
-    }
-    return prev;
+      return prev;
+    };
+    var Orbital = /*#__PURE__*/_createClass(function Orbital(imgName, name, xpos, ypos, width, height) {
+      _classCallCheck(this, Orbital);
+      this.imgName = imgName;
+      this.name = name;
+      this.xpos = xpos;
+      this.ypos = ypos;
+      this.width = width;
+      this.height = height;
+    });
+    var width = 922;
+    var height = 525;
+    var left = makeLeftOrbitals();
+    var right = makeRightOrbitals();
+    var selectedL = null;
+    var selectedR = null;
+    var px;
+    var pxAlt;
+    var constructivePx;
+    var constructivePxAlt;
+    var destructivePx;
+    var destructivePxAlt;
+    var pz;
+    var pzAlt;
+    var constructivePz;
+    var constructivePzAlt;
+    var destructivePz;
+    var destructivePzAlt;
+    var s;
+    var sAlt;
+    var constructiveS;
+    var constructiveSAlt;
+    var destructiveS;
+    var destructiveSAlt;
+    var spx;
+    var spxAlt;
+    var spz;
+    var spzAlt;
+    var sAltpx;
+    var sAltpxAlt;
+    var sAltpz;
+    var sAltpzAlt;
+    var font;
+    return /*#__PURE__*/_react["default"].createElement(_reactP["default"], {
+      keyPressed: keyPressed,
+      preload: preload,
+      mousePressed: mousePressed,
+      mouseMoved: mouseMoved,
+      setup: setup
+    });
   }
-  return /*#__PURE__*/_react["default"].createElement(_reactP["default"], {
-    keyPressed: keyPressed,
-    preload: preload,
-    mousePressed: mousePressed,
-    mouseMoved: mouseMoved,
-    setup: setup
-  });
 }
 var _default = exports["default"] = Orbitals;
 

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import Orbitals from './orbitals.js';
 import Coulomb from './coulomb.js';
 import { Link } from 'react-router-dom';
+import InstructionWindow from './instructionWindow.jsx';
 
 function Header(sim) {
     sim = sim.sim;
@@ -38,7 +39,6 @@ function IGL(sim) {
     sim = sim.sim;
     return <>
     <iframe src={sim.p5js} width="922" height="525"></iframe>
-    
     </>
 }
 
@@ -64,6 +64,7 @@ function SimulationContent(sim) {
 export default function SimulationPage(sim) {
     sim = sim.sim;
     return <>
+        <InstructionWindow sim={sim}/>
         <Header sim={sim}/>
         <HomeButton/>
         <AllSimulationContent sim={sim}/>

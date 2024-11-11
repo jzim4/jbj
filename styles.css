@@ -314,7 +314,7 @@ Black: #000000
     white-space: pre-wrap;
    background-color: #eeeeee;
    color: #182628;
-   z-index: 10;
+   z-index: 1;
    box-shadow: 5px 5px #6082B6;
  }
 
@@ -324,6 +324,42 @@ Black: #000000
    }
  }
 
+ /* Instruction Window */
+#instructionsContainer:hover {
+   cursor: default;
+}
+#simInstructionExitButton:hover {
+   cursor: pointer;
+}
+#greyBackground {
+   position: absolute;
+   top: 0;
+   z-index: 10;
+   width: 100%;
+   height: calc(100% - 55px);
+   background-color: black;
+   opacity: 80%;
+}
+#instructionImg {
+   position: absolute;
+   top: 30px;
+   width: 922px;
+   height: 525px;
+   left: calc(50% + 2px);
+   transform: translateX(-50%);
+   z-index: 11;
+}
+#simInstructionExitButton {
+   font-family: "Oswald", sans-serif;
+   font-size: 25px;
+   width: 200px;
+   height: 55px;
+   position: absolute;
+   left: calc(50% + 2px);
+   transform: translateX(-50%);
+   top: 570px;
+   z-index: 11;
+}
 
  /* MISC */
  #footer {

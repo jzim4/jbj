@@ -1,7 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Sketch from 'react-p5';
 
 function Orbitals() {
+  let run = true;
+
+
+  // const observer = new MutationObserver(() => {
+  //   let inst = document.getElementById("#instructionsContainer");
+  //   console.log(inst);
+  //   if (inst && inst.style.visibility == "hidden") {
+  //     console.log(inst.style.visibility);
+  //     run = true;
+  //   }
+  // });
+
+  // observer.observe(document, {
+  //   subtree: true,
+  //   childList: true,
+  // });
   
   class Orbital {
     constructor(imgName, name, xpos, ypos, width, height) {
@@ -98,97 +114,102 @@ function Orbitals() {
   }
 
   function keyPressed(p5) {
-    let newSelection = false;
-    if (p5.key == '1') {
-      selectedL = left[0];
-      newSelection = true;
-    }
-    if (p5.key == '2') {
-      selectedL = left[1];
-      newSelection = true;
-    }
-    if (p5.key == '3') {
-      selectedL = left[2];
-      newSelection = true;
-    }
-    if (p5.key == '4') {
-      selectedL = left[3];
-      newSelection = true;
-    }
-    if (p5.key == '5') {
-      selectedL = left[4];
-      newSelection = true;
-    }
-    if (p5.key == '6') {
-      selectedL = left[5];
-      newSelection = true;
-    }
-    if (p5.key == 'a') {
-      selectedR = right[0];
-      newSelection = true;
-    }
-    if (p5.key == 'b') {
-      selectedR = right[1];
-      newSelection = true;
-    }
-    if (p5.key == 'c') {
-      selectedR = right[2];
-      newSelection = true;
-    }
-    if (p5.key == 'd') {
-      selectedR = right[3];
-      newSelection = true;
-    }
-    if (p5.key == 'e') {
-      selectedR = right[4];
-      newSelection = true;
-    }
-    if (p5.key == 'f') {
-      selectedR = right[5];
-      newSelection = true;
-    }
-    if (newSelection) {
-      highlightSelections(p5);
-      drawRedSubmitButton(p5);
-    }
-    if (p5.keyCode == p5.ENTER) {
-      highlightSelections(p5);
-      drawCombination(p5);
-    }
-    if (p5.keyCode == p5.BACKSPACE) {
-      selectedL = null;
-      selectedR = null;
-      resetCanvas(p5);
+    if (run) {
+      let newSelection = false;
+      if (p5.key == '1') {
+        selectedL = left[0];
+        newSelection = true;
+      }
+      if (p5.key == '2') {
+        selectedL = left[1];
+        newSelection = true;
+      }
+      if (p5.key == '3') {
+        selectedL = left[2];
+        newSelection = true;
+      }
+      if (p5.key == '4') {
+        selectedL = left[3];
+        newSelection = true;
+      }
+      if (p5.key == '5') {
+        selectedL = left[4];
+        newSelection = true;
+      }
+      if (p5.key == '6') {
+        selectedL = left[5];
+        newSelection = true;
+      }
+      if (p5.key == 'a') {
+        selectedR = right[0];
+        newSelection = true;
+      }
+      if (p5.key == 'b') {
+        selectedR = right[1];
+        newSelection = true;
+      }
+      if (p5.key == 'c') {
+        selectedR = right[2];
+        newSelection = true;
+      }
+      if (p5.key == 'd') {
+        selectedR = right[3];
+        newSelection = true;
+      }
+      if (p5.key == 'e') {
+        selectedR = right[4];
+        newSelection = true;
+      }
+      if (p5.key == 'f') {
+        selectedR = right[5];
+        newSelection = true;
+      }
+      if (newSelection) {
+        highlightSelections(p5);
+        drawRedSubmitButton(p5);
+      }
+      if (p5.keyCode == p5.ENTER) {
+        highlightSelections(p5);
+        drawCombination(p5);
+      }
+      if (p5.keyCode == p5.BACKSPACE) {
+        selectedL = null;
+        selectedR = null;
+        resetCanvas(p5);
+      }
     }
   }
  
   function mousePressed (p5) {
-    if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
-        selectedL = null;
-        selectedR = null;
-        resetCanvas(p5);
-    }
-    else {
-      if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
-        highlightSelections(p5);
-        drawCombination(p5);
-      } 
-      else if (p5.mouseX < 400) {
-          selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
-          highlightSelections(p5);
-          drawRedSubmitButton(p5);
+    if (run) {
+      if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
+          selectedL = null;
+          selectedR = null;
+          resetCanvas(p5);
       }
       else {
-          selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
+        if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
           highlightSelections(p5);
-          drawRedSubmitButton(p5);
+          drawCombination(p5);
+        } 
+        else if (p5.mouseX < 400) {
+            selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
+            highlightSelections(p5);
+            drawRedSubmitButton(p5);
+        }
+        else {
+            selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
+            highlightSelections(p5);
+            drawRedSubmitButton(p5);
+        }
       }
-
     }
   }
 
   function mouseMoved(p5) {
-    changeCursor(p5.mouseX, p5.mouseY);
+    if (run) {
+      changeCursor(p5.mouseX, p5.mouseY);
+    }
   }
   
   function resetCanvas(p5) {
