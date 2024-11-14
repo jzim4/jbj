@@ -169,25 +169,53 @@ Black: #000000
 
 #homeButton, #homeButton:active, #homeButton:visited {
    color: #000000;
+   font-weight: 400;
    border: #000000 solid 1px;
    border-radius: 3px;
    padding: 5px;
    position: absolute;
-   top: 40px;
-   left: 20vw;
+   top: 35px;
+   left: 10%;
+   z-index: 3;
    text-decoration: none;
 }
 
 @media (max-width: 1200px) {
    a#homeButton {
+      position: absolute;
       top: 150px;
-      left: 50vw;
+      left: 50%;
       transform: translateX(-50%);
       width: fit-content;
       text-align: center;
    }
 }
+   /*  Show instructions button */
+#instructionsButton {
+   font-family: "Open Sans", sans-serif;
+   font-size: 16px;
+   color: #000000;
+   background-color: white;
+   border: #000000 solid 1px;
+   border-radius: 3px;
+   padding: 5px;
+   position: absolute;
+   z-index: 3;
+   top: 35px;
+   right: 3%;
+}  
+#instructionsButton:hover {
+   cursor: pointer;
+} 
+#instructionsButton:active {
+   cursor: default;
+} 
+
    /* Header */
+
+#simHeaderContainer {
+   position: relative;
+}
 #simulationStreak {
    background-image: url("./assets/other/yellowStreak.png");
    background-size: cover;
@@ -196,24 +224,20 @@ Black: #000000
    height: 70px;
    z-index: 1;
    position: absolute;
-   top: 10px;
    left: 50%;
+   top: 15px;
    transform: translateX(-50%);
 }
-#simulationHeader {
-   height: 80px;
- }
  #simulationTitle {
    font-family: "Oswald", sans-serif;
    color: #182628;
    font-weight: 400;
    font-size: 2.5em;
+   position: relative;
    z-index: 2;
-   position: absolute;
-   top: 16px;
-   left: 50%;
-   transform: translateX(-50%);
-   margin: 0;
+   margin-top: 20px;
+   margin-bottom: 5px;
+   text-align: center;
  }
  #simulationSubheader {
    font-size: 15px;
@@ -246,10 +270,10 @@ Black: #000000
 
  /* Simulation content container */
  #simulationContentContainer {
+   position: relative;
    margin-bottom: 15px;
    display: flex;
    justify-content: space-evenly;
-   align-items: center;
  }
 
  #p5Canvas {
@@ -257,6 +281,9 @@ Black: #000000
  }
 
  #simIconContainer {
+   position: relative;
+   top: 396px;
+   transform: translateY(-50%);
    width: 13vw;
    padding: 10px;
    height: 100%;
@@ -275,10 +302,10 @@ Black: #000000
  }
 
  /* Simulation */
- #iframeContainer {
+ #simCenterContainer {
    display: flex;
    flex-direction:column;
-   height: 575px;
+   height: 659px;
    width: 922px;
  }
  #errorMessage {
@@ -292,7 +319,7 @@ Black: #000000
    text-wrap: balance;
  }
  @media (max-width: 1200px) {
-   #simulationContentContainer, #simulationSubheader {
+   #p5Canvas, #helpContent, #simulationSubheader, #instructionsButton {
       display: none;
    }
  }
@@ -303,15 +330,16 @@ Black: #000000
 }
    /* help section */
  #helpContent {
-    padding: 10px;
-    line-height: 20px;
-    top: 0px;
-    left: 13vw;
-    width: 13vw;
-    height: fit-content;
-    font-size: 16px;
-    font-weight: 500;
-    white-space: pre-wrap;
+   position: relative;
+   padding: 10px;
+   line-height: 20px;
+   top: 396px;
+   transform: translateY(-50%);
+   width: 13vw;
+   height: fit-content;
+   font-size: 16px;
+   font-weight: 500;
+   white-space: pre-wrap;
    background-color: #eeeeee;
    color: #182628;
    z-index: 1;
@@ -328,15 +356,23 @@ Black: #000000
 #instructionsContainer:hover {
    cursor: default;
 }
+@media (max-width: 1201px) {
+   #instructionsContainer {
+      visibility: hidden;
+   }
+ }
 #simInstructionExitButton:hover {
    cursor: pointer;
+}
+#simInstructionExitButton:active {
+   cursor: default;
 }
 #greyBackground {
    position: absolute;
    top: 0;
    z-index: 10;
    width: 100%;
-   height: calc(100% - 55px);
+   height: 100%;
    background-color: black;
    opacity: 80%;
 }

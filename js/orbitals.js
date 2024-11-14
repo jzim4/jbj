@@ -4,21 +4,6 @@ import Sketch from 'react-p5';
 function Orbitals() {
   let run = true;
 
-
-  // const observer = new MutationObserver(() => {
-  //   let inst = document.getElementById("#instructionsContainer");
-  //   console.log(inst);
-  //   if (inst && inst.style.visibility == "hidden") {
-  //     console.log(inst.style.visibility);
-  //     run = true;
-  //   }
-  // });
-
-  // observer.observe(document, {
-  //   subtree: true,
-  //   childList: true,
-  // });
-  
   class Orbital {
     constructor(imgName, name, xpos, ypos, width, height) {
         this.imgName = imgName;
@@ -115,52 +100,53 @@ function Orbitals() {
 
   function keyPressed(p5) {
     if (run) {
+      let key = p5.key.toLowerCase();
       let newSelection = false;
-      if (p5.key == '1') {
+      if (key == '1') {
         selectedL = left[0];
         newSelection = true;
       }
-      if (p5.key == '2') {
+      if (key == '2') {
         selectedL = left[1];
         newSelection = true;
       }
-      if (p5.key == '3') {
+      if (key == '3') {
         selectedL = left[2];
         newSelection = true;
       }
-      if (p5.key == '4') {
+      if (key == '4') {
         selectedL = left[3];
         newSelection = true;
       }
-      if (p5.key == '5') {
+      if (key == '5') {
         selectedL = left[4];
         newSelection = true;
       }
-      if (p5.key == '6') {
+      if (key == '6') {
         selectedL = left[5];
         newSelection = true;
       }
-      if (p5.key == 'a') {
+      if (key == 'a') {
         selectedR = right[0];
         newSelection = true;
       }
-      if (p5.key == 'b') {
+      if (key == 'b') {
         selectedR = right[1];
         newSelection = true;
       }
-      if (p5.key == 'c') {
+      if (key == 'c') {
         selectedR = right[2];
         newSelection = true;
       }
-      if (p5.key == 'd') {
+      if (key == 'd') {
         selectedR = right[3];
         newSelection = true;
       }
-      if (p5.key == 'e') {
+      if (key == 'e') {
         selectedR = right[4];
         newSelection = true;
       }
-      if (p5.key == 'f') {
+      if (key == 'f') {
         selectedR = right[5];
         newSelection = true;
       }

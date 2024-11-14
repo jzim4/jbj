@@ -55,11 +55,11 @@ function draw(p5) {
 
 function mousePressed(p5) {
   // click atoms
-  if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter) {
+  if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter/2) {
     moving = 'q1';
     document.body.style.cursor = "grabbing";
   }
-  else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter) {
+  else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter/2) {
     moving = 'q2';
     document.body.style.cursor = "grabbing";
   }
@@ -68,16 +68,16 @@ function mousePressed(p5) {
   }
 
   // click sign
-  if (Math.hypot(p5.mouseX - 140, p5.mouseY - 475) <= diameter) {
+  if (Math.hypot(p5.mouseX - 120, p5.mouseY - 455) <= 20) {
     q1Sign = 1;
   }
-  if (Math.hypot(p5.mouseX - 200, p5.mouseY - 475) <= diameter) {
+  if (Math.hypot(p5.mouseX - 180, p5.mouseY - 455) <= 20) {
     q1Sign = -1;
   }
-  if (Math.hypot(p5.mouseX - 642, p5.mouseY - 475) <= diameter) {
+  if (Math.hypot(p5.mouseX - 622, p5.mouseY - 455) <= 20) {
     q2Sign = 1;
   }
-  if (Math.hypot(p5.mouseX - 702, p5.mouseY - 475) <= diameter) {
+  if (Math.hypot(p5.mouseX - 682, p5.mouseY - 455) <= 20) {
     q2Sign = -1;
   }
 
@@ -120,15 +120,17 @@ function mouseMoved(p5) {
 
 function mouseDragged(p5) { 
   let still = null;
+  let oldPosX;
+  let oldPosY;
   if (moving == 'q1') {
     still = 'q2';
-    let oldPosX = q1PosX;
-    let oldPosY = q1PosY;
+    oldPosX = q1PosX;
+    oldPosY = q1PosY;
   }
   else if (moving == 'q2') {
     still = 'q1';
-    let oldPosX = q2PosX;
-    let oldPosY = q2PosY;
+    oldPosX = q2PosX;
+    oldPosY = q2PosY;
   }
   else {
     return;
@@ -147,40 +149,27 @@ function mouseDragged(p5) {
 
   overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
 
-  let moveX = false;
-  let moveY = false;
+  let move = false;
   if (newXPos == xInBounds(newXPos) && newYPos == yInBounds(newYPos)) {
-    moveX = true;
-    moveY = true;
+    move = true
   }
 
-  if (moveX) {
+  if (move) {
     if (moving == 'q1') {
       q1PosX = newXPos;
-    }
-    else {
-      q2PosX = newXPos;
-    }
-  } else {
-    if (moving == 'q1') {
-      q1PosX = oldPosX;
-    }
-    else {
-      q2PosX = oldPosX;
-    }
-  }
-  if (moveY) {
-    if (moving == 'q1') {
       q1PosY = newYPos;
     }
     else {
+      q2PosX = newXPos;
       q2PosY = newYPos;
     }
   } else {
     if (moving == 'q1') {
+      q1PosX = oldPosX;
       q1PosY = oldPosY;
     }
     else {
+      q2PosX = oldPosX;
       q2PosY = oldPosY;
     }
   }

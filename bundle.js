@@ -54,10 +54,10 @@ function Coulomb() {
   }
   function mousePressed(p5) {
     // click atoms
-    if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter) {
+    if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter / 2) {
       moving = 'q1';
       document.body.style.cursor = "grabbing";
-    } else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter) {
+    } else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter / 2) {
       moving = 'q2';
       document.body.style.cursor = "grabbing";
     } else {
@@ -65,16 +65,16 @@ function Coulomb() {
     }
 
     // click sign
-    if (Math.hypot(p5.mouseX - 140, p5.mouseY - 475) <= diameter) {
+    if (Math.hypot(p5.mouseX - 120, p5.mouseY - 455) <= 20) {
       q1Sign = 1;
     }
-    if (Math.hypot(p5.mouseX - 200, p5.mouseY - 475) <= diameter) {
+    if (Math.hypot(p5.mouseX - 180, p5.mouseY - 455) <= 20) {
       q1Sign = -1;
     }
-    if (Math.hypot(p5.mouseX - 642, p5.mouseY - 475) <= diameter) {
+    if (Math.hypot(p5.mouseX - 622, p5.mouseY - 455) <= 20) {
       q2Sign = 1;
     }
-    if (Math.hypot(p5.mouseX - 702, p5.mouseY - 475) <= diameter) {
+    if (Math.hypot(p5.mouseX - 682, p5.mouseY - 455) <= 20) {
       q2Sign = -1;
     }
 
@@ -113,14 +113,16 @@ function Coulomb() {
   }
   function mouseDragged(p5) {
     var still = null;
+    var oldPosX;
+    var oldPosY;
     if (moving == 'q1') {
       still = 'q2';
-      var _oldPosX = q1PosX;
-      var _oldPosY = q1PosY;
+      oldPosX = q1PosX;
+      oldPosY = q1PosY;
     } else if (moving == 'q2') {
       still = 'q1';
-      var _oldPosX2 = q2PosX;
-      var _oldPosY2 = q2PosY;
+      oldPosX = q2PosX;
+      oldPosY = q2PosY;
     } else {
       return;
     }
@@ -133,35 +135,24 @@ function Coulomb() {
       newYPos = eval(still + "PosY") + Math.sin(angle) * diameter;
     }
     overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
-    var moveX = false;
-    var moveY = false;
+    var move = false;
     if (newXPos == xInBounds(newXPos) && newYPos == yInBounds(newYPos)) {
-      moveX = true;
-      moveY = true;
+      move = true;
     }
-    if (moveX) {
+    if (move) {
       if (moving == 'q1') {
         q1PosX = newXPos;
-      } else {
-        q2PosX = newXPos;
-      }
-    } else {
-      if (moving == 'q1') {
-        q1PosX = oldPosX;
-      } else {
-        q2PosX = oldPosX;
-      }
-    }
-    if (moveY) {
-      if (moving == 'q1') {
         q1PosY = newYPos;
       } else {
+        q2PosX = newXPos;
         q2PosY = newYPos;
       }
     } else {
       if (moving == 'q1') {
+        q1PosX = oldPosX;
         q1PosY = oldPosY;
       } else {
+        q2PosX = oldPosX;
         q2PosY = oldPosY;
       }
     }
@@ -778,20 +769,6 @@ function _classCallCheck(a, n) {
 }
 function Orbitals() {
   var run = true;
-
-  // const observer = new MutationObserver(() => {
-  //   let inst = document.getElementById("#instructionsContainer");
-  //   console.log(inst);
-  //   if (inst && inst.style.visibility == "hidden") {
-  //     console.log(inst.style.visibility);
-  //     run = true;
-  //   }
-  // });
-
-  // observer.observe(document, {
-  //   subtree: true,
-  //   childList: true,
-  // });
   var Orbital = /*#__PURE__*/_createClass(function Orbital(imgName, name, xpos, ypos, width, height) {
     _classCallCheck(this, Orbital);
     this.imgName = imgName;
@@ -871,52 +848,53 @@ function Orbitals() {
   }
   function keyPressed(p5) {
     if (run) {
+      var key = p5.key.toLowerCase();
       var newSelection = false;
-      if (p5.key == '1') {
+      if (key == '1') {
         selectedL = left[0];
         newSelection = true;
       }
-      if (p5.key == '2') {
+      if (key == '2') {
         selectedL = left[1];
         newSelection = true;
       }
-      if (p5.key == '3') {
+      if (key == '3') {
         selectedL = left[2];
         newSelection = true;
       }
-      if (p5.key == '4') {
+      if (key == '4') {
         selectedL = left[3];
         newSelection = true;
       }
-      if (p5.key == '5') {
+      if (key == '5') {
         selectedL = left[4];
         newSelection = true;
       }
-      if (p5.key == '6') {
+      if (key == '6') {
         selectedL = left[5];
         newSelection = true;
       }
-      if (p5.key == 'a') {
+      if (key == 'a') {
         selectedR = right[0];
         newSelection = true;
       }
-      if (p5.key == 'b') {
+      if (key == 'b') {
         selectedR = right[1];
         newSelection = true;
       }
-      if (p5.key == 'c') {
+      if (key == 'c') {
         selectedR = right[2];
         newSelection = true;
       }
-      if (p5.key == 'd') {
+      if (key == 'd') {
         selectedR = right[3];
         newSelection = true;
       }
-      if (p5.key == 'e') {
+      if (key == 'e') {
         selectedR = right[4];
         newSelection = true;
       }
-      if (p5.key == 'f') {
+      if (key == 'f') {
         selectedR = right[5];
         newSelection = true;
       }
@@ -1369,13 +1347,11 @@ function _interopRequireWildcard(e, r) {
 }
 function Header(sim) {
   sim = sim.sim;
-  return /*#__PURE__*/_react["default"].createElement("div", {
-    id: "simulationHeader"
-  }, /*#__PURE__*/_react["default"].createElement("h2", {
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(HomeButton, null), /*#__PURE__*/_react["default"].createElement("h2", {
     id: "simulationTitle"
   }, sim.name), /*#__PURE__*/_react["default"].createElement("div", {
     id: "simulationStreak"
-  }));
+  }), /*#__PURE__*/_react["default"].createElement(InstructionButton, null));
 }
 function HomeButton() {
   return /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
@@ -1388,6 +1364,22 @@ function Help(sim) {
   return /*#__PURE__*/_react["default"].createElement("div", {
     id: "helpContent"
   }, sim.moreInfo);
+}
+function InstructionButton() {
+  (0, _react.useEffect)(function () {
+    var button = document.getElementById("instructionsButton");
+    var background = document.getElementById("instructionsContainer");
+    if (button && background) {
+      var showWindow = function showWindow() {
+        console.log("hi");
+        background.style.visibility = "visible";
+      };
+      button.addEventListener("click", showWindow);
+    }
+  }, []);
+  return /*#__PURE__*/_react["default"].createElement("button", {
+    id: "instructionsButton"
+  }, "Show Instructions");
 }
 function ErrorMessage() {
   return /*#__PURE__*/_react["default"].createElement("div", {
@@ -1407,8 +1399,12 @@ function AllSimulationContent(sim) {
     className: "simIcon",
     src: "./assets/other/icon2.png"
   })), /*#__PURE__*/_react["default"].createElement("div", {
-    id: "iframeContainer"
+    id: "simCenterContainer"
   }, /*#__PURE__*/_react["default"].createElement("div", {
+    id: "simHeaderContainer"
+  }, /*#__PURE__*/_react["default"].createElement(Header, {
+    sim: sim
+  }), /*#__PURE__*/_react["default"].createElement(HomeButton, null)), /*#__PURE__*/_react["default"].createElement("div", {
     id: "simulationSubheader"
   }, sim.instructions), /*#__PURE__*/_react["default"].createElement(SimulationContent, {
     sim: sim
@@ -1444,9 +1440,7 @@ function SimulationPage(sim) {
   sim = sim.sim;
   return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_instructionWindow["default"], {
     sim: sim
-  }), /*#__PURE__*/_react["default"].createElement(Header, {
-    sim: sim
-  }), /*#__PURE__*/_react["default"].createElement(HomeButton, null), /*#__PURE__*/_react["default"].createElement(AllSimulationContent, {
+  }), /*#__PURE__*/_react["default"].createElement(AllSimulationContent, {
     sim: sim
   }), /*#__PURE__*/_react["default"].createElement(ErrorMessage, null));
 }
@@ -1468,7 +1462,7 @@ module.exports={
         "navImg": "./assets/navImg/orbitalsHomePage.png",
         "instructions" : "To test your knowledge of orbital combinations, click on one orbital on each side, and see their combination in the center.",
         "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.",
-        "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
+        "instructionImg": "./assets/instructionImg/instructionsPlaceholder1.png"
     },
     "coulomb": {
         "name": "Coulomb's Law",
@@ -1476,7 +1470,7 @@ module.exports={
         "navImg": "./assets/navImg/coulombHomePage.png",
         "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
         "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
-        "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
+        "instructionImg": "./assets/instructionImg/instructionsPlaceholder2.png"
     }
 }
 },{}],9:[function(require,module,exports){
