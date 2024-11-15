@@ -982,22 +982,22 @@ function Orbitals() {
     }
   }
   function makeLeftOrbitals() {
-    var s = new Orbital("s", "S", 200, 100, 40, 40);
-    var sAlt = new Orbital("sAlt", "S", 200, 155, 40, 40);
-    var px = new Orbital("px", "Px", 180, 215, 80, 40);
-    var pxAlt = new Orbital("pxAlt", "Px", 180, 270, 80, 40);
-    var pz = new Orbital("pz", "Pz", 200, 330, 40, 80);
-    var pzAlt = new Orbital("pzAlt", "Pz", 200, 425, 40, 80);
+    var s = new Orbital("s", "(1) S", 200, 100, 40, 40);
+    var sAlt = new Orbital("sAlt", "(2) S", 200, 155, 40, 40);
+    var px = new Orbital("px", "(3) Px", 180, 215, 80, 40);
+    var pxAlt = new Orbital("pxAlt", "(4) Px", 180, 270, 80, 40);
+    var pz = new Orbital("pz", "(5) Pz", 200, 330, 40, 80);
+    var pzAlt = new Orbital("pzAlt", "(6) Pz", 200, 425, 40, 80);
     var left = [s, sAlt, px, pxAlt, pz, pzAlt];
     return left;
   }
   function makeRightOrbitals() {
-    var s = new Orbital("s", "S", 670, 100, 40, 40);
-    var sAlt = new Orbital("sAlt", "S", 670, 155, 40, 40);
-    var px = new Orbital("px", "Px", 650, 215, 80, 40);
-    var pxAlt = new Orbital("pxAlt", "Px", 650, 270, 80, 40);
-    var pz = new Orbital("pz", "Pz", 670, 339, 40, 80);
-    var pzAlt = new Orbital("pzAlt", "Pz", 670, 425, 40, 80);
+    var s = new Orbital("s", "(a) S", 670, 100, 40, 40);
+    var sAlt = new Orbital("sAlt", "(b) S", 670, 155, 40, 40);
+    var px = new Orbital("px", "(c) Px", 650, 215, 80, 40);
+    var pxAlt = new Orbital("pxAlt", "(d) Px", 650, 270, 80, 40);
+    var pz = new Orbital("pz", "(e) Pz", 670, 339, 40, 80);
+    var pzAlt = new Orbital("pzAlt", "(f) Pz", 670, 425, 40, 80);
     var right = [s, sAlt, px, pxAlt, pz, pzAlt];
     return right;
   }
@@ -1016,7 +1016,7 @@ function Orbitals() {
   function drawOrbLabel(label, left, ypos, p5) {
     p5.textAlign(p5.CENTER);
     p5.noStroke();
-    var xpos = 780;
+    var xpos = 800;
     if (left) {
       xpos = 85;
     }
