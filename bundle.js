@@ -1462,7 +1462,7 @@ module.exports={
         "navImg": "./assets/navImg/orbitalsHomePage.png",
         "instructions" : "To test your knowledge of orbital combinations, click on one orbital on each side, and see their combination in the center.",
         "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.",
-        "instructionImg": "./assets/instructionImg/instructionsPlaceholder1.png"
+        "instructionImg": "./assets/instructionImg/orbitalsInstructions.png"
     },
     "coulomb": {
         "name": "Coulomb's Law",
@@ -1470,7 +1470,7 @@ module.exports={
         "navImg": "./assets/navImg/coulombHomePage.png",
         "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
         "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
-        "instructionImg": "./assets/instructionImg/instructionsPlaceholder2.png"
+        "instructionImg": "./assets/instructionImg/coulombInstructions.png"
     }
 }
 },{}],9:[function(require,module,exports){
