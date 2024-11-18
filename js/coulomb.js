@@ -275,7 +275,10 @@ function atomsLabel(p5) {
   p5.line(atomsSimPosX, 55, atomsSimPosX + atomsSimWidth, 55);
   p5.strokeWeight(3);
   p5.noStroke();
-  p5.text("Distance", 425, 50);
+  let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
+  p5.textAlign(p5.CENTER);
+  p5.text("Distance: " + val + "m", 461, 50);
+  p5.textAlign(p5.LEFT);
 }
 
 function q1(p5) {
