@@ -270,7 +270,9 @@ function Coulomb() {
   function r(p5) {
     p5.strokeWeight(3);
     p5.stroke(98, 130, 184);
+    p5.drawingContext.setLineDash([4, 12]);
     p5.line(q1PosX, q1PosY, q2PosX, q2PosY);
+    p5.drawingContext.setLineDash([]);
   }
 
   // EQUATION
