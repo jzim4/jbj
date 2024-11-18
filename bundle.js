@@ -134,10 +134,10 @@ function Coulomb() {
       newXPos = eval(still + "PosX") + Math.cos(angle) * diameter;
       newYPos = eval(still + "PosY") + Math.sin(angle) * diameter;
     }
-    overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
     var move = false;
     if (newXPos == xInBounds(newXPos) && newYPos == yInBounds(newYPos)) {
       move = true;
+      console.log(move);
     }
     if (move) {
       if (moving == 'q1') {

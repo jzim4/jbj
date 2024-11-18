@@ -147,11 +147,9 @@ function mouseDragged(p5) {
     newYPos = eval(still + "PosY") + Math.sin(angle) * diameter;
   }
 
-  overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
-
   let move = false;
   if (newXPos == xInBounds(newXPos) && newYPos == yInBounds(newYPos)) {
-    move = true
+    move = true;
   }
 
   if (move) {
