@@ -11,7 +11,7 @@ function SimulationNav (sim) {
         <Link to={link} className="homePageNavLink">
             <img className="homePageNavImg" src={sim.navImg}>
             </img>
-            <div className="homePageNavDescr"><div class="navStreak"></div><div class="navName">{sim.name}</div></div>
+            <div className="homePageNavDescr"><div className="navStreak"></div><div className="navName">{sim.name}</div></div>
         </Link>
     </div>)
 }

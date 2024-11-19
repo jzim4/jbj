@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Orbitals from './orbitals.js';
 import Coulomb from './coulomb.js';
+import IGL from './igl.js';
 import { Link } from 'react-router-dom';
 import InstructionWindow from './instructionWindow.jsx';
 
@@ -55,6 +56,7 @@ function AllSimulationContent(sim) {
                     <HomeButton/>
                 </div>
                 <div id="simulationSubheader">{sim.instructions}</div>
+                <canvas id="p5Canvas"></canvas>
                 <SimulationContent sim={sim}/>
                 
             </div>
@@ -62,29 +64,16 @@ function AllSimulationContent(sim) {
             </div>
 }
 
-function IGL(sim) {
-    sim = sim.sim;
-    return <>
-    <iframe src={sim.p5js} width="922" height="525"></iframe>
-    </>
-}
-
 function SimulationContent(sim) {
     sim = sim.sim;
     if (sim.short == "igl") {
-        return <IGL sim={sim}/>
+        return <IGL/>
     }
     else if (sim.short == "orbital") {
-        return <>
-        <canvas id="p5Canvas"></canvas>
-        <Orbitals/>
-        </>
+        return <Orbitals/>
     }
     else if (sim.short == "coulomb") {
-        return <>
-        <canvas id="p5Canvas"></canvas>
-        <Coulomb/>
-        </>
+        return  <Coulomb/>
     }
 }
 

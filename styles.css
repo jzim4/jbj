@@ -303,6 +303,7 @@ Black: #000000
 
  /* Simulation */
  #simCenterContainer {
+   position: relative;
    display: flex;
    flex-direction:column;
    height: 659px;
@@ -328,6 +329,50 @@ Black: #000000
      display: none;
    }
 }
+
+/* igl (bruh) */
+
+
+/* Styles the whole slider */
+.mySliders{
+   width: 400px;
+   background-color: transparent;
+   /* Removes some defaults */
+   -webkit-appearance: none;
+ }
+ 
+ /* These styles affect what happens when the cursor is focused on the slider (i.e. clicking it) */
+ .mySliders:focus {
+   /* Stops the default outline showing up */
+   outline: none;
+ }
+ 
+ /* This is the "track" that the slider sits on  */
+ .mySliders::-webkit-slider-runnable-track {
+   background: #6282FF;
+   height: 10px;
+   -webkit-appearance: none;
+   
+   /* Turns the cursor into the hand pointer icon when hovering over the slider  */
+   cursor: pointer;
+   
+ }
+ 
+ /* This is the moveable bit of the slider, known as the "thumb"*/
+ .mySliders::-webkit-slider-thumb {
+   width: 25px;
+   height: 25px;
+   background: #FFCE6D;
+   cursor: pointer;
+   -webkit-appearance: none;
+   
+ /*   /* negative top padding moves it up */
+   margin-top: -6px;
+   /* Border radius gives rounded corners, if they're big enough, you end up with circles */
+   border-radius: 8px; 
+ }
+ 
+
    /* help section */
  #helpContent {
    position: relative;
