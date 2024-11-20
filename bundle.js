@@ -642,7 +642,7 @@ function IGL() {
     container = new Container(p5);
     initializeSliders(p5);
     initializeAtoms();
-    var font = p5.loadFont('/assets/fonts/Oswald-Medium.ttf');
+    var font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
     p5.textFont(font);
     p5.textSize(19);
   }
