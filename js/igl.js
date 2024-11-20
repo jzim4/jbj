@@ -31,7 +31,7 @@ function IGL() {
         initializeSliders(p5);
         initializeAtoms();
 
-        let font = p5.loadFont('/assets/fonts/Oswald-Medium.ttf');
+        let font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
         p5.textFont(font)
         p5.textSize(19);
     }
