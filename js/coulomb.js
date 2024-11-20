@@ -68,10 +68,10 @@ function mousePressed(p5) {
   }
 
   // click sign
-  if (Math.hypot(p5.mouseX - 120, p5.mouseY - 455) <= 20) {
+  if (Math.hypot(p5.mouseX - 200, p5.mouseY - 455) <= 20) {
     q1Sign = 1;
   }
-  if (Math.hypot(p5.mouseX - 180, p5.mouseY - 455) <= 20) {
+  if (Math.hypot(p5.mouseX - 260, p5.mouseY - 455) <= 20) {
     q1Sign = -1;
   }
   if (Math.hypot(p5.mouseX - 622, p5.mouseY - 455) <= 20) {
@@ -211,10 +211,10 @@ function changeCursor(mouseX, mouseY) {
   }
 
   //signs
-  if (Math.hypot(mouseX-120, mouseY-455) <= 20) {
+  if (Math.hypot(mouseX-200, mouseY-455) <= 20) {
     pointer = true;
   }
-  if (Math.hypot(mouseX-180, mouseY-455) <= 20) {
+  if (Math.hypot(mouseX-260, mouseY-455) <= 20) {
     pointer = true;
   }
   if (Math.hypot(mouseX-622, mouseY-455) <= 20) {
@@ -275,7 +275,7 @@ function atomsLabel(p5) {
   p5.noStroke();
   let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
   p5.textAlign(p5.CENTER);
-  p5.text("Distance: " + val + "m", 461, 50);
+  p5.text("Distance (r): " + val + "m", 461, 50);
   p5.textAlign(p5.LEFT);
 }
 
@@ -307,7 +307,7 @@ function r(p5) {
 
 // EQUATION
 
-let leftMostX = 100;
+let leftMostX = 240;
 
 function equations(p5) {
   p5.textFont(oswaldBold, 35);
@@ -316,14 +316,14 @@ function equations(p5) {
 }
 
 function constantEquation(p5) {
-  p5.image(varEqImg, leftMostX + 43, 208);
+  p5.image(varEqImg, leftMostX, 228);
 }
 
 function q1Val(p5) {
   let val = q1Mag * q1Sign;
   p5.fill(237, 91, 45);
   p5.noStroke();
-  p5.text("("+val+")", leftMostX + 353, 276);
+  p5.text("("+val+")", leftMostX + 153, 282);
   return val;
 }
 
@@ -332,10 +332,10 @@ function q2Val(p5) {
   p5.fill(255, 181, 33);
   p5.noStroke();
   if (q1Sign == 1) {
-    p5.text("("+val+")", leftMostX + 413, 276);
+    p5.text("("+val+")", leftMostX + 213, 282);
   }
   else {
-    p5.text("("+val+")", leftMostX + 422, 276);
+    p5.text("("+val+")", leftMostX + 222, 282);
   }
   return val;
 }
@@ -343,13 +343,13 @@ function distVal(p5) {
   let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
   p5.fill(98, 130, 184);
   p5.noStroke();
-  p5.text("("+val+")", leftMostX + 359, 332);
+  p5.text("("+val+")", leftMostX + 159, 342);
   p5.textFont(oswaldBold, 25);
   if (val < 100) {
-    p5.text("2", leftMostX + 423, 322);
+    p5.text("2", leftMostX + 223, 332);
   }
   else {
-    p5.text("2", leftMostX + 434, 322);
+    p5.text("2", leftMostX + 234, 332);
   }
   return val;
 }
@@ -359,12 +359,12 @@ function force(p5, q1, q2, r) {
   p5.textFont(oswaldMedium, 40);
   p5.fill(0);
   p5.noStroke();
-  p5.text(f, leftMostX + 530, 300);
+  p5.text(f, leftMostX + 360, 300);
   p5.textFont(oswaldMedium, 30);
   if (q1*q2<0) {  
-    p5.text("Attraction", leftMostX + 560, 340);
+    p5.text("Attraction", leftMostX + 400, 340);
   } else {
-    p5.text("Repulsion", leftMostX + 550, 340);
+    p5.text("Repulsion", leftMostX + 385, 340);
   }
 }
 
@@ -373,18 +373,36 @@ function leftControlCenter(p5) {
   p5.strokeWeight(2);
   p5.fill(237, 91, 45);
   p5.stroke(0);
-  p5.rect(60, 375, 300, 125, 5);
-  signButtons(120, q1Sign, p5);
-  magnitudeButtons(245, true, p5);
+  p5.rect(60, 375, 380, 125, 5);
+  separationLine(60, p5);
+  label("q1", 60, p5);
+  signButtons(200, q1Sign, p5);
+  magnitudeButtons(325, true, p5);
 }
 
 function rightControlCenter(p5) {
   p5.strokeWeight(2);
   p5.stroke(0);
   p5.fill(255, 181, 33);
-  p5.rect(562, 375, 300, 125, 5);
+  p5.rect(482, 375, 380, 125, 5);
+  separationLine(482, p5);
+  label("q2", 482, p5);
   signButtons(622, q2Sign, p5);
   magnitudeButtons(752, false, p5);
+}
+
+function separationLine(xpos, p5) {
+  let adjust = 80;
+  p5.line(xpos + adjust, 375, xpos + adjust, 500);
+}
+
+function label(text, xpos, p5) {
+  p5.textFont(oswaldBold, 30);
+  p5.noStroke();
+  let adjust = 30;
+  p5.fill(0);
+  p5.text(text, xpos+adjust, 450);
+  p5.stroke(0);
 }
 
 function signButtons(xpos, sign, p5) {

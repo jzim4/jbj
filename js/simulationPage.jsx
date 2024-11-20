@@ -56,7 +56,7 @@ function AllSimulationContent(sim) {
                     <HomeButton/>
                 </div>
                 <div id="simulationSubheader">{sim.instructions}</div>
-                <canvas id="p5Canvas"></canvas>
+                
                 <SimulationContent sim={sim}/>
                 
             </div>
@@ -70,10 +70,20 @@ function SimulationContent(sim) {
         return <IGL/>
     }
     else if (sim.short == "orbital") {
-        return <Orbitals/>
+        return <>
+        <canvas id="p5Canvas"></canvas>
+        <Orbitals/>
+        </>
+        
+        
     }
     else if (sim.short == "coulomb") {
-        return  <Coulomb/>
+        return  <>
+        <canvas id="p5Canvas"></canvas>
+        <Coulomb/>
+        </>
+        
+        
     }
 }
 

@@ -276,8 +276,11 @@ Black: #000000
    justify-content: space-evenly;
  }
 
- #p5Canvas {
+ #p5Canvas, #defaultCanvas0 {
    border: black dotted 2px;
+ }
+ #defaultCanvas1 {
+   display: none;
  }
 
  #simIconContainer {

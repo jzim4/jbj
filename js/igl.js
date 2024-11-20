@@ -21,8 +21,8 @@ function IGL() {
     let previousVolume = volume;
     
     function setup(p5) {
-        let canvas = document.getElementById('p5Canvas');
-        let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight, canvas);
+        let canvas = document.getElementById('simCenterContainer');
+        let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
         p5Canvas.position(0,0,'relative');
         
         sliderContainer = document.getElementById('simCenterContainer');
