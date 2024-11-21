@@ -32,11 +32,9 @@ function setup(p5) {
     p5Canvas.position(0,0,'relative');
 }
 
-let varEqImg;
 let oswaldMedium;
 let oswaldBold;
 function preload(p5) {
-  varEqImg = p5.loadImage('./assets/coulomb/coulombsLaw.png');
   oswaldMedium = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
   oswaldBold = p5.loadFont('./assets/fonts/Oswald-Bold.ttf');
 }
@@ -82,7 +80,7 @@ function mousePressed(p5) {
   }
 
   // click magnitude
-  if (p5.mouseX >= 305 && p5.mouseX <=325) {
+  if (p5.mouseX >= 385 && p5.mouseX <=405) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
       if (q1Mag < magMax) {
         q1Mag += 1;
@@ -307,23 +305,31 @@ function r(p5) {
 
 // EQUATION
 
-let leftMostX = 240;
+let leftMostX = 260;
 
 function equations(p5) {
-  p5.textFont(oswaldBold, 35);
   constantEquation(p5);
+  p5.textFont(oswaldBold, 35);
   force(p5, q1Val(p5), q2Val(p5), distVal(p5));
 }
 
 function constantEquation(p5) {
-  p5.image(varEqImg, leftMostX, 228);
+  p5.textFont(oswaldBold, 50);
+  p5.fill(0);
+  p5.stroke(0);
+  p5.line(leftMostX+70, 300, leftMostX + 250, 300);
+  p5.noStroke();
+  p5.text("F =", leftMostX, 320);
+  p5.text("=", leftMostX + 260, 320);
+  p5.textFont(oswaldBold, 45);
+  p5.text("k", leftMostX + 80, 282);
 }
 
 function q1Val(p5) {
   let val = q1Mag * q1Sign;
   p5.fill(237, 91, 45);
   p5.noStroke();
-  p5.text("("+val+")", leftMostX + 153, 282);
+  p5.text("("+val+")", leftMostX + 113, 282);
   return val;
 }
 
@@ -332,10 +338,10 @@ function q2Val(p5) {
   p5.fill(255, 181, 33);
   p5.noStroke();
   if (q1Sign == 1) {
-    p5.text("("+val+")", leftMostX + 213, 282);
+    p5.text("("+val+")", leftMostX + 173, 282);
   }
   else {
-    p5.text("("+val+")", leftMostX + 222, 282);
+    p5.text("("+val+")", leftMostX + 182, 282);
   }
   return val;
 }
@@ -343,13 +349,13 @@ function distVal(p5) {
   let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
   p5.fill(98, 130, 184);
   p5.noStroke();
-  p5.text("("+val+")", leftMostX + 159, 342);
+  p5.text("("+val+")", leftMostX + 119, 342);
   p5.textFont(oswaldBold, 25);
   if (val < 100) {
-    p5.text("2", leftMostX + 223, 332);
+    p5.text("2", leftMostX + 183, 332);
   }
   else {
-    p5.text("2", leftMostX + 234, 332);
+    p5.text("2", leftMostX + 194, 332);
   }
   return val;
 }
@@ -359,12 +365,12 @@ function force(p5, q1, q2, r) {
   p5.textFont(oswaldMedium, 40);
   p5.fill(0);
   p5.noStroke();
-  p5.text(f, leftMostX + 360, 300);
+  p5.text(f, leftMostX + 310, 300);
   p5.textFont(oswaldMedium, 30);
   if (q1*q2<0) {  
-    p5.text("Attraction", leftMostX + 400, 340);
+    p5.text("Attraction", leftMostX + 350, 340);
   } else {
-    p5.text("Repulsion", leftMostX + 385, 340);
+    p5.text("Repulsion", leftMostX + 335, 340);
   }
 }
 
