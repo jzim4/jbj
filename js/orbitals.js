@@ -15,8 +15,8 @@ function Orbitals() {
       }
   }
   
-  const width = 922;
-  const height = 525;
+  const canvasWidth = 922;
+  const canvasHeight = 525;
   const left = makeLeftOrbitals();
   const right = makeRightOrbitals();
   
@@ -92,8 +92,8 @@ function Orbitals() {
   }
 
   function setup(p5) {
-    let canvas = document.getElementById('p5Canvas');
-    let p5Canvas = p5.createCanvas(width, height, canvas);
+    let canvas = document.getElementById('simCenterContainer');
+    let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
     p5Canvas.position(0,0,'relative');
     resetCanvas(p5);
   }

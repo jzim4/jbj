@@ -1,10 +1,12 @@
 import React from 'react';
 import Sketch from 'react-p5';
+import { useLocation } from 'react-router-dom';
+
 
 function Coulomb() {
 
-let width = 922;
-let height = 525;
+let canvasWidth = 922;
+let canvasHeight = 525;
 
 let magMax = 30;
 let magMin = 10;
@@ -27,9 +29,9 @@ let atomsSimHeight = 200;
 let moving = null;
 
 function setup(p5) {
-    let canvas = document.getElementById('p5Canvas');
-    let p5Canvas = p5.createCanvas(width, height, canvas);
-    p5Canvas.position(0,0,'relative');
+  let canvas = document.getElementById('p5Canvas');
+  let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight, canvas);
+  p5Canvas.position(0,0,'relative');
 }
 
 let oswaldMedium;
@@ -461,7 +463,6 @@ function magnitudeButtons(xpos, q1, p5) {
       p5.line(xpos+70, 475, xpos+80, 465);
   }
 }
-
 return (
     <Sketch setup={setup} preload={preload} draw={draw} mouseMoved={mouseMoved} mousePressed={mousePressed} mouseReleased={mouseReleased} mouseDragged={mouseDragged} />
 )

@@ -7,14 +7,15 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _reactP = _interopRequireDefault(require("react-p5"));
+var _reactRouterDom = require("react-router-dom");
 function _interopRequireDefault(e) {
   return e && e.__esModule ? e : {
     "default": e
   };
 }
 function Coulomb() {
-  var width = 922;
-  var height = 525;
+  var canvasWidth = 922;
+  var canvasHeight = 525;
   var magMax = 30;
   var magMin = 10;
   var q1Sign = 1;
@@ -33,7 +34,7 @@ function Coulomb() {
   var moving = null;
   function setup(p5) {
     var canvas = document.getElementById('p5Canvas');
-    var p5Canvas = p5.createCanvas(width, height, canvas);
+    var p5Canvas = p5.createCanvas(canvasWidth, canvasHeight, canvas);
     p5Canvas.position(0, 0, 'relative');
   }
   var oswaldMedium;
@@ -429,7 +430,7 @@ function Coulomb() {
 }
 var _default = exports["default"] = Coulomb;
 
-},{"react":25,"react-p5":16}],2:[function(require,module,exports){
+},{"react":25,"react-p5":16,"react-router-dom":17}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -529,11 +530,20 @@ function SimulationNav(sim) {
   sim = sim.sim;
   var key = sim["short"].concat("Nav");
   var link = '/'.concat(sim["short"]);
+  var clickFunction = function clickFunction() {};
+  if (sim["short"] == "coulomb") {
+    var navigate = (0, _reactRouterDom.useNavigate)();
+    clickFunction = function clickFunction() {
+      navigate('/coulomb');
+      window.location.reload();
+    };
+  }
   return /*#__PURE__*/React.createElement("div", {
     key: key,
     className: "homePageNavContainer"
   }, /*#__PURE__*/React.createElement(_reactRouterDom.Link, {
     to: link,
+    onClick: clickFunction,
     className: "homePageNavLink"
   }, /*#__PURE__*/React.createElement("img", {
     className: "homePageNavImg",
@@ -1089,8 +1099,8 @@ function Orbitals() {
     this.width = width;
     this.height = height;
   });
-  var width = 922;
-  var height = 525;
+  var canvasWidth = 922;
+  var canvasHeight = 525;
   var left = makeLeftOrbitals();
   var right = makeRightOrbitals();
   var selectedL = null;
@@ -1152,8 +1162,8 @@ function Orbitals() {
     font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
   }
   function setup(p5) {
-    var canvas = document.getElementById('p5Canvas');
-    var p5Canvas = p5.createCanvas(width, height, canvas);
+    var canvas = document.getElementById('simCenterContainer');
+    var p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
     p5Canvas.position(0, 0, 'relative');
     resetCanvas(p5);
   }
@@ -1729,9 +1739,7 @@ function SimulationContent(sim) {
   if (sim["short"] == "igl") {
     return /*#__PURE__*/_react["default"].createElement(_igl["default"], null);
   } else if (sim["short"] == "orbital") {
-    return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("canvas", {
-      id: "p5Canvas"
-    }), /*#__PURE__*/_react["default"].createElement(_orbitals["default"], null));
+    return /*#__PURE__*/_react["default"].createElement(_orbitals["default"], null);
   } else if (sim["short"] == "coulomb") {
     return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("canvas", {
       id: "p5Canvas"
