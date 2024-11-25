@@ -8,8 +8,8 @@ function Coulomb() {
 let canvasWidth = 922;
 let canvasHeight = 525;
 
-let magMax = 30;
-let magMin = 10;
+let magMax = 95;
+let magMin = 0;
 let q1Sign = 1;
 let q1Mag = 20;
 let q2Sign = 1;
@@ -85,12 +85,12 @@ function mousePressed(p5) {
   if (p5.mouseX >= 385 && p5.mouseX <=405) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
       if (q1Mag < magMax) {
-        q1Mag += 1;
+        q1Mag += 5;
       }
     }
     if (p5.mouseY >= 465 && p5.mouseY <= 475) {
       if (q1Mag > magMin) {
-        q1Mag -= 1;
+        q1Mag -= 5;
       }
     }
   }
@@ -98,12 +98,12 @@ function mousePressed(p5) {
   if (p5.mouseX >= 812 && p5.mouseX <=832) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
       if (q2Mag < magMax) {
-        q2Mag += 1;
+        q2Mag += 5;
       }
     }
     if (p5.mouseY >= 465 && p5.mouseY <= 475) {
       if (q2Mag > magMin) {
-        q2Mag -= 1;
+        q2Mag -= 5;
       }
     }
   }
@@ -225,7 +225,7 @@ function changeCursor(mouseX, mouseY) {
   }
 
   // magnitude
-  if (mouseX >= 305 && mouseX <= 325){
+  if (mouseX >= 385 && mouseX <= 405){
     if (mouseY >= 435 && mouseY <= 445 && q1Mag<magMax) {
       pointer = true;
     }
@@ -339,7 +339,10 @@ function q2Val(p5) {
   let val = q2Mag * q2Sign;
   p5.fill(255, 181, 33);
   p5.noStroke();
-  if (q1Sign == 1) {
+  if ((q1Sign == 1 && q1Mag < 10) || (q1Sign == -1 && q1Mag == 0)) {
+    p5.text("("+val+")", leftMostX + 163, 282);
+  }
+  else if ((q1Sign == 1 && q1Mag >= 10) || (q1Sign == -1 && q1Mag < 10)) {
     p5.text("("+val+")", leftMostX + 173, 282);
   }
   else {

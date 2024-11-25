@@ -16,8 +16,8 @@ function _interopRequireDefault(e) {
 function Coulomb() {
   var canvasWidth = 922;
   var canvasHeight = 525;
-  var magMax = 30;
-  var magMin = 10;
+  var magMax = 95;
+  var magMin = 0;
   var q1Sign = 1;
   var q1Mag = 20;
   var q2Sign = 1;
@@ -81,24 +81,24 @@ function Coulomb() {
     if (p5.mouseX >= 385 && p5.mouseX <= 405) {
       if (p5.mouseY >= 435 && p5.mouseY <= 445) {
         if (q1Mag < magMax) {
-          q1Mag += 1;
+          q1Mag += 5;
         }
       }
       if (p5.mouseY >= 465 && p5.mouseY <= 475) {
         if (q1Mag > magMin) {
-          q1Mag -= 1;
+          q1Mag -= 5;
         }
       }
     }
     if (p5.mouseX >= 812 && p5.mouseX <= 832) {
       if (p5.mouseY >= 435 && p5.mouseY <= 445) {
         if (q2Mag < magMax) {
-          q2Mag += 1;
+          q2Mag += 5;
         }
       }
       if (p5.mouseY >= 465 && p5.mouseY <= 475) {
         if (q2Mag > magMin) {
-          q2Mag -= 1;
+          q2Mag -= 5;
         }
       }
     }
@@ -202,7 +202,7 @@ function Coulomb() {
     }
 
     // magnitude
-    if (mouseX >= 305 && mouseX <= 325) {
+    if (mouseX >= 385 && mouseX <= 405) {
       if (mouseY >= 435 && mouseY <= 445 && q1Mag < magMax) {
         pointer = true;
       }
@@ -306,7 +306,9 @@ function Coulomb() {
     var val = q2Mag * q2Sign;
     p5.fill(255, 181, 33);
     p5.noStroke();
-    if (q1Sign == 1) {
+    if (q1Sign == 1 && q1Mag < 10 || q1Sign == -1 && q1Mag == 0) {
+      p5.text("(" + val + ")", leftMostX + 163, 282);
+    } else if (q1Sign == 1 && q1Mag >= 10 || q1Sign == -1 && q1Mag < 10) {
       p5.text("(" + val + ")", leftMostX + 173, 282);
     } else {
       p5.text("(" + val + ")", leftMostX + 182, 282);
@@ -928,6 +930,11 @@ root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].Stric
   path: "/coulomb",
   element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
     sim: data.coulomb
+  })
+}), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
+  path: "/ms",
+  element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
+    sim: data.ms
   })
 }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
   path: "*",
@@ -1781,6 +1788,14 @@ module.exports={
         "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
         "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
         "instructionImg": "./assets/instructionImg/coulombInstructions.png"
+    },
+    "ms": {
+        "name": "Micro States",
+        "short": "ms",
+        "navImg": "./assets/navImg/placeHolder.png",
+        "instructions" : "THIS IS WHERE INSTRUCTIONS GO.",
+        "moreInfo": "THIS IS WHERE MORE INFORMATION GOES.",
+        "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
     }
 }
 },{}],10:[function(require,module,exports){
