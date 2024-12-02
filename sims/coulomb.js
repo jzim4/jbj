@@ -7,7 +7,7 @@ function Coulomb() {
 let canvasWidth = 922;
 let canvasHeight = 525;
 
-let magMax = 95;
+let magMax = 90;
 let magMin = 0;
 let q1Sign = 1;
 let q1Mag = 20;

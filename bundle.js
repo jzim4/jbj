@@ -43566,7 +43566,7 @@ function _interopRequireDefault(e) {
 function Coulomb() {
   var canvasWidth = 922;
   var canvasHeight = 525;
-  var magMax = 95;
+  var magMax = 90;
   var magMin = 0;
   var q1Sign = 1;
   var q1Mag = 20;
@@ -44879,7 +44879,7 @@ module.exports={
         "p5js": "https://editor.p5js.org/bresypedraza/full/51SPYMqzt",
         "instructions": "To interact with the simulation, move the sliders to see how volume, moles, and temperature, each relate to pressure.",
         "moreInfo": "The ideal gas law models the rudimentary relationship between pressure, temperature, volume, and moles of gasses in a sealed container.\n\nIn this simulation, temperature is shown as the speed of the molecules, volume is the size of the container, and moles are the number of molecules. Notice how changing these values affects the visualization and the pressure.",
-        "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
+        "instructionImg": "./assets/instructionImg/iglInstructions.png"
     },
     "orbital": {
         "name": "Orbital Combinations",
@@ -44898,7 +44898,7 @@ module.exports={
         "instructionImg": "./assets/instructionImg/coulombInstructions.png"
     },
     "ms": {
-        "name": "Micro States",
+        "name": "Microstates",
         "short": "ms",
         "navImg": "./assets/navImg/placeHolder.png",
         "instructions" : "THIS IS WHERE INSTRUCTIONS GO.",

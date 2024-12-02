@@ -321,7 +321,7 @@ Black: #000000
    text-wrap: balance;
  }
  @media (max-width: 1200px) {
-   #p5Canvas, #helpContent, #simulationSubheader, #instructionsButton {
+   #p5Canvas, #helpContent, #simulationSubheader, #instructionsButton, #defaultCanvas0, .mySliders {
       display: none;
    }
  }
