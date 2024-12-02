@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as simData from './simulations.json';
+import * as simData from '../simulations.json';
 import { Link, useNavigate } from 'react-router-dom';
 
 function SimulationNav (sim) {

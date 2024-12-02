@@ -2,7 +2,7 @@
 import HomePage from './homePage.jsx';
 import SimulationPage from './simulationPage.jsx'
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import * as data from './simulations.json'
+import * as data from '../simulations.json'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
  

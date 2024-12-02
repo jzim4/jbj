@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import Orbitals from './orbitals.js';
-import Coulomb from './coulomb.js';
-import IGL from './igl.js';
+import Orbitals from '../sims/orbitals.js';
+import Coulomb from '../sims/coulomb.js';
+import IGL from '../sims/igl.js';
 import { Link } from 'react-router-dom';
 import InstructionWindow from './instructionWindow.jsx';
 

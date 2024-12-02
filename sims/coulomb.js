@@ -2,7 +2,6 @@ import React from 'react';
 import Sketch from 'react-p5';
 import { useLocation } from 'react-router-dom';
 
-
 function Coulomb() {
 
 let canvasWidth = 922;
