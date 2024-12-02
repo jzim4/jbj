@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import Orbitals from '../sims/orbitals.js';
 import Coulomb from '../sims/coulomb.js';
 import IGL from '../sims/igl.js';
+import Microstates from '../sims/micro.js';
 import { Link } from 'react-router-dom';
 import InstructionWindow from './instructionWindow.jsx';
 
@@ -74,6 +75,12 @@ function SimulationContent(sim) {
         return <>
         <canvas id="p5Canvas"></canvas>
         <Coulomb/>
+        </>
+    }
+    else if (sim.short == "ms") {
+        return <>
+        <canvas id="msCanvas"></canvas>
+        <Microstates/>
         </>
     }
 }

@@ -43248,7 +43248,7 @@ function LandingPage() {
   }));
 }
 
-},{"../simulations.json":29,"react":16,"react-router-dom":8}],23:[function(require,module,exports){
+},{"../simulations.json":30,"react":16,"react-router-dom":8}],23:[function(require,module,exports){
 "use strict";
 
 function _typeof(o) {
@@ -43330,7 +43330,7 @@ root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].Stric
   element: /*#__PURE__*/_react["default"].createElement(_homePage["default"], null)
 })))));
 
-},{"../simulations.json":29,"./homePage.jsx":21,"./simulationPage.jsx":25,"react":16,"react-dom/client":5,"react-router-dom":8}],24:[function(require,module,exports){
+},{"../simulations.json":30,"./homePage.jsx":21,"./simulationPage.jsx":25,"react":16,"react-dom/client":5,"react-router-dom":8}],24:[function(require,module,exports){
 "use strict";
 
 function _typeof(o) {
@@ -43428,6 +43428,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _orbitals = _interopRequireDefault(require("../sims/orbitals.js"));
 var _coulomb = _interopRequireDefault(require("../sims/coulomb.js"));
 var _igl = _interopRequireDefault(require("../sims/igl.js"));
+var _micro = _interopRequireDefault(require("../sims/micro.js"));
 var _reactRouterDom = require("react-router-dom");
 var _instructionWindow = _interopRequireDefault(require("./instructionWindow.jsx"));
 function _interopRequireDefault(e) {
@@ -43537,6 +43538,10 @@ function SimulationContent(sim) {
     return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("canvas", {
       id: "p5Canvas"
     }), /*#__PURE__*/_react["default"].createElement(_coulomb["default"], null));
+  } else if (sim["short"] == "ms") {
+    return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("canvas", {
+      id: "msCanvas"
+    }), /*#__PURE__*/_react["default"].createElement(_micro["default"], null));
   }
 }
 function SimulationPage(sim) {
@@ -43548,7 +43553,7 @@ function SimulationPage(sim) {
   }), /*#__PURE__*/_react["default"].createElement(ErrorMessage, null));
 }
 
-},{"../sims/coulomb.js":26,"../sims/igl.js":27,"../sims/orbitals.js":28,"./instructionWindow.jsx":24,"react":16,"react-router-dom":8}],26:[function(require,module,exports){
+},{"../sims/coulomb.js":26,"../sims/igl.js":27,"../sims/micro.js":28,"../sims/orbitals.js":29,"./instructionWindow.jsx":24,"react":16,"react-router-dom":8}],26:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44270,6 +44275,23 @@ var _default = exports["default"] = IGL;
 },{"react":16,"react-p5":7}],28:[function(require,module,exports){
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = Microstates;
+var _react = require("react");
+function Microstates() {
+  (0, _react.useEffect)(function () {
+    var canvas = document.getElementById("msCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.font = "50px Arial";
+    ctx.fillText("Hello World", 10, 80);
+  }, []);
+}
+
+},{"react":16}],29:[function(require,module,exports){
+"use strict";
+
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -44870,7 +44892,7 @@ function Orbitals() {
 }
 var _default = exports["default"] = Orbitals;
 
-},{"react":16,"react-p5":7}],29:[function(require,module,exports){
+},{"react":16,"react-p5":7}],30:[function(require,module,exports){
 module.exports={
     "igl": {
         "name": "Ideal Gas Law",
