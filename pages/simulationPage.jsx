@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Orbitals from '../sims/orbitals.js';
 import Coulomb from '../sims/coulomb.js';
 import IGL from '../sims/igl.js';
