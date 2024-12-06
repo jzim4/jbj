@@ -44108,7 +44108,7 @@ function IGL() {
       initializeAtoms(p5);
       previousVolume = volume;
     }
-    // drawDottedRectangle(p5);
+    drawDottedRectangle(p5);
   }
   function drawDottedRectangle(p5) {
     p5.noFill();
