@@ -363,14 +363,14 @@ Black: #000000
  
  /* This is the moveable bit of the slider, known as the "thumb"*/
  .mySliders::-webkit-slider-thumb {
-   width: 25px;
+   width: 15px;
    height: 25px;
    background: #FFCE6D;
    cursor: pointer;
    -webkit-appearance: none;
    
- /*   /* negative top padding moves it up */
-   margin-top: -6px;
+ /*   /* negative top padding moves it up  and centers the thumb*/
+   margin-top: -7.5px;
    /* Border radius gives rounded corners, if they're big enough, you end up with circles */
    border-radius: 8px; 
  }
