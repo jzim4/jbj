@@ -10,7 +10,7 @@ The site is built in [React](https://react.dev/), and we used [p5.js](https://p5
 npm install
 ```
 
-## The code structure
+## The Site Code Structure
 The site begins with the file index.html located in the base directory. Also in the base directory is simulations.json, which contains image links and instructions for each simulation. 
 
 From there, in the pages directory, index.js creates the root for the React components. The home page is built in the files homePage.jsx and homePageModules.jsx. The former creates the title and images, while the latter, using the data from simulations.json, creates thumbnails that give the user access to the simulations. 
