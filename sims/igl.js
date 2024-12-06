@@ -7,7 +7,7 @@ function IGL() {
 
     // Container and sliders
     let container;
-    let pressureSlider, temperatureSlider, volumeSlider, molesSlider;
+    let temperatureSlider, volumeSlider, molesSlider;
     let sliderContainer;
 
     // Ideal gas constants
@@ -39,6 +39,8 @@ function IGL() {
     function draw(p5) {
         p5.rect(50,50,container.maxWidth, container.maxHeight,5);
         p5.background(220);
+
+        drawControlPanel(p5);
         container.draw(p5);
         
         let moles = molesSlider.sliderValue;
@@ -53,8 +55,38 @@ function IGL() {
             initializeAtoms(p5);
             previousVolume = volume;
         }
+        // drawDottedRectangle(p5);
 
     }
+    function drawDottedRectangle(p5){
+        p5.noFill();
+        p5.stroke(0); // Black stroke for visibility
+        p5.strokeWeight(2); // Ensure the stroke is thick enough
+        p5.drawingContext.setLineDash([5, 5]);
+        p5.rect(canvasWidth * 0.25 - canvasWidth * 0.2, canvasHeight * 0.08,canvasWidth * 0.4,canvasHeight * 0.8,5);
+        p5.drawingContext.setLineDash([]); 
+    }
+
+    function drawControlPanel(p5) {
+        // Set the panel's position and dimensions
+        let panelX = canvasWidth * 0.5;
+        let panelY = canvasHeight * 0.06;
+        let panelWidth = canvasWidth * 0.45;
+        let panelHeight = canvasHeight * 0.85;
+      
+        // Draw the panel background
+        p5.fill(180); // Light gray background
+        p5.stroke(0); // Black border
+        p5.strokeWeight(2); // Border thickness
+        p5.rect(panelX, panelY, panelWidth, panelHeight, 10); // Rounded corners
+        
+        // Add a title for the control panel
+        p5.fill(0);
+        p5.noStroke();
+        p5.textSize(20);
+        p5.textAlign(p5.CENTER);
+        p5.text("Control Panel", panelX + panelWidth / 2, 10);
+      }
 
     function initializeSliders(p5) {
         const initialX = canvasWidth*0.55;
@@ -80,15 +112,13 @@ function IGL() {
     function drawAtoms(moles, temperature, p5) {
         let displayedAtoms = Math.floor(moles * 15);
         for (let i = 0; i < numOfAtoms; i++) {
-            atoms[i].updateSpeed(temperature);
-            atoms[i].update(atomRadius, p5);
-            if (i > displayedAtoms - 1){
-            atoms[i].draw(atomRadius,  98, 130, 184, p5);
+            atoms[i].update(atomRadius, temperature, p5);
+            if (i > numOfAtoms - displayedAtoms){
+                atoms[i].draw(atomRadius, 255, 206, 109, p5);
             }
             else{
-            atoms[i].draw(atomRadius, 255, 206, 109, p5);
+                atoms[i].draw(atomRadius, 98, 130, 184, p5);
             }
-        
         }
     }
 
@@ -107,22 +137,29 @@ function IGL() {
     }
 
     function drawPressureBar(p5) {
-        let barHeight = p5.map(pressure, 0, 5000, 0, canvasHeight * 0.8);
+        let barHeight = p5.map(pressure, 0, 26000, 0, canvasHeight * 0.8);
         p5.fill(237, 91, 45);
         p5.rect(canvasWidth * 0.55, canvasHeight * 0.9, canvasWidth * 0.02, -barHeight);
         
         p5.fill(0);
-        p5.text("Pressure", canvasWidth * 0.53, canvasHeight * 0.9 + 20);
-        p5.text(pressure.toFixed(2), canvasWidth * 0.535, canvasHeight * 0.97);
+        p5.text("Pressure", canvasWidth * 0.565, canvasHeight * 0.9 + 20);
+        p5.text(pressure.toFixed(2), canvasWidth * 0.565, canvasHeight * 0.97);
     }
 
     function drawSliderLabel(slider, label, units, p5) {
         p5.fill(0);
-        p5.stroke(0);
-        let xPosition = slider.sliderXPosition+115
-        p5.text(label, xPosition, canvasHeight * 0.935);
-        p5.text(slider.sliderValue, xPosition + 10, canvasHeight * 0.97);
-        p5.text(units, xPosition+ 30, canvasHeight * 0.97);
+        p5.noStroke();
+        p5.textSize(16);
+        p5.textAlign(p5.CENTER, p5.CENTER); // Center align horizontally and vertically
+      
+        // Center the label relative to the slider's position
+        let xPosition = slider.sliderXPosition + 140; // Centered above the slider
+        let yPosition = slider.sliderYPosition + 175; // Adjust for label position
+      
+        // Draw the label
+        p5.text(label, xPosition, yPosition - 30); 
+        p5.text(`${slider.sliderValue} ${units}`, xPosition, yPosition-10);
+
     }
 
     class ControlSlider {
@@ -130,7 +167,7 @@ function IGL() {
             this.sliderLowerBound = lowerBound;
             this.sliderUpperBound = upperBound;
             this.sliderXPosition = xPosition;
-            this.sliderYPosition = canvasHeight * 0.6;
+            this.sliderYPosition = canvasHeight * 0.65;
             this.barMaxHeight = canvasHeight * 0.45;
     
             this.createVariableSlider(p5);
@@ -181,7 +218,7 @@ function IGL() {
         }
         }
     
-        class Atom {
+    class Atom {
         constructor(radius, p5) {
             let bounds = container.bounds;
             this.x = Math.random(bounds.left + radius, bounds.right - radius);
@@ -194,22 +231,38 @@ function IGL() {
             this.ySpeed = this.speed * Math.sin(this.angle);
             
         }
-        
-        updateSpeed(tempature){
-            let R = 8.31;
-            this.speed = Math.sqrt(3*R*tempature)*0.1;
-            this.xSpeed = this.speed * Math.cos(this.angle);
-            this.ySpeed = this.speed * Math.sin(this.angle);
-        }
-    
-        update(radius) {
-            this.x += this.xSpeed;
-            this.y += this.ySpeed;
-            
-            let bounds = container.bounds;
-            if (this.x > bounds.right - radius || this.x < bounds.left + radius) this.xSpeed *= -1;
-            if (this.y > bounds.bottom - radius || this.y < bounds.top + radius) this.ySpeed *= -1;
-        }
+
+        update(radius, temperature,p5) {
+            // Calculate new speed based on temperature, allow it to go to zero
+             let newSpeed = temperature * 0.1; 
+         
+             // If new speed is not zero, recalculate xSpeed and ySpeed using the stored angle
+             if (newSpeed > 0) {
+               this.xSpeed = newSpeed * Math.cos(this.angle);
+               this.ySpeed = newSpeed * Math.sin(this.angle);
+             } else {
+               this.xSpeed = 0;
+               this.ySpeed = 0;
+             }
+         
+             this.x += this.xSpeed;
+             this.y += this.ySpeed;
+         
+             let bounds = container.bounds;
+         
+             // Handle boundary collisions
+             if (this.x >= bounds.right - radius || this.x <= bounds.left + radius) {
+               this.xSpeed *= -1;
+               this.angle = p5.TWO_PI - this.angle; // Reverse horizontal direction
+               this.x = p5.constrain(this.x, bounds.left + radius, bounds.right - radius);
+             }
+         
+             if (this.y >= bounds.bottom - radius || this.y <= bounds.top + radius) {
+               this.ySpeed *= -1;
+               this.angle = -this.angle; // Reverse vertical direction
+               this.y = p5.constrain(this.y, bounds.top + radius, bounds.bottom - radius);
+             }
+           }
     
         draw(radius, r, g, b, p5) {
             p5.fill(r, g, b);
