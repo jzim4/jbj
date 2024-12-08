@@ -1,30 +1,40 @@
 import React from 'react';
 import Sketch from 'react-p5';
-import { useLocation } from 'react-router-dom';
 
 function Coulomb() {
 
-let canvasWidth = 922;
-let canvasHeight = 525;
+  let canvasWidth = 922;
+  let canvasHeight = 525;
 
-let magMax = 90;
-let magMin = 0;
-let q1Sign = 1;
-let q1Mag = 20;
-let q2Sign = 1;
-let q2Mag = 10;
+  let magMax = 90;
+  let magMin = 0;
+  let diameter = 50;
 
-let diameter = 50;
-let q1PosX = 150;
-let q1PosY = 130;
-let q2PosX = 800;
-let q2PosY = 130;
+  // class to store the atom's location in the box and sign and magnitude
+  class Atom {
+    constructor(sign, mag, posX, posY) {
+      this.sign = sign;
+      this.mag = mag;
+      this.posX = posX;
+      this.posY = posY;
+    }
+  }
 
-let atomsSimPosX = 60;
-let atomsSimPosY = 20;
-let atomsSimWidth = 802;
-let atomsSimHeight = 200;
+  let q1 = new Atom(1, 20, 150, 130);
+  let q2 = new Atom(1, 10, 800, 130);
 
+  // // class to store the simulation's position and size
+  class AtomSim {
+    constructor(posX, posY, width, height) {
+      this.posX = posX;
+      this.posY = posY;
+      this.width = width;
+      this.height = height;
+    }
+  }
+  const atomSim = new AtomSim(60, 20, 802, 200);
+
+// global variable to determine whether/which atom is being dragged
 let moving = null;
 
 function setup(p5) {
@@ -54,11 +64,11 @@ function draw(p5) {
 
 function mousePressed(p5) {
   // click atoms
-  if (Math.hypot(p5.mouseX - q1PosX, p5.mouseY - q1PosY) <= diameter/2) {
+  if (Math.hypot(p5.mouseX - q1.posX, p5.mouseY - q1.posY) <= diameter/2) {
     moving = 'q1';
     document.body.style.cursor = "grabbing";
   }
-  else if (Math.hypot(p5.mouseX - q2PosX, p5.mouseY - q2PosY) <= diameter/2) {
+  else if (Math.hypot(p5.mouseX - q2.posX, p5.mouseY - q2.posY) <= diameter/2) {
     moving = 'q2';
     document.body.style.cursor = "grabbing";
   }
@@ -68,41 +78,41 @@ function mousePressed(p5) {
 
   // click sign
   if (Math.hypot(p5.mouseX - 200, p5.mouseY - 455) <= 20) {
-    q1Sign = 1;
+    q1.sign = 1;
   }
   if (Math.hypot(p5.mouseX - 260, p5.mouseY - 455) <= 20) {
-    q1Sign = -1;
+    q1.sign = -1;
   }
   if (Math.hypot(p5.mouseX - 622, p5.mouseY - 455) <= 20) {
-    q2Sign = 1;
+    q2.sign = 1;
   }
   if (Math.hypot(p5.mouseX - 682, p5.mouseY - 455) <= 20) {
-    q2Sign = -1;
+    q2.sign = -1;
   }
 
   // click magnitude
   if (p5.mouseX >= 385 && p5.mouseX <=405) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
-      if (q1Mag < magMax) {
-        q1Mag += 5;
+      if (q1.mag < magMax) {
+        q1.mag += 5;
       }
     }
     if (p5.mouseY >= 465 && p5.mouseY <= 475) {
-      if (q1Mag > magMin) {
-        q1Mag -= 5;
+      if (q1.mag > magMin) {
+        q1.mag -= 5;
       }
     }
   }
   
   if (p5.mouseX >= 812 && p5.mouseX <=832) {
     if (p5.mouseY >= 435 && p5.mouseY <= 445) {
-      if (q2Mag < magMax) {
-        q2Mag += 5;
+      if (q2.mag < magMax) {
+        q2.mag += 5;
       }
     }
     if (p5.mouseY >= 465 && p5.mouseY <= 475) {
-      if (q2Mag > magMin) {
-        q2Mag -= 5;
+      if (q2.mag > magMin) {
+        q2.mag -= 5;
       }
     }
   }
@@ -118,18 +128,22 @@ function mouseMoved(p5) {
 }
 
 function mouseDragged(p5) { 
+  handleAtomDrag();
+}
+
+function handleAtomDrag() {
   let still = null;
   let oldPosX;
   let oldPosY;
   if (moving == 'q1') {
-    still = 'q2';
-    oldPosX = q1PosX;
-    oldPosY = q1PosY;
+    still = q2;
+    oldPosX = q1.posX;
+    oldPosY = q1.posY;
   }
   else if (moving == 'q2') {
-    still = 'q1';
-    oldPosX = q2PosX;
-    oldPosY = q2PosY;
+    still = q1;
+    oldPosX = q2.posX;
+    oldPosY = q2.posY;
   }
   else {
     return;
@@ -138,12 +152,12 @@ function mouseDragged(p5) {
   let newXPos = xInBounds(p5.mouseX);
   let newYPos = yInBounds(p5.mouseY);
 
-  let overlapping = Math.hypot(eval(still + "PosX") - newXPos, eval(still + "PosY") - newYPos) <= diameter;
+  let overlapping = Math.hypot(still.posX - newXPos, still.posY - newYPos) <= diameter;
 
   if (overlapping) {
-    let angle = Math.atan2(newYPos - eval(still + "PosY"), newXPos - eval(still + "PosX"));
-    newXPos = eval(still + "PosX") + Math.cos(angle) * diameter;
-    newYPos = eval(still + "PosY") + Math.sin(angle) * diameter;
+    let angle = Math.atan2(newYPos - still.posY, newXPos - still.posX);
+    newXPos = still.posX + Math.cos(angle) * diameter;
+    newYPos = still.posY + Math.sin(angle) * diameter;
   }
 
   let move = false;
@@ -153,31 +167,35 @@ function mouseDragged(p5) {
 
   if (move) {
     if (moving == 'q1') {
-      q1PosX = newXPos;
-      q1PosY = newYPos;
+      q1.posX = newXPos;
+      q1.posY = newYPos;
     }
     else {
-      q2PosX = newXPos;
-      q2PosY = newYPos;
+      q2.posX = newXPos;
+      q2.posY = newYPos;
     }
   } else {
     if (moving == 'q1') {
-      q1PosX = oldPosX;
-      q1PosY = oldPosY;
+      q1.posX = oldPosX;
+      q1.posY = oldPosY;
     }
     else {
-      q2PosX = oldPosX;
-      q2PosY = oldPosY;
+      q2.posX = oldPosX;
+      q2.posY = oldPosY;
     }
   }
 }
 
+function dragAtom() {
+
+}
+
 function xInBounds(x) {
-  if (x < atomsSimPosX + diameter/2) {
-    return atomsSimPosX + diameter/2;
+  if (x < atomSim.posX + diameter/2) {
+    return atomSim.posX + diameter/2;
   }
-  if (x > atomsSimPosX + atomsSimWidth - diameter/2) {
-    return atomsSimPosX + atomsSimWidth - diameter/2;
+  if (x > atomSim.posX + atomSim.width - diameter/2) {
+    return atomSim.posX + atomSim.width - diameter/2;
   }
   else {
     return x;
@@ -185,11 +203,11 @@ function xInBounds(x) {
 }
 
 function yInBounds(y) {
-  if (y < atomsSimPosY + diameter/2 + 36) {
-    return atomsSimPosY + diameter/2 + 36;
+  if (y < atomSim.posY + diameter/2 + 36) {
+    return atomSim.posY + diameter/2 + 36;
   }
-  if (y > atomsSimPosY + atomsSimHeight - diameter/2) {
-    return atomsSimPosY + atomsSimHeight - diameter/2;
+  if (y > atomSim.posY + atomSim.height - diameter/2) {
+    return atomSim.posY + atomSim.height - diameter/2;
   }
   else {
     return y;
@@ -202,10 +220,10 @@ function changeCursor(mouseX, mouseY) {
   let grab = false;
 
   // atoms
-  if (Math.hypot(mouseX-q1PosX, mouseY-q1PosY) <= diameter/2) {
+  if (Math.hypot(mouseX-q1.posX, mouseY-q1.posY) <= diameter/2) {
     grab = true;
   }
-  if (Math.hypot(mouseX-q2PosX, mouseY-q2PosY) <= diameter/2) {
+  if (Math.hypot(mouseX-q2.posX, mouseY-q2.posY) <= diameter/2) {
     grab = true;
   }
 
@@ -225,18 +243,18 @@ function changeCursor(mouseX, mouseY) {
 
   // magnitude
   if (mouseX >= 385 && mouseX <= 405){
-    if (mouseY >= 435 && mouseY <= 445 && q1Mag<magMax) {
+    if (mouseY >= 435 && mouseY <= 445 && q1.mag<magMax) {
       pointer = true;
     }
-    if (mouseY >= 465 && mouseY <= 475 && q1Mag>magMin) {
+    if (mouseY >= 465 && mouseY <= 475 && q1.mag>magMin) {
       pointer = true;
     }
   }
   if (mouseX >= 812 && mouseX <= 832) {
-    if (mouseY >= 435 && mouseY <= 445 && q2Mag<magMax) {
+    if (mouseY >= 435 && mouseY <= 445 && q2.mag<magMax) {
       pointer = true;
     }
-    if (mouseY >= 465 && mouseY <= 475 && q2Mag>magMin) {
+    if (mouseY >= 465 && mouseY <= 475 && q2.mag>magMin) {
       pointer = true;
     }
   }
@@ -258,10 +276,10 @@ function changeCursor(mouseX, mouseY) {
 function atomsSim(p5) {
   p5.strokeWeight(3);
   p5.fill(255);
-  p5.rect(atomsSimPosX, atomsSimPosY, atomsSimWidth, atomsSimHeight, 5);
+  p5.rect(atomSim.posX, atomSim.posY, atomSim.width, atomSim.height, 5);
   atomsLabel(p5);
-  q1(p5);
-  q2(p5);
+  q1Circle(p5);
+  q2Circle(p5);
   r(p5);
 }
 
@@ -269,38 +287,38 @@ function atomsLabel(p5) {
   p5.fill(98, 130, 184);
   p5.textFont(oswaldMedium, 30);
   p5.strokeWeight(2);
-  p5.line(atomsSimPosX, 55, atomsSimPosX + atomsSimWidth, 55);
+  p5.line(atomSim.posX, 55, atomSim.posX + atomSim.width, 55);
   p5.strokeWeight(3);
   p5.noStroke();
-  let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
+  let val = Math.trunc(Math.hypot(q1.posX-q2.posX, q1.posY-q2.posY)/3);
   p5.textAlign(p5.CENTER);
   p5.text("Distance (r): " + val + "m", 461, 50);
   p5.textAlign(p5.LEFT);
 }
 
-function q1(p5) {
+function q1Circle(p5) {
   p5.fill(237, 91, 45);
   p5.stroke(0);
   p5.strokeWeight(3);
-  p5.circle(q1PosX, q1PosY, diameter);
+  p5.circle(q1.posX, q1.posY, diameter);
   p5.fill(98, 130, 184);
   p5.noStroke();
-  p5.circle(q1PosX, q1PosY, 6);
+  p5.circle(q1.posX, q1.posY, 6);
 }
-function q2(p5) {
+function q2Circle(p5) {
   p5.fill(255, 181, 33);
   p5.strokeWeight(3);
   p5.stroke(0);
-  p5.circle(q2PosX, q2PosY, diameter);
+  p5.circle(q2.posX, q2.posY, diameter);
   p5.fill(98, 130, 184);
   p5.noStroke();
-  p5.circle(q2PosX, q2PosY, 6);
+  p5.circle(q2.posX, q2.posY, 6);
 }
 function r(p5) {
   p5.strokeWeight(3);
   p5.stroke(98, 130, 184);
   p5.drawingContext.setLineDash([4,12]);
-  p5.line(q1PosX, q1PosY, q2PosX, q2PosY);
+  p5.line(q1.posX, q1.posY, q2.posX, q2.posY);
   p5.drawingContext.setLineDash([]);
 }
 
@@ -327,7 +345,7 @@ function constantEquation(p5) {
 }
 
 function q1Val(p5) {
-  let val = q1Mag * q1Sign;
+  let val = q1.mag * q1.sign;
   p5.fill(237, 91, 45);
   p5.noStroke();
   p5.text("("+val+")", leftMostX + 113, 282);
@@ -335,13 +353,13 @@ function q1Val(p5) {
 }
 
 function q2Val(p5) {
-  let val = q2Mag * q2Sign;
+  let val = q2.mag * q2.sign;
   p5.fill(255, 181, 33);
   p5.noStroke();
-  if ((q1Sign == 1 && q1Mag < 10) || (q1Sign == -1 && q1Mag == 0)) {
+  if ((q1.sign == 1 && q1.mag < 10) || (q1.sign == -1 && q1.mag == 0)) {
     p5.text("("+val+")", leftMostX + 163, 282);
   }
-  else if ((q1Sign == 1 && q1Mag >= 10) || (q1Sign == -1 && q1Mag < 10)) {
+  else if ((q1.sign == 1 && q1.mag >= 10) || (q1.sign == -1 && q1.mag < 10)) {
     p5.text("("+val+")", leftMostX + 173, 282);
   }
   else {
@@ -350,7 +368,7 @@ function q2Val(p5) {
   return val;
 }
 function distVal(p5) {
-  let val = Math.trunc(Math.hypot(q1PosX-q2PosX, q1PosY-q2PosY)/3);
+  let val = Math.trunc(Math.hypot(q1.posX-q2.posX, q1.posY-q2.posY)/3);
   p5.fill(98, 130, 184);
   p5.noStroke();
   p5.text("("+val+")", leftMostX + 119, 342);
@@ -386,7 +404,7 @@ function leftControlCenter(p5) {
   p5.rect(60, 375, 380, 125, 5);
   separationLine(60, p5);
   label("q1", 60, p5);
-  signButtons(200, q1Sign, p5);
+  signButtons(200, q1.sign, p5);
   magnitudeButtons(325, true, p5);
 }
 
@@ -397,7 +415,7 @@ function rightControlCenter(p5) {
   p5.rect(482, 375, 380, 125, 5);
   separationLine(482, p5);
   label("q2", 482, p5);
-  signButtons(622, q2Sign, p5);
+  signButtons(622, q2.sign, p5);
   magnitudeButtons(752, false, p5);
 }
 
@@ -444,23 +462,23 @@ function signButtons(xpos, sign, p5) {
   p5.textFont(oswaldMedium, 20);
 }
 
-function magnitudeButtons(xpos, q1, p5) {
+function magnitudeButtons(xpos, left, p5) {
   p5.textFont(oswaldMedium, 25);
   p5.noStroke();
   p5.text("Magnitude", xpos-5, 405);
-  if (q1) {
-    p5.text(q1Mag + " C", xpos, 460);
+  if (left) {
+    p5.text(q1.mag + " C", xpos, 460);
   } else {
-    p5.text(q2Mag + " C", xpos, 460);
+    p5.text(q2.mag + " C", xpos, 460);
   }
   p5.stroke(0);
   p5.strokeWeight(5);
 
-  if ((q1 && q1Mag < magMax) || (!q1 && q2Mag < magMax)) {
+  if ((left && q1.mag < magMax) || (!left && q2.mag < magMax)) {
       p5.line(xpos+60, 445, xpos+70, 435);
       p5.line(xpos+70, 435, xpos+80, 445);
   }
-  if ((q1 && q1Mag > magMin) || (!q1 && q2Mag > magMin)) {
+  if ((left && q1.mag > magMin) || (!left && q2.mag > magMin)) {
       p5.line(xpos+60, 465, xpos+70, 475);
       p5.line(xpos+70, 475, xpos+80, 465);
   }

@@ -50,7 +50,7 @@ function ErrorMessage() {
 function AllSimulationContent(sim) {
     sim = sim.sim;
     return <div id="simulationContentContainer">
-            <div id="simIconContainer"><img className="simIcon" src="./assets/other/icon1.png"></img><img className="simIcon" src="./assets/other/icon2.png"></img></div>
+            <div id="simIconContainer"><img className="simIcon" src="./assets/other/icon4.png"></img><img className="simIcon" src="./assets/other/icon2.png"></img></div>
             <div id="simCenterContainer">
                 <div id="simHeaderContainer">
                     <Header sim={sim}/>
