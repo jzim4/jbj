@@ -44115,7 +44115,7 @@ function IGL() {
     p5.stroke(0); // Black stroke for visibility
     p5.strokeWeight(2); // Ensure the stroke is thick enough
     p5.drawingContext.setLineDash([5, 5]);
-    p5.rect(canvasWidth * 0.25 - canvasWidth * 0.2, canvasHeight * 0.08, canvasWidth * 0.4, canvasHeight * 0.8, 5);
+    p5.rect(canvasWidth * 0.05, canvasHeight * 0.085, canvasWidth * 0.4, canvasHeight * 0.8, 5);
     p5.drawingContext.setLineDash([]);
   }
   function drawControlPanel(p5) {
@@ -44228,7 +44228,7 @@ function IGL() {
     function Container(p5) {
       _classCallCheck(this, Container);
       this.centerX = canvasWidth * 0.25;
-      this.centerY = canvasHeight * 0.5;
+      this.centerY = canvasHeight * 0.485;
       this.maxWidth = canvasWidth * 0.4;
       this.maxHeight = canvasHeight * 0.8;
       this.updateCoordinates(volume);
@@ -44277,31 +44277,35 @@ function IGL() {
     return _createClass(Atom, [{
       key: "update",
       value: function update(radius, temperature, p5) {
-        // Calculate new speed based on temperature, allow it to go to zero
-        var newSpeed = temperature * 0.1;
+        // Update speed based on temperature
+        this.speed = temperature * 0.1; // Zero speed is valid
 
-        // If new speed is not zero, recalculate xSpeed and ySpeed using the stored angle
-        if (newSpeed > 0) {
-          this.xSpeed = newSpeed * Math.cos(this.angle);
-          this.ySpeed = newSpeed * Math.sin(this.angle);
-        } else {
-          this.xSpeed = 0;
-          this.ySpeed = 0;
-        }
+        // Update velocities
+        this.xSpeed = this.speed * Math.cos(this.angle);
+        this.ySpeed = this.speed * Math.sin(this.angle);
+
+        // Update position
         this.x += this.xSpeed;
         this.y += this.ySpeed;
         var bounds = container.bounds;
 
         // Handle boundary collisions
         if (this.x >= bounds.right - radius || this.x <= bounds.left + radius) {
-          this.xSpeed *= -1;
-          this.angle = p5.TWO_PI - this.angle; // Reverse horizontal direction
-          this.x = p5.constrain(this.x, bounds.left + radius, bounds.right - radius);
+          this.xSpeed *= -1; // Reverse horizontal direction
+          this.angle = p5.PI - this.angle; // Adjust angle
+          this.x = p5.constrain(this.x, bounds.left + radius + 1, bounds.right - radius - 1); // Move inside bounds
         }
         if (this.y >= bounds.bottom - radius || this.y <= bounds.top + radius) {
-          this.ySpeed *= -1;
-          this.angle = -this.angle; // Reverse vertical direction
-          this.y = p5.constrain(this.y, bounds.top + radius, bounds.bottom - radius);
+          this.ySpeed *= -1; // Reverse vertical direction
+          this.angle = -this.angle; // Adjust angle
+          this.y = p5.constrain(this.y, bounds.top + radius + 1, bounds.bottom - radius - 1); // Move inside bounds
+        }
+
+        // Normalize velocity
+        var magnitude = Math.sqrt(Math.pow(this.xSpeed, 2) + Math.pow(this.ySpeed, 2));
+        if (magnitude > 0) {
+          this.xSpeed = this.xSpeed / magnitude * this.speed;
+          this.ySpeed = this.ySpeed / magnitude * this.speed;
         }
       }
     }, {
