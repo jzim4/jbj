@@ -3,14 +3,16 @@ import Sketch from 'react-p5';
 
 function Coulomb() {
 
+  //global canvas variables
   let canvasWidth = 922;
   let canvasHeight = 525;
 
+  //global atoms variables
   let magMax = 90;
   let magMin = 0;
   let diameter = 50;
 
-  // class to store the atom's location in the box and sign and magnitude
+  // class to store the atom's location in the box and their sign and magnitude
   class Atom {
     constructor(sign, mag, posX, posY) {
       this.sign = sign;
@@ -23,7 +25,7 @@ function Coulomb() {
   let q1 = new Atom(1, 20, 150, 130);
   let q2 = new Atom(1, 10, 800, 130);
 
-  // // class to store the simulation's position and size
+  // class to store the draggable box's position and size
   class AtomSim {
     constructor(posX, posY, width, height) {
       this.posX = posX;
@@ -37,19 +39,23 @@ function Coulomb() {
 // global variable to determine whether/which atom is being dragged
 let moving = null;
 
+// p5 function that runs before rest of code
 function setup(p5) {
   let canvas = document.getElementById('p5Canvas');
   let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight, canvas);
   p5Canvas.position(0,0,'relative');
 }
 
+// global font variables
 let oswaldMedium;
 let oswaldBold;
+// p5 function that imports dependencies before running rest of code
 function preload(p5) {
   oswaldMedium = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
   oswaldBold = p5.loadFont('./assets/fonts/Oswald-Bold.ttf');
 }
 
+//p5 function that runs on loop, used to create animation effects
 function draw(p5) {
   p5.textFont(oswaldMedium, 15);
   p5.background(238);
@@ -62,55 +68,81 @@ function draw(p5) {
   rightControlCenter(p5);
 }
 
+// p5 event handler for mouse click
 function mousePressed(p5) {
-  // click atoms
-  if (Math.hypot(p5.mouseX - q1.posX, p5.mouseY - q1.posY) <= diameter/2) {
+  handleAtomsClick(p5.mouseX, p5.mouseY);
+
+  handleSignClick(p5.mouseX, p5.mouseY);
+
+  handleMagnitudeClick(p5.mouseX, p5.mouseY);
+}
+
+function handleAtomsClick(mouseX, mouseY) {
+  //if q1 is clicked
+  if (Math.hypot(mouseX - q1.posX, mouseY - q1.posY) <= diameter/2) {
     moving = 'q1';
-    document.body.style.cursor = "grabbing";
+    changeCursor(mouseX, mouseY);
   }
-  else if (Math.hypot(p5.mouseX - q2.posX, p5.mouseY - q2.posY) <= diameter/2) {
+  // if q2 is clicked
+  else if (Math.hypot(mouseX - q2.posX, mouseY - q2.posY) <= diameter/2) {
     moving = 'q2';
-    document.body.style.cursor = "grabbing";
+    changeCursor(mouseX, mouseY);
   }
   else {
     moving = null;
   }
+}
 
-  // click sign
-  if (Math.hypot(p5.mouseX - 200, p5.mouseY - 455) <= 20) {
+function handleSignClick(mouseX, mouseY) {
+  // if q1 positive is clicked
+  if (Math.hypot(mouseX - 200, mouseY - 455) <= 20) {
     q1.sign = 1;
   }
-  if (Math.hypot(p5.mouseX - 260, p5.mouseY - 455) <= 20) {
+  // if q1 negative is clicked
+  if (Math.hypot(mouseX - 260, mouseY - 455) <= 20) {
     q1.sign = -1;
   }
-  if (Math.hypot(p5.mouseX - 622, p5.mouseY - 455) <= 20) {
+  // if q2 positive is clicked
+  if (Math.hypot(mouseX - 622, mouseY - 455) <= 20) {
     q2.sign = 1;
   }
-  if (Math.hypot(p5.mouseX - 682, p5.mouseY - 455) <= 20) {
+  // if q2 negative is clicked
+  if (Math.hypot(mouseX - 682, mouseY - 455) <= 20) {
     q2.sign = -1;
   }
+}
 
-  // click magnitude
-  if (p5.mouseX >= 385 && p5.mouseX <=405) {
-    if (p5.mouseY >= 435 && p5.mouseY <= 445) {
+function handleMagnitudeClick(mouseX, mouseY) {
+  // if click x-position is in q1 range
+  if (mouseX >= 385 && mouseX <=405) {
+    // if click y-position is in positive button range
+    if (mouseY >= 435 && mouseY <= 445) {
+      // if the magnitude will stay in the designated range
       if (q1.mag < magMax) {
         q1.mag += 5;
       }
     }
-    if (p5.mouseY >= 465 && p5.mouseY <= 475) {
+    // if click y-postiion is in negative button range
+    if (mouseY >= 465 && mouseY <= 475) {
+      // if the magnitude will stay in the designated range
       if (q1.mag > magMin) {
         q1.mag -= 5;
       }
     }
   }
   
-  if (p5.mouseX >= 812 && p5.mouseX <=832) {
-    if (p5.mouseY >= 435 && p5.mouseY <= 445) {
+  // if click x-position is in q2 range
+  if (mouseX >= 812 && mouseX <=832) {
+    // if click y-position is in positive button range
+    if (mouseY >= 435 && mouseY <= 445) {
+      // if the magnitude will stay in the designated range
       if (q2.mag < magMax) {
         q2.mag += 5;
       }
     }
-    if (p5.mouseY >= 465 && p5.mouseY <= 475) {
+    // if click y-position is in negative button range
+    if (mouseY >= 465 && mouseY <= 475) {
+      // if the magnitude will stay in the designated range
       if (q2.mag > magMin) {
         q2.mag -= 5;
       }
@@ -118,20 +150,24 @@ function mousePressed(p5) {
   }
 }
 
+// p5 event handler
 function mouseReleased(p5) {
   moving = null;
   changeCursor(p5.mouseX, p5.mouseY);
 }
 
+// p5 event handler
 function mouseMoved(p5) {
   changeCursor(p5.mouseX, p5.mouseY);
 }
 
+// p5 event handler
 function mouseDragged(p5) { 
-  handleAtomDrag();
+  handleAtomDrag(p5);
 }
 
-function handleAtomDrag() {
+function handleAtomDrag(p5) {
+  // identify which atom is moving (if any)
   let still = null;
   let oldPosX;
   let oldPosY;
@@ -149,22 +185,27 @@ function handleAtomDrag() {
     return;
   }
 
+  // ensure atom stays in bounds
   let newXPos = xInBounds(p5.mouseX);
   let newYPos = yInBounds(p5.mouseY);
 
+  // determine if atoms overlap
   let overlapping = Math.hypot(still.posX - newXPos, still.posY - newYPos) <= diameter;
 
+  // if atoms overlap, force recalculate the closest possible location that doesn't overlap
   if (overlapping) {
     let angle = Math.atan2(newYPos - still.posY, newXPos - still.posX);
     newXPos = still.posX + Math.cos(angle) * diameter;
     newYPos = still.posY + Math.sin(angle) * diameter;
   }
 
+  // if forcing them to not overlap made it go out of bounds, don't move at all
   let move = false;
   if (newXPos == xInBounds(newXPos) && newYPos == yInBounds(newYPos)) {
     move = true;
   }
 
+  // if atom should move, update its coordinates
   if (move) {
     if (moving == 'q1') {
       q1.posX = newXPos;
@@ -186,10 +227,7 @@ function handleAtomDrag() {
   }
 }
 
-function dragAtom() {
-
-}
-
+// helper method to move x in bounds; if x is already in bounds, return x
 function xInBounds(x) {
   if (x < atomSim.posX + diameter/2) {
     return atomSim.posX + diameter/2;
@@ -202,6 +240,7 @@ function xInBounds(x) {
   }
 }
 
+// helper method to move y in bounds; if y is already in bounds, return y
 function yInBounds(y) {
   if (y < atomSim.posY + diameter/2 + 36) {
     return atomSim.posY + diameter/2 + 36;
@@ -214,12 +253,12 @@ function yInBounds(y) {
   }
 }
 
+// changes cursor according to mouseX, mouseY, and moving global variable
 function changeCursor(mouseX, mouseY) {
-
   let pointer = false;
   let grab = false;
 
-  // atoms
+  // while over any of the atoms, use grabber
   if (Math.hypot(mouseX-q1.posX, mouseY-q1.posY) <= diameter/2) {
     grab = true;
   }
@@ -227,7 +266,7 @@ function changeCursor(mouseX, mouseY) {
     grab = true;
   }
 
-  //signs
+  //while over any of the signs, use pointer
   if (Math.hypot(mouseX-200, mouseY-455) <= 20) {
     pointer = true;
   }
@@ -241,7 +280,7 @@ function changeCursor(mouseX, mouseY) {
     pointer = true;
   }
 
-  // magnitude
+  //while over any of the magnitude buttons, use pointer
   if (mouseX >= 385 && mouseX <= 405){
     if (mouseY >= 435 && mouseY <= 445 && q1.mag<magMax) {
       pointer = true;
@@ -262,8 +301,13 @@ function changeCursor(mouseX, mouseY) {
   if (pointer) {
       document.body.style.cursor = "pointer";
   }
+  // if hovering over atom but not moving it
   else if (grab && !moving) {
     document.body.style.cursor = "grab";
+  }
+  // if hovering over atom and moving it
+  else if (grab && moving) {
+    document.body.style.cursor = "grabbing";
   }
   else {
       document.body.style.cursor = "default";
@@ -271,7 +315,7 @@ function changeCursor(mouseX, mouseY) {
 }
 
 
-// ATOMS
+// ATOMS - draggable box and its containing atoms
 
 function atomsSim(p5) {
   p5.strokeWeight(3);
@@ -282,7 +326,7 @@ function atomsSim(p5) {
   q2Circle(p5);
   r(p5);
 }
-
+// title at top of atoms sim
 function atomsLabel(p5) {
   p5.fill(98, 130, 184);
   p5.textFont(oswaldMedium, 30);
@@ -295,7 +339,7 @@ function atomsLabel(p5) {
   p5.text("Distance (r): " + val + "m", 461, 50);
   p5.textAlign(p5.LEFT);
 }
-
+// orange draggable circle
 function q1Circle(p5) {
   p5.fill(237, 91, 45);
   p5.stroke(0);
@@ -305,6 +349,7 @@ function q1Circle(p5) {
   p5.noStroke();
   p5.circle(q1.posX, q1.posY, 6);
 }
+// yellow draggable cirlce
 function q2Circle(p5) {
   p5.fill(255, 181, 33);
   p5.strokeWeight(3);
@@ -314,6 +359,7 @@ function q2Circle(p5) {
   p5.noStroke();
   p5.circle(q2.posX, q2.posY, 6);
 }
+// line that shows distance between atoms
 function r(p5) {
   p5.strokeWeight(3);
   p5.stroke(98, 130, 184);
@@ -322,16 +368,18 @@ function r(p5) {
   p5.drawingContext.setLineDash([]);
 }
 
-// EQUATION
+// EQUATION - equation in center that shows force
 
-let leftMostX = 260;
+// constant that serves as a reference point for all equation content
+const leftMostX = 260;
 
 function equations(p5) {
   constantEquation(p5);
   p5.textFont(oswaldBold, 35);
+  // show force, using returned q1, q2 and distance
   force(p5, q1Val(p5), q2Val(p5), distVal(p5));
 }
-
+// equation content that doesn't change: "F", "=", "k" and fraction lines
 function constantEquation(p5) {
   p5.textFont(oswaldBold, 50);
   p5.fill(0);
@@ -343,7 +391,7 @@ function constantEquation(p5) {
   p5.textFont(oswaldBold, 45);
   p5.text("k", leftMostX + 80, 282);
 }
-
+// displays q1 value and retuns that value to be used in force calculation
 function q1Val(p5) {
   let val = q1.mag * q1.sign;
   p5.fill(237, 91, 45);
@@ -351,7 +399,7 @@ function q1Val(p5) {
   p5.text("("+val+")", leftMostX + 113, 282);
   return val;
 }
-
+// displays q2 value and retuns that value to be used in force calculation
 function q2Val(p5) {
   let val = q2.mag * q2.sign;
   p5.fill(255, 181, 33);
@@ -367,6 +415,7 @@ function q2Val(p5) {
   }
   return val;
 }
+// displays r (distance) value and retuns that value to be used in force calucation
 function distVal(p5) {
   let val = Math.trunc(Math.hypot(q1.posX-q2.posX, q1.posY-q2.posY)/3);
   p5.fill(98, 130, 184);
@@ -381,7 +430,7 @@ function distVal(p5) {
   }
   return val;
 }
-
+// calculates and displays force calucation
 function force(p5, q1, q2, r) {
   let f = (q1 * q2 / (r*r)).toFixed(5) + " N";
   p5.textFont(oswaldMedium, 40);
@@ -418,12 +467,12 @@ function rightControlCenter(p5) {
   signButtons(622, q2.sign, p5);
   magnitudeButtons(752, false, p5);
 }
-
+// draws line between control center label and buttons, uses xpos to determine which panel
 function separationLine(xpos, p5) {
   let adjust = 80;
   p5.line(xpos + adjust, 375, xpos + adjust, 500);
 }
-
+// draws label in left of control panel, either "q1" or "q2", uses xpos to determine which panel
 function label(text, xpos, p5) {
   p5.textFont(oswaldBold, 30);
   p5.noStroke();
@@ -432,7 +481,7 @@ function label(text, xpos, p5) {
   p5.text(text, xpos+adjust, 450);
   p5.stroke(0);
 }
-
+// draws sign buttons in control panel, uses xpos to determine which panel
 function signButtons(xpos, sign, p5) {
   let circleYpos = 455;
   p5.strokeWeight(2);
@@ -461,7 +510,7 @@ function signButtons(xpos, sign, p5) {
 
   p5.textFont(oswaldMedium, 20);
 }
-
+// draws magnitude buttons in control panel, uses xpos to determine which panel
 function magnitudeButtons(xpos, left, p5) {
   p5.textFont(oswaldMedium, 25);
   p5.noStroke();
