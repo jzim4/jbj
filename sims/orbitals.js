@@ -19,76 +19,83 @@ function Orbitals() {
   const canvasHeight = 525;
   const left = makeLeftOrbitals();
   const right = makeRightOrbitals();
+  let selectedL;
+  let selectedR;
   
-  let selectedL = null;
-  let selectedR = null;
-
-  let px;
-  let pxAlt;
-  let constructivePx;
-  let constructivePxAlt;
-  let destructivePx;
-  let destructivePxAlt;
-
-  let pz;
-  let pzAlt;
-  let constructivePz;
-  let constructivePzAlt;
-  let destructivePz;
-  let destructivePzAlt;
-
-  let s;
-  let sAlt;
-  let constructiveS;
-  let constructiveSAlt;
-  let destructiveS;
-  let destructiveSAlt;
-
-
-  let spx;
-  let spxAlt;
-  let spz;
-  let spzAlt;
-  let sAltpx;
-  let sAltpxAlt;
-  let sAltpz;
-  let sAltpzAlt;
-
   let font;
 
+  let a;
+  let b;
+  let c;
+  let d;
+  let e;
+  let f;
+  
+  let aaImg;
+  let abImg;
+  let acImg;
+  let adImg;
+  let aeImg;
+  let afImg;
+  
+  let baImg;
+  let bbImg;
+  let bcImg;
+  let bdImg;
+  let beImg;
+  let bfImg;
+
+  let ccImg;
+  let cdImg;
+
+  let dcImg;
+  let ddImg;
+
+  let eeImg;
+  let efImg;
+
+  let feImg;
+  let ffImg;
+
   function preload(p5) {
-    px = p5.loadImage('./assets/orbitals/px/Px.png');
-    pxAlt = p5.loadImage('./assets/orbitals/px/PxAlt.png');
-    constructivePx = p5.loadImage('./assets/orbitals/px/constructivePx.png');
-    constructivePxAlt = p5.loadImage('./assets/orbitals/px/constructivePxAlt.png');
-    destructivePx = p5.loadImage('./assets/orbitals/px/destructivePx.png');
-    destructivePxAlt = p5.loadImage('./assets/orbitals/px/destructivePxAlt.png');
-
-    pz = p5.loadImage('./assets/orbitals/pz/Pz.png');
-    pzAlt = p5.loadImage('./assets/orbitals/pz/PzAlt.png');
-    constructivePz = p5.loadImage('./assets/orbitals/pz/constructivePz.png');
-    constructivePzAlt = p5.loadImage('./assets/orbitals/pz/constructivePzAlt.png');
-    destructivePz = p5.loadImage('./assets/orbitals/pz/destructivePz.png');
-    destructivePzAlt = p5.loadImage('./assets/orbitals/pz/destructivePzAlt.png');
-
-    s = p5.loadImage('./assets/orbitals/s/s.png');
-    sAlt = p5.loadImage('./assets/orbitals/s/sAlt.png');
-    constructiveS = p5.loadImage('./assets/orbitals/s/constructiveS.png');
-    constructiveSAlt = p5.loadImage('./assets/orbitals/s/constructiveSAlt.png');
-    destructiveS = p5.loadImage('./assets/orbitals/s/destructiveS.png');
-    destructiveSAlt = p5.loadImage('./assets/orbitals/s/destructiveSAlt.png');
-
-    spx = p5.loadImage('./assets/orbitals/s-p/spx.png');
-    spxAlt = p5.loadImage('./assets/orbitals/s-p/spxAlt.png');
-    spz = p5.loadImage('./assets/orbitals/s-p/spz.png');
-    spzAlt = p5.loadImage('./assets/orbitals/s-p/spzAlt.png');
-    sAltpx = p5.loadImage('./assets/orbitals/s-p/sAltpx.png');
-    sAltpxAlt = p5.loadImage('./assets/orbitals/s-p/sAltpxAlt.png');
-    sAltpz = p5.loadImage('./assets/orbitals/s-p/sAltpz.png');
-    sAltpzAlt = p5.loadImage('./assets/orbitals/s-p/sAltpzAlt.png');
-
-
     font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
+
+    selectedL = null;
+    selectedR = null;
+
+    console.log("preloading");
+    a = p5.loadImage('./assets/orbitals/orb/a.png');
+    b = p5.loadImage('./assets/orbitals/orb/b.png');
+    c = p5.loadImage('./assets/orbitals/orb/c.png');
+    d = p5.loadImage('./assets/orbitals/orb/d.png');
+    e = p5.loadImage('./assets/orbitals/orb/e.png');
+    f = p5.loadImage('./assets/orbitals/orb/f.png');
+
+    aaImg = p5.loadImage('./assets/orbitals/hybrid/aa.png');
+    abImg = p5.loadImage('./assets/orbitals/hybrid/ab.png');
+    acImg = p5.loadImage('./assets/orbitals/hybrid/ac.png');
+    adImg = p5.loadImage('./assets/orbitals/hybrid/ad.png');
+    aeImg = p5.loadImage('./assets/orbitals/hybrid/ae.png');
+    afImg = p5.loadImage('./assets/orbitals/hybrid/af.png');
+
+    baImg = p5.loadImage('./assets/orbitals/hybrid/ba.png');
+    bbImg = p5.loadImage('./assets/orbitals/hybrid/bb.png');
+    bcImg = p5.loadImage('./assets/orbitals/hybrid/bc.png');
+    bdImg = p5.loadImage('./assets/orbitals/hybrid/bd.png');
+    beImg = p5.loadImage('./assets/orbitals/hybrid/be.png');
+    bfImg = p5.loadImage('./assets/orbitals/hybrid/bf.png');
+
+    ccImg = p5.loadImage('./assets/orbitals/hybrid/cc.png');
+    cdImg = p5.loadImage('./assets/orbitals/hybrid/cd.png');
+
+    dcImg = p5.loadImage('./assets/orbitals/hybrid/dc.png');
+    ddImg = p5.loadImage('./assets/orbitals/hybrid/dd.png');
+
+    eeImg = p5.loadImage('./assets/orbitals/hybrid/ee.png');
+    efImg = p5.loadImage('./assets/orbitals/hybrid/ef.png');
+
+    feImg = p5.loadImage('./assets/orbitals/hybrid/fe.png');
+    ffImg = p5.loadImage('./assets/orbitals/hybrid/ff.png');
   }
 
   function setup(p5) {
@@ -102,53 +109,16 @@ function Orbitals() {
     if (run) {
       let key = p5.key.toLowerCase();
       let newSelection = false;
-      if (key == '1') {
-        selectedL = left[0];
+      if (parseInt(key) && key <= 6) {
+        selectedL = left[parseInt(key) - 1];
         newSelection = true;
       }
-      if (key == '2') {
-        selectedL = left[1];
-        newSelection = true;
-      }
-      if (key == '3') {
-        selectedL = left[2];
-        newSelection = true;
-      }
-      if (key == '4') {
-        selectedL = left[3];
-        newSelection = true;
-      }
-      if (key == '5') {
-        selectedL = left[4];
-        newSelection = true;
-      }
-      if (key == '6') {
-        selectedL = left[5];
-        newSelection = true;
-      }
-      if (key == 'a') {
-        selectedR = right[0];
-        newSelection = true;
-      }
-      if (key == 'b') {
-        selectedR = right[1];
-        newSelection = true;
-      }
-      if (key == 'c') {
-        selectedR = right[2];
-        newSelection = true;
-      }
-      if (key == 'd') {
-        selectedR = right[3];
-        newSelection = true;
-      }
-      if (key == 'e') {
-        selectedR = right[4];
-        newSelection = true;
-      }
-      if (key == 'f') {
-        selectedR = right[5];
-        newSelection = true;
+      else {
+        let keys = {'a':0, 'b':1, 'c':2, 'd':3, 'e':4, 'f':5};
+        if (keys.keys().contains(key.toLowerCase())) {
+          selectedR = right[keys.get(key)];
+          newSelection = true;
+        }
       }
       if (newSelection) {
         highlightSelections(p5);
@@ -246,26 +216,26 @@ function Orbitals() {
   }
   
   function makeLeftOrbitals() {
-    let s = new Orbital("s", "(1) S", 200, 100, 40, 40);
-    let sAlt = new Orbital("sAlt", "(2) S", 200, 155, 40, 40);
-    let px = new Orbital("px", "(3) Px", 180, 215, 80, 40);
-    let pxAlt = new Orbital("pxAlt", "(4) Px", 180, 270, 80, 40);
-    let pz = new Orbital("pz", "(5) Pz", 200, 330, 40, 80);
-    let pzAlt = new Orbital("pzAlt", "(6) Pz", 200, 425, 40, 80);
+    let a = new Orbital("a", "(1) S", 200, 100, 40, 40);
+    let b = new Orbital("b", "(2) S", 200, 155, 40, 40);
+    let c = new Orbital("c", "(3) Px", 180, 215, 80, 40);
+    let d = new Orbital("d", "(4) Px", 180, 270, 80, 40);
+    let e = new Orbital("e", "(5) Pz", 200, 330, 40, 80);
+    let f = new Orbital("f", "(6) Pz", 200, 425, 40, 80);
     
-    let left = [s, sAlt, px, pxAlt, pz, pzAlt];
+    let left = [a, b, c, d, e, f];
     return left;
   }
   
   function makeRightOrbitals() {
-    let s = new Orbital("s", "(a) S", 670,100, 40, 40);
-    let sAlt = new Orbital("sAlt", "(b) S", 670, 155, 40, 40);
-    let px = new Orbital("px", "(c) Px", 650, 215, 80, 40);
-    let pxAlt = new Orbital("pxAlt", "(d) Px", 650, 270, 80, 40);
-    let pz = new Orbital("pz", "(e) Pz", 670, 339, 40, 80);
-    let pzAlt = new Orbital("pzAlt", "(f) Pz", 670, 425, 40, 80);
+    let a = new Orbital("a", "S (a)", 670,100, 40, 40);
+    let b = new Orbital("b", "S (b)", 670, 155, 40, 40);
+    let c = new Orbital("c", "Px (c)", 650, 215, 80, 40);
+    let d = new Orbital("d", "Px (d)", 650, 270, 80, 40);
+    let e = new Orbital("e", "Pz (e)", 670, 339, 40, 80);
+    let f = new Orbital("f", "Pz (f)", 670, 425, 40, 80);
   
-    let right = [s, sAlt, px, pxAlt, pz, pzAlt];
+    let right = [a, b, c, d, e, f];
     return right;
   }
   
@@ -375,161 +345,52 @@ function Orbitals() {
     let left = 361 + (200 - maxSize)/2;
     let top = 150 + (200 - maxSize)/2;
 
-    let constructivePxOrb = new Orbital('constructivePx', 'Constructive Px', left, top + maxSize * 0.69/2, maxSize, maxSize*0.31);
-    let constructivePxAltOrb = new Orbital('constructivePxAlt', 'Constructive Px', left, top + maxSize*0.69/2, maxSize, maxSize*0.31);
-    let destructivePxOrb = new Orbital('destructivePx', 'Destructive Px', left, top + maxSize*0.76/2, maxSize, maxSize*0.24);
-    let destructivePxAltOrb = new Orbital('destructivePxAlt', 'Destructive Px', left, top + maxSize*0.76/2, maxSize, maxSize*0.24);
-
-    let constructivePzOrb = new Orbital('constructivePz', 'Constructive Pz', left, top, maxSize, maxSize);
-    let constructivePzAltOrb = new Orbital('constructivePzAlt', 'Constructive Pz', left, top, maxSize, maxSize);
-    let destructivePzOrb = new Orbital('destructivePz', 'Destructive Pz', left, top, maxSize, maxSize);
-    let destructivePzAltOrb = new Orbital('destructivePzAlt', 'Destructive Pz', left, top, maxSize, maxSize);
-
-    let constructiveSOrb = new Orbital('constructiveS', 'Constructive S', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
-    let constructiveSAltOrb = new Orbital('constructiveSAlt', 'Constructive S', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
-    let destructiveSOrb = new Orbital('destructiveS', 'Destructive S', left, top + maxSize*0.54/2, maxSize, maxSize*0.46);
-    let destructiveSAltOrb = new Orbital('destructiveSAlt', 'Destructive S', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
-
-    let spxOrb = new Orbital('spx', 'S Px Hybrid', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
-    let spxAltOrb = new Orbital('spxAlt', 'S Px Hybrid', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
-    let spzOrb = new Orbital('spz', 'S Pz Hybrid', left + maxSize*0.5/2, top, maxSize*0.5, maxSize);
-    let spzAltOrb = new Orbital('spzAlt', 'S Pz Hybrid', left + maxSize*0.5/2, top, maxSize*0.5, maxSize);
-    let sAltpxOrb = new Orbital('sAltpx', 'S Px Hybrid', left, top + maxSize*0.52/2, maxSize, maxSize*0.48);
-    let sAltpxAltOrb = new Orbital('sAltpxAlt', 'S Px Hybrid', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
-    let sAltpzOrb = new Orbital('sAltpz', 'S Pz Hybrid', left + maxSize*0.52/2, top, maxSize*0.48, maxSize);
-    let sAltpzAltOrb = new Orbital('sAltpzAlt', 'S Pz Hybrid', left + maxSize*0.52/2, top, maxSize*0.48, maxSize);
+    let aa = new Orbital('aaImg', 'Constructive S', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
+    let ab = new Orbital('abImg', 'Destructive S', left, top + maxSize*0.54/2, maxSize, maxSize*0.46);
+    let ac = new Orbital('acImg', 'S Px Hybrid', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
+    let ad = new Orbital('adImg', 'S Px Hybrid', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
+    let ae = new Orbital('aeImg', 'S Pz Hybrid', left + maxSize*0.5/2, top, maxSize*0.5, maxSize);
+    let af = new Orbital('afImg', 'S Pz Hybrid', left + maxSize*0.5/2, top, maxSize*0.5, maxSize);
     
+    let ba = new Orbital('baImg', 'Destructive S', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
+    let bb = new Orbital('bbImg', 'Constructive S', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
+    let bc = new Orbital('bcImg', 'S Px Hybrid', left, top + maxSize*0.52/2, maxSize, maxSize*0.48);
+    let bd = new Orbital('bdImg', 'S Px Hybrid', left, top + maxSize*0.5/2, maxSize, maxSize*0.5);
+    let be = new Orbital('beImg', 'S Pz Hybrid', left + maxSize*0.52/2, top, maxSize*0.48, maxSize);
+    let bf = new Orbital('bfImg', 'S Pz Hybrid', left + maxSize*0.52/2, top, maxSize*0.48, maxSize);
 
+    let ca = ac;
+    let cb = bc;
+    let cc = new Orbital('ccImg', 'Destructive Px', left, top + maxSize*0.76/2, maxSize, maxSize*0.24);
+    let cd = new Orbital('cdImg', 'Constructive Px', left, top + maxSize * 0.69/2, maxSize, maxSize*0.31);
+    let ce = null;
+    let cf = null;
+
+    let da = ad;
+    let db = bd;
+    let dc = new Orbital('dcImg', 'Constructive Px', left, top + maxSize*0.69/2, maxSize, maxSize*0.31);
+    let dd = new Orbital('ddImg', 'Destructive Px', left, top + maxSize*0.76/2, maxSize, maxSize*0.24);
+    let de = null;
+    let df = null;
+
+    let ea = ae;
+    let eb = be;
+    let ec = null;
+    let ed = null;
+    let ee = new Orbital('eeImg', 'Constructive Pz', left, top, maxSize, maxSize);
+    let ef = new Orbital('efImg', 'Destructive Pz', left, top, maxSize, maxSize);
+
+    let fa = af;
+    let fb = bf;
+    let fc = null;
+    let fd = null;
+    let fe = new Orbital('feImg', 'Destructive Pz', left, top, maxSize, maxSize);
+    let ff = new Orbital('ffImg', 'Constructive Pz', left, top, maxSize, maxSize);
+    
     let combOrbital = null;
-    if (selectedL.imgName == 'px') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = destructivePxOrb;
-      }
-      else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = constructivePxOrb;
-      }
-      else if (selectedR.imgName == 'pz') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 'pzAlt') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 's') {
-        combOrbital = spxOrb;
-      }
-      else if (selectedR.imgName == 'sAlt') {
-        // TODO
-        combOrbital = sAltpxOrb;
-      }
-    }
-    else if (selectedL.imgName == 'pxAlt') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = constructivePxAltOrb;
-      }
-      else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = destructivePxAltOrb;
-      }
-      else if (selectedR.imgName == 'pz') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 'pzAlt') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 's') {
-        combOrbital = spxAltOrb;
-      }
-      else if (selectedR.imgName == 'sAlt') {
-        combOrbital = sAltpxAltOrb;
-      }
-    }
-    else if (selectedL.imgName == 'pz') {
-      if (selectedR.imgName == 'px') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 'pxAlt') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 'pz') {
-        combOrbital = constructivePzOrb;
-      }
-      else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = destructivePzOrb;
-      }
-      else if (selectedR.imgName == 's') {
-        combOrbital = spzOrb;
-      }
-      else if (selectedR.imgName == 'sAlt') {
-        combOrbital = sAltpzOrb;
-      }
-    }
-    else if (selectedL.imgName == 'pzAlt') {
-      if (selectedR.imgName == 'px') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 'pxAlt') {
-        // TODO
-        combOrbital = null;
-      }
-      else if (selectedR.imgName == 'pz') {
-        combOrbital = destructivePzAltOrb;
-      }
-      else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = constructivePzAltOrb;
-      }
-      else if (selectedR.imgName == 's') {
-        combOrbital = spzAltOrb;
-      }
-      else if (selectedR.imgName == 'sAlt') {
-        combOrbital = sAltpzAltOrb;
-      }
-    }
-    else if (selectedL.imgName == 's') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = spxOrb;
-      }
-      else if (selectedR.imgName == 'pxAlt') {
-        combOrbital = spxAltOrb;
-      }
-      else if (selectedR.imgName == 'pz') {
-        combOrbital = spzOrb;
-      }
-      else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = spzAltOrb;
-      }
-      else if (selectedR.imgName == 's') {
-        combOrbital = constructiveSOrb;
-      }
-      else if (selectedR.imgName == 'sAlt') {
-        combOrbital = destructiveSOrb;
-      }
-    }
-    else if (selectedL.imgName == 'sAlt') {
-      if (selectedR.imgName == 'px') {
-        combOrbital = sAltpxOrb;
-      }
-      else if (selectedR.imgName == 'pxAlt') {
 
-        combOrbital = sAltpxAltOrb;
-      }
-      else if (selectedR.imgName == 'pz') {
-        combOrbital = sAltpzOrb;
-      }
-      else if (selectedR.imgName == 'pzAlt') {
-        combOrbital = sAltpzAltOrb;
-      }
-      else if (selectedR.imgName == 's') {
-        combOrbital = destructiveSAltOrb;
-      }
-      else if (selectedR.imgName == 'sAlt') {
-        combOrbital = constructiveSAltOrb;
-      }
+    if (selectedL && selectedR) {
+      combOrbital = eval(selectedL.imgName + selectedR.imgName);
     }
 
     if (combOrbital) {
