@@ -44546,7 +44546,7 @@ function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 function Orbitals() {
-  var run = true;
+  // class that stores image, name and position of each orbital - both default and hybrids
   var Orbital = /*#__PURE__*/_createClass(function Orbital(imgName, name, xpos, ypos, width, height) {
     _classCallCheck(this, Orbital);
     this.imgName = imgName;
@@ -44558,37 +44558,22 @@ function Orbitals() {
   });
   var canvasWidth = 922;
   var canvasHeight = 525;
+
+  // global list of orbitals that stay on each side of the screen
   var left = makeLeftOrbitals();
   var right = makeRightOrbitals();
-  var selectedL;
-  var selectedR;
+  var hybrid = makeHybridOrbitals();
+
+  // global variables that store the currently selected orbitals or null
+  var selectedL, selectedR;
   var font;
-  var a;
-  var b;
-  var c;
-  var d;
-  var e;
-  var f;
-  var aaImg;
-  var abImg;
-  var acImg;
-  var adImg;
-  var aeImg;
-  var afImg;
-  var baImg;
-  var bbImg;
-  var bcImg;
-  var bdImg;
-  var beImg;
-  var bfImg;
-  var ccImg;
-  var cdImg;
-  var dcImg;
-  var ddImg;
-  var eeImg;
-  var efImg;
-  var feImg;
-  var ffImg;
+
+  // global variables that store default orbitals
+  var a, b, c, d, e, f;
+  // global variables that store hybrid orbitals;
+  var aaImg, abImg, acImg, adImg, aeImg, afImg, baImg, bbImg, bcImg, bdImg, beImg, bfImg, ccImg, cdImg, dcImg, ddImg, eeImg, efImg, feImg, ffImg;
+
+  // p5 function, all images loaded before the rest of the code runs
   function preload(p5) {
     font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
     selectedL = null;
@@ -44627,110 +44612,8 @@ function Orbitals() {
     p5Canvas.position(0, 0, 'relative');
     resetCanvas(p5);
   }
-  function keyPressed(p5) {
-    if (run) {
-      var key = p5.key.toLowerCase();
-      var newSelection = false;
-      if (parseInt(key) && key <= 6) {
-        selectedL = left[parseInt(key) - 1];
-        newSelection = true;
-      } else {
-        var keys = {
-          'a': 0,
-          'b': 1,
-          'c': 2,
-          'd': 3,
-          'e': 4,
-          'f': 5
-        };
-        if (keys.keys().contains(key.toLowerCase())) {
-          selectedR = right[keys.get(key)];
-          newSelection = true;
-        }
-      }
-      if (newSelection) {
-        highlightSelections(p5);
-        drawRedSubmitButton(p5);
-      }
-      if (p5.keyCode == p5.ENTER) {
-        highlightSelections(p5);
-        drawCombination(p5);
-      }
-      if (p5.keyCode == p5.BACKSPACE) {
-        selectedL = null;
-        selectedR = null;
-        resetCanvas(p5);
-      }
-    }
-  }
-  function mousePressed(p5) {
-    if (run) {
-      if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
-        selectedL = null;
-        selectedR = null;
-        resetCanvas(p5);
-      } else {
-        if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
-          highlightSelections(p5);
-          drawCombination(p5);
-        } else if (p5.mouseX < 400) {
-          selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
-          highlightSelections(p5);
-          drawRedSubmitButton(p5);
-        } else {
-          selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
-          highlightSelections(p5);
-          drawRedSubmitButton(p5);
-        }
-      }
-    }
-  }
-  function mouseMoved(p5) {
-    if (run) {
-      changeCursor(p5.mouseX, p5.mouseY);
-    }
-  }
-  function resetCanvas(p5) {
-    p5.background(238);
-    drawOrbitals(p5);
-    drawResetButton(p5);
-    drawSubmitButton(p5);
-    drawInstructions(p5);
-    drawCenterBox(p5);
-  }
-  function drawImg(img, p5) {
-    p5.image(eval(img.imgName), img.xpos, img.ypos, img.width, img.height);
-  }
-  function changeCursor(x, y) {
-    var mouseX = x;
-    var mouseY = y;
-    var pointer = false;
-    for (var orb in left) {
-      var o = left[orb];
-      if (o.xpos <= mouseX && o.xpos + o.width >= mouseX && o.ypos <= mouseY && o.ypos + o.height >= mouseY) {
-        pointer = true;
-      }
-    }
-    for (var _orb in right) {
-      var _o = right[_orb];
-      if (_o.xpos <= mouseX && _o.xpos + _o.width >= mouseX && _o.ypos <= mouseY && _o.ypos + _o.height >= mouseY) {
-        pointer = true;
-      }
-    }
-    // submit button
-    if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
-      pointer = true;
-    }
-    //reset button
-    if (426 <= mouseX && 496 >= mouseX && 460 <= mouseY && 490 >= mouseY) {
-      pointer = true;
-    }
-    if (pointer) {
-      document.body.style.cursor = "pointer";
-    } else {
-      document.body.style.cursor = "default";
-    }
-  }
+
+  // create a list of Orbital objects that stay on the default screen
   function makeLeftOrbitals() {
     var a = new Orbital("a", "(1) S", 200, 100, 40, 40);
     var b = new Orbital("b", "(2) S", 200, 155, 40, 40);
@@ -44741,6 +44624,8 @@ function Orbitals() {
     var left = [a, b, c, d, e, f];
     return left;
   }
+
+  // create a list of Orbital objects that stay on the default screen
   function makeRightOrbitals() {
     var a = new Orbital("a", "S (a)", 670, 100, 40, 40);
     var b = new Orbital("b", "S (b)", 670, 155, 40, 40);
@@ -44751,95 +44636,9 @@ function Orbitals() {
     var right = [a, b, c, d, e, f];
     return right;
   }
-  function drawOrbitals(p5) {
-    p5.textFont(font, 20);
-    for (var img in left) {
-      drawImg(left[img], p5);
-      p5.fill(0);
-      drawOrbLabel(left[img].name, true, left[img].ypos + left[img].height / 2 + 5, p5);
-    }
-    for (var _img in right) {
-      drawImg(right[_img], p5);
-      drawOrbLabel(right[_img].name, false, right[_img].ypos + right[_img].height / 2 + 5, p5);
-    }
-  }
-  function drawOrbLabel(label, left, ypos, p5) {
-    p5.textAlign(p5.CENTER);
-    p5.noStroke();
-    var xpos = 800;
-    if (left) {
-      xpos = 85;
-    }
-    p5.textFont(font, 20);
-    p5.fill(0);
-    p5.text(label, xpos, ypos);
-  }
-  function drawCenterBox(p5) {
-    p5.strokeWeight(4);
-    p5.stroke(0);
-    p5.noFill();
-    p5.rect(361, 150, 200, 200);
-    p5.fill(0);
-  }
-  function drawRect(i, p5) {
-    p5.strokeWeight(4);
-    p5.noFill();
-    p5.rect(i.xpos - 3, i.ypos - 3, i.width + 6, i.height + 6);
-    p5.fill(0);
-  }
-  function instructions(left, words, p5) {
-    p5.textAlign(p5.CENTER);
-    var xpos = 690;
-    if (left) {
-      xpos = 220;
-    }
-    if (words == "Select an orbital") {
-      p5.fill(237, 91, 45);
-    } else {
-      p5.fill(98, 130, 184);
-    }
-    p5.textFont(font, 30);
-    p5.text(words, xpos, 60);
-    p5.fill(0);
-  }
-  function drawInstructions(p5) {
-    if (!selectedL) {
-      instructions(true, "Select an orbital", p5);
-    } else {
-      instructions(true, selectedL.name, p5);
-    }
-    if (!selectedR) {
-      instructions(false, "Select an orbital", p5);
-    } else {
-      instructions(false, selectedR.name, p5);
-    }
-  }
-  function highlightSelections(p5) {
-    if (selectedL != null || selectedR != null) {
-      resetCanvas(p5);
-      if (selectedL) {
-        drawRect(selectedL, p5);
-      }
-      if (selectedR) {
-        drawRect(selectedR, p5);
-      }
-    }
-  }
-  function drawCombLabel(label, p5) {
-    p5.textAlign(p5.CENTER);
-    p5.textFont(font, 30);
-    p5.fill(98, 130, 184);
-    p5.noStroke();
-    p5.text(label, 461, 130);
-  }
-  function drawCombError(p5) {
-    p5.textAlign(p5.CENTER);
-    p5.fill(237, 91, 45);
-    p5.textFont(font, 25);
-    p5.noStroke();
-    p5.text("These orbitals \ndo not mix", 461, 250);
-  }
-  function drawCombination(p5) {
+
+  // creates dictionary that matches default two character strings with their Orbital object
+  function makeHybridOrbitals() {
     var maxSize = 180;
     var left = 361 + (200 - maxSize) / 2;
     var top = 150 + (200 - maxSize) / 2;
@@ -44879,18 +44678,128 @@ function Orbitals() {
     var fd = null;
     var fe = new Orbital('feImg', 'Destructive Pz', left, top, maxSize, maxSize);
     var ff = new Orbital('ffImg', 'Constructive Pz', left, top, maxSize, maxSize);
-    var combOrbital = null;
-    if (selectedL && selectedR) {
-      combOrbital = eval(selectedL.imgName + selectedR.imgName);
-    }
-    if (combOrbital) {
-      drawImg(combOrbital, p5);
-      drawCombLabel(combOrbital.name, p5);
-    } else {
-      drawCombError(p5);
-    }
-    drawResetButton(p5);
+    return {
+      "aa": aa,
+      "ab": ab,
+      "ac": ac,
+      "ad": ad,
+      "ae": ae,
+      "af": af,
+      "ba": ba,
+      "bb": bb,
+      "bc": bc,
+      "bd": bd,
+      "be": be,
+      "bf": bf,
+      "ca": ca,
+      "cb": cb,
+      "cc": cc,
+      "cd": cd,
+      "ce": ce,
+      "cf": cf,
+      "da": da,
+      "db": db,
+      "dc": dc,
+      "dd": dd,
+      "de": de,
+      "df": df,
+      "ea": ea,
+      "eb": eb,
+      "ec": ec,
+      "ed": ed,
+      "ee": ee,
+      "ef": ef,
+      "fa": fa,
+      "fb": fb,
+      "fc": fc,
+      "fd": fd,
+      "fe": fe,
+      "ff": ff
+    };
   }
+
+  // draw an image using the Orbital class as a parameter
+  function drawImg(img, p5) {
+    p5.image(eval(img.imgName), img.xpos, img.ypos, img.width, img.height);
+  }
+
+  // draw all default orbitals
+  function drawOrbitals(p5) {
+    p5.textFont(font, 20);
+    for (var img in left) {
+      drawImg(left[img], p5);
+      p5.fill(0);
+      drawOrbLabel(left[img].name, true, left[img].ypos + left[img].height / 2 + 5, p5);
+    }
+    for (var _img in right) {
+      drawImg(right[_img], p5);
+      drawOrbLabel(right[_img].name, false, right[_img].ypos + right[_img].height / 2 + 5, p5);
+    }
+  }
+
+  // draw label that coincides with default orbital
+  function drawOrbLabel(label, left, ypos, p5) {
+    p5.textAlign(p5.CENTER);
+    p5.noStroke();
+    var xpos = 800;
+    if (left) {
+      xpos = 85;
+    }
+    p5.textFont(font, 20);
+    p5.fill(0);
+    p5.text(label, xpos, ypos);
+  }
+
+  // draws center box that holds combination
+  function drawCenterBox(p5) {
+    p5.strokeWeight(4);
+    p5.stroke(0);
+    p5.noFill();
+    p5.rect(361, 150, 200, 200);
+    p5.fill(0);
+  }
+
+  // clear canvas, then draw default content with no selections
+  function resetCanvas(p5) {
+    p5.background(238);
+    drawOrbitals(p5);
+    drawResetButton(p5);
+    drawSubmitButton(p5);
+    chooseColumnLabel(p5);
+    drawCenterBox(p5);
+  }
+
+  // draws label above each column, determines column according to left parameter
+  function drawColumnLabel(left, words, p5) {
+    p5.textAlign(p5.CENTER);
+    var xpos = 690;
+    if (left) {
+      xpos = 220;
+    }
+    if (words == "Select an orbital") {
+      p5.fill(237, 91, 45);
+    } else {
+      p5.fill(98, 130, 184);
+    }
+    p5.textFont(font, 30);
+    p5.text(words, xpos, 60);
+    p5.fill(0);
+  }
+
+  // determines which column label to put where - either instructions or the currently selected orbital
+  function chooseColumnLabel(p5) {
+    if (!selectedL) {
+      drawColumnLabel(true, "Select an orbital", p5);
+    } else {
+      drawColumnLabel(true, selectedL.name, p5);
+    }
+    if (!selectedR) {
+      drawColumnLabel(false, "Select an orbital", p5);
+    } else {
+      drawColumnLabel(false, selectedR.name, p5);
+    }
+  }
+  // draws the default black submit button
   function drawSubmitButton(p5) {
     p5.textFont(font, 30);
     p5.noFill();
@@ -44901,6 +44810,8 @@ function Orbitals() {
     p5.noStroke();
     p5.text("Combine", 461, 430);
   }
+
+  // draws the red submit button, used when two orbitals are selected and no hybrid is shown
   function drawRedSubmitButton(p5) {
     if (selectedL && selectedR) {
       p5.textFont(font, 30);
@@ -44914,15 +44825,60 @@ function Orbitals() {
     }
     p5.fill(0);
   }
-  function detectSubmitClick(mouseX, mouseY) {
-    // mouse location
-    if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
-      if (selectedL && selectedR) {
-        return true;
+
+  // draw rectangle around selected orbitals
+  function highlightSelections(p5) {
+    if (selectedL != null || selectedR != null) {
+      resetCanvas(p5);
+      if (selectedL) {
+        drawRect(selectedL, p5);
+      }
+      if (selectedR) {
+        drawRect(selectedR, p5);
       }
     }
-    return false;
   }
+
+  // draws rectangle that indicates selected orbital
+  function drawRect(i, p5) {
+    p5.strokeWeight(4);
+    p5.noFill();
+    p5.rect(i.xpos - 3, i.ypos - 3, i.width + 6, i.height + 6);
+    p5.fill(0);
+  }
+  function drawHybridOrbitals(p5) {
+    var combOrbital = null;
+    if (selectedL && selectedR) {
+      combOrbital = hybrid[selectedL.imgName + selectedR.imgName];
+    }
+    if (combOrbital) {
+      drawImg(combOrbital, p5);
+      drawHybridLabel(combOrbital.name, p5);
+    } else {
+      drawHybridError(p5);
+    }
+    drawResetButton(p5);
+  }
+
+  // draw label of the hybrid above the center box
+  function drawHybridLabel(label, p5) {
+    p5.textAlign(p5.CENTER);
+    p5.textFont(font, 30);
+    p5.fill(98, 130, 184);
+    p5.noStroke();
+    p5.text(label, 461, 130);
+  }
+
+  // writes an error message in center box, used if the combination produces an invalid hybrid
+  function drawHybridError(p5) {
+    p5.textAlign(p5.CENTER);
+    p5.fill(237, 91, 45);
+    p5.textFont(font, 25);
+    p5.noStroke();
+    p5.text("These orbitals \ndo not mix", 461, 250);
+  }
+
+  // draws reset button on canvas
   function drawResetButton(p5) {
     p5.textFont(font, 20);
     p5.noFill();
@@ -44934,11 +44890,102 @@ function Orbitals() {
     p5.text("Reset", 461, 482);
     p5.stroke(0);
   }
+
+  // p5 keyboard event listener
+  function keyPressed(p5) {
+    var key = p5.key.toLowerCase();
+
+    // if the key pressed coincides with an orbital, change the graphics
+    if (detectOrbKey(key)) {
+      highlightSelections(p5);
+      drawRedSubmitButton(p5);
+    }
+    // handle if enter or backspace was pressed
+    handleSpecialKeys(p5, key);
+  }
+
+  // function to determine if the key pressed coincides with an orbital and assign it to either selectedL or selectedR
+  function detectOrbKey(key) {
+    if (parseInt(key) && parseInt(key) <= 6) {
+      selectedL = left[parseInt(key) - 1];
+      return true;
+    } else {
+      var keys = {
+        'a': 0,
+        'b': 1,
+        'c': 2,
+        'd': 3,
+        'e': 4,
+        'f': 5
+      };
+      if (key in keys) {
+        selectedR = right[keys[key]];
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // handle if enter or backspace was pressed
+  function handleSpecialKeys(p5) {
+    // show combination if enter pressed
+    if (p5.keyCode == p5.ENTER) {
+      highlightSelections(p5);
+      drawHybridOrbitals(p5);
+    }
+    // clear selections if backspace pressed
+    if (p5.keyCode == p5.BACKSPACE) {
+      selectedL = null;
+      selectedR = null;
+      resetCanvas(p5);
+    }
+  }
+
+  // p5 event listener for mouse click
+  function mousePressed(p5) {
+    // handle if click is on reset
+    if (detectResetClick(p5.mouseX, p5.mouseY, p5)) {
+      selectedL = null;
+      selectedR = null;
+      resetCanvas(p5);
+    }
+    // handle if click is on submit
+    else if (detectSubmitClick(p5.mouseX, p5.mouseY)) {
+      highlightSelections(p5);
+      drawHybridOrbitals(p5);
+    }
+    // otherwise check if clicking a left orbital
+    else if (p5.mouseX < 400) {
+      selectedL = detectLeftOrbitalClick(p5.mouseX, p5.mouseY);
+      highlightSelections(p5);
+      drawRedSubmitButton(p5);
+    }
+    // otherwise check if clicking a right orbital
+    else {
+      selectedR = detectRightOrbitalClick(p5.mouseX, p5.mouseY);
+      highlightSelections(p5);
+      drawRedSubmitButton(p5);
+    }
+  }
+
+  // detects if reset button is clicked
   function detectResetClick(mouseX, mouseY, p5) {
     if (mouseX >= 426 && mouseX <= 496 && mouseY >= 460 && mouseY <= 490) {
       return true;
     }
   }
+  // determines if mouse position is over submit button
+  function detectSubmitClick(mouseX, mouseY) {
+    // mouse location
+    if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
+      if (selectedL && selectedR) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // detects if left orbital is clicked, returns an orbital that is either new or keeps the selected global variable the same
   function detectLeftOrbitalClick(mouseX, mouseY) {
     var prev = selectedL;
     for (var img in left) {
@@ -44958,6 +45005,47 @@ function Orbitals() {
       }
     }
     return prev;
+  }
+
+  // p5 event listener for mouse movement
+  function mouseMoved(p5) {
+    changeCursor(p5.mouseX, p5.mouseY);
+  }
+
+  // update the cursor icon depending on mouse location
+  function changeCursor(x, y) {
+    var mouseX = x;
+    var mouseY = y;
+    var pointer = false;
+
+    // check if mouse is over a left orbital
+    for (var orb in left) {
+      var o = left[orb];
+      if (o.xpos <= mouseX && o.xpos + o.width >= mouseX && o.ypos <= mouseY && o.ypos + o.height >= mouseY) {
+        pointer = true;
+      }
+    }
+    // check if mouse if over a right orbital
+    for (var _orb in right) {
+      var _o = right[_orb];
+      if (_o.xpos <= mouseX && _o.xpos + _o.width >= mouseX && _o.ypos <= mouseY && _o.ypos + _o.height >= mouseY) {
+        pointer = true;
+      }
+    }
+    // check if mouse if over submit button
+    if (401 <= mouseX && 521 >= mouseX && 400 <= mouseY && 440 >= mouseY) {
+      pointer = true;
+    }
+    // check if mouse if over reset button
+    if (426 <= mouseX && 496 >= mouseX && 460 <= mouseY && 490 >= mouseY) {
+      pointer = true;
+    }
+    // change mouse style
+    if (pointer) {
+      document.body.style.cursor = "pointer";
+    } else {
+      document.body.style.cursor = "default";
+    }
   }
   return /*#__PURE__*/_react["default"].createElement(_reactP["default"], {
     keyPressed: keyPressed,
