@@ -43950,32 +43950,35 @@ function Coulomb() {
 
   // EQUATION - equation in center that shows force
 
-  // constant that serves as a reference point for all equation content
+  // constants that serves as reference points for all equation content
   var leftMostX = 260;
+  var topMost = 258;
   function equations(p5) {
     constantEquation(p5);
-    p5.textFont(oswaldBold, 35);
+    p5.textFont(oswaldBold, 30);
     // show force, using returned q1, q2 and distance
     force(p5, q1Val(p5), q2Val(p5), distVal(p5));
+    forceDirection(p5);
   }
   // equation content that doesn't change: "F", "=", "k" and fraction lines
   function constantEquation(p5) {
-    p5.textFont(oswaldBold, 50);
+    p5.textFont(oswaldBold, 25);
     p5.fill(0);
     p5.stroke(0);
-    p5.line(leftMostX + 70, 300, leftMostX + 250, 300);
+    p5.line(leftMostX + 70, topMost + 12, leftMostX + 230, topMost + 12);
     p5.noStroke();
-    p5.text("F =", leftMostX, 320);
-    p5.text("=", leftMostX + 260, 320);
-    p5.textFont(oswaldBold, 45);
-    p5.text("k", leftMostX + 80, 282);
+    p5.textFont(oswaldBold, 50);
+    p5.text("F =", leftMostX, topMost + 32);
+    p5.text("=", leftMostX + 240, topMost + 32);
+    p5.textFont(oswaldBold, 35);
+    p5.text("k", leftMostX + 83, topMost);
   }
   // displays q1 value and retuns that value to be used in force calculation
   function q1Val(p5) {
     var val = q1.mag * q1.sign;
     p5.fill(237, 91, 45);
     p5.noStroke();
-    p5.text("(" + val + ")", leftMostX + 113, 282);
+    p5.text("(" + val + ")", leftMostX + 105, topMost);
     return val;
   }
   // displays q2 value and retuns that value to be used in force calculation
@@ -43984,11 +43987,11 @@ function Coulomb() {
     p5.fill(255, 181, 33);
     p5.noStroke();
     if (q1.sign == 1 && q1.mag < 10 || q1.sign == -1 && q1.mag == 0) {
-      p5.text("(" + val + ")", leftMostX + 163, 282);
+      p5.text("(" + val + ")", leftMostX + 150, topMost);
     } else if (q1.sign == 1 && q1.mag >= 10 || q1.sign == -1 && q1.mag < 10) {
-      p5.text("(" + val + ")", leftMostX + 173, 282);
+      p5.text("(" + val + ")", leftMostX + 160, topMost);
     } else {
-      p5.text("(" + val + ")", leftMostX + 182, 282);
+      p5.text("(" + val + ")", leftMostX + 165, topMost);
     }
     return val;
   }
@@ -43997,28 +44000,32 @@ function Coulomb() {
     var val = Math.trunc(Math.hypot(q1.posX - q2.posX, q1.posY - q2.posY) / 3);
     p5.fill(98, 130, 184);
     p5.noStroke();
-    p5.text("(" + val + ")", leftMostX + 119, 342);
-    p5.textFont(oswaldBold, 25);
+    p5.text("(" + val + ")", leftMostX + 110, topMost + 50);
+    p5.textFont(oswaldBold, 20);
     if (val < 100) {
-      p5.text("2", leftMostX + 183, 332);
+      p5.text("2", leftMostX + 155, topMost + 35);
     } else {
-      p5.text("2", leftMostX + 194, 332);
+      p5.text("2", leftMostX + 175, topMost + 35);
     }
     return val;
   }
   // calculates and displays force calucation
   function force(p5, q1, q2, r) {
     var f = (q1 * q2 / (r * r)).toFixed(5) + " N";
-    p5.textFont(oswaldMedium, 40);
+    p5.textFont(oswaldMedium, 35);
     p5.fill(0);
     p5.noStroke();
-    p5.text(f, leftMostX + 310, 300);
-    p5.textFont(oswaldMedium, 30);
-    if (q1 * q2 < 0) {
-      p5.text("Attraction", leftMostX + 350, 340);
+    p5.text(f, leftMostX + 285, topMost + 25);
+  }
+  function forceDirection(p5) {
+    p5.textFont(oswaldMedium, 25);
+    var text = "Direction of force: ";
+    if (q1.sign * q2.sign == -1) {
+      text += "Attraction";
     } else {
-      p5.text("Repulsion", leftMostX + 335, 340);
+      text += "Repulsion";
     }
+    p5.text(text, leftMostX + 50, topMost + 95);
   }
 
   // CONTROLS
