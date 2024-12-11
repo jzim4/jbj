@@ -10,6 +10,12 @@ The site is built in [React](https://react.dev/), and we used [p5.js](https://p5
 npm install
 ```
 
+## Making Changes to the Code
+In order to make changes to the code, you must prompt browserify and babel to compile the javascript. To do so, run the following line in the terminal, and this will overwrite the file called in the html file, bundle.js, with the new changes.
+```bash
+npm run build
+```
+
 ## The Site Code Structure
 The site begins with the file index.html located in the base directory. Also in the base directory is simulations.json, which contains image links and instructions for each simulation. 
 
