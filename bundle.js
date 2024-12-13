@@ -45457,7 +45457,7 @@ module.exports={
         "short": "ms",
         "navImg": "./assets/navImg/microHomePage.png",
         "instructions" : "THIS IS WHERE INSTRUCTIONS GO.",
-        "moreInfo": "THIS IS WHERE MORE INFORMATION GOES.",
+        "moreInfo": "The possible microstates of a molecule tell us the ways in which electrons can be distributed amongst energy levels. The number of possible microstates rapidly grows as the number of electrons and energy levels grow.",
         "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
     }
 }
