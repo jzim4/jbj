@@ -44127,37 +44127,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 var _reactP = _interopRequireDefault(require("react-p5"));
 function _interopRequireDefault(e) {
   return e && e.__esModule ? e : {
     "default": e
   };
-}
-function _getRequireWildcardCache(e) {
-  if ("function" != typeof WeakMap) return null;
-  var r = new WeakMap(),
-    t = new WeakMap();
-  return (_getRequireWildcardCache = function _getRequireWildcardCache(e) {
-    return e ? t : r;
-  })(e);
-}
-function _interopRequireWildcard(e, r) {
-  if (!r && e && e.__esModule) return e;
-  if (null === e || "object" != _typeof(e) && "function" != typeof e) return {
-    "default": e
-  };
-  var t = _getRequireWildcardCache(r);
-  if (t && t.has(e)) return t.get(e);
-  var n = {
-      __proto__: null
-    },
-    a = Object.defineProperty && Object.getOwnPropertyDescriptor;
-  for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) {
-    var i = a ? Object.getOwnPropertyDescriptor(e, u) : null;
-    i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u];
-  }
-  return n["default"] = e, t && t.set(e, n), n;
 }
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -44398,11 +44373,15 @@ function IGL() {
     function Atom(radius, p5) {
       _classCallCheck(this, Atom);
       var bounds = container.bounds;
-      this.x = Math.random(bounds.left + radius, bounds.right - radius);
-      this.y = Math.random(bounds.top + radius, bounds.bottom - radius);
+      var xMin = bounds.left + radius;
+      var xMax = bounds.right - radius;
+      this.x = Math.floor(Math.random() * (xMax - xMin + 1)) + xMin;
+      var yMin = bounds.top + radius;
+      var yMax = bounds.bottom - radius;
+      this.y = Math.floor(Math.random() * (yMax - yMin + 1)) + yMin;
 
       // Randomize initial speed directions while keeping magnitude constant
-      this.angle = Math.random(p5.TWO_PI); // Random angle in radians
+      this.angle = Math.floor(Math.random() * 2 * 3.14); // Random angle in radians
       this.speed = 3;
       this.xSpeed = this.speed * Math.cos(this.angle);
       this.ySpeed = this.speed * Math.sin(this.angle);

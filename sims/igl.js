@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Sketch from 'react-p5';
 function IGL() {
 
@@ -221,11 +221,15 @@ function IGL() {
     class Atom {
         constructor(radius, p5) {
             let bounds = container.bounds;
-            this.x = Math.random(bounds.left + radius, bounds.right - radius);
-            this.y = Math.random(bounds.top + radius, bounds.bottom - radius);
+            let xMin = bounds.left + radius;
+            let xMax = bounds.right - radius;
+            this.x = Math.floor(Math.random() * (xMax - xMin + 1)) + xMin;
+            let yMin = bounds.top + radius;
+            let yMax = bounds.bottom - radius;
+            this.y = Math.floor(Math.random() * (yMax - yMin + 1)) + yMin;
             
             // Randomize initial speed directions while keeping magnitude constant
-            this.angle = Math.random(p5.TWO_PI); // Random angle in radians
+            this.angle = Math.floor(Math.random() * 2 * 3.14); // Random angle in radians
             this.speed = 3; 
             this.xSpeed = this.speed * Math.cos(this.angle);
             this.ySpeed = this.speed * Math.sin(this.angle);
