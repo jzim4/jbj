@@ -44277,7 +44277,7 @@ function IGL() {
     }
   }
   function updateUI(p5) {
-    drawSliderLabel(volumeSlider, "Volume", "cm", p5);
+    drawSliderLabel(volumeSlider, "Volume", "cm^3", p5);
     drawSliderLabel(molesSlider, "Moles", "moles", p5);
     drawSliderLabel(temperatureSlider, "Temperature", "K", p5);
     calculatePressure();
@@ -44293,7 +44293,7 @@ function IGL() {
     p5.rect(canvasWidth * 0.55, canvasHeight * 0.9, canvasWidth * 0.02, -barHeight);
     p5.fill(0);
     p5.text("Pressure", canvasWidth * 0.565, canvasHeight * 0.9 + 20);
-    p5.text(pressure.toFixed(2), canvasWidth * 0.565, canvasHeight * 0.97);
+    p5.text(pressure.toFixed(2) + " atm", canvasWidth * 0.565, canvasHeight * 0.97);
   }
   function drawSliderLabel(slider, label, units, p5) {
     p5.fill(0);
