@@ -44195,7 +44195,9 @@ function IGL() {
     p5Canvas.position(0, 0, 'relative');
     sliderContainer = document.getElementById('simCenterContainer');
     container = new Container(p5);
-    initializeSliders(p5);
+    if (p5Canvas.canvas.id == "defaultCanvas0") {
+      initializeSliders(p5);
+    }
     initializeAtoms();
     var font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
     p5.textFont(font);

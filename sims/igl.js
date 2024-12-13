@@ -28,7 +28,10 @@ function IGL() {
         sliderContainer = document.getElementById('simCenterContainer');
         
         container = new Container(p5);
-        initializeSliders(p5);
+        
+        if (p5Canvas.canvas.id == "defaultCanvas0") {
+            initializeSliders(p5);
+        }
         initializeAtoms();
 
         let font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
@@ -56,8 +59,8 @@ function IGL() {
             previousVolume = volume;
         }
         drawDottedRectangle(p5);
-
     }
+
     function drawDottedRectangle(p5){
         p5.noFill();
         p5.stroke(0); // Black stroke for visibility
