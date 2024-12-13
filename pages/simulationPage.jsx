@@ -79,7 +79,6 @@ function SimulationContent(sim) {
     }
     else if (sim.short == "ms") {
         return <>
-        <canvas id="msCanvas"></canvas>
         <Microstates/>
         </>
     }

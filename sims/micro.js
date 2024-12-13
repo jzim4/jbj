@@ -139,8 +139,8 @@ function Microstates() {
     var p = 1;
     
     function setup(p5) {
-        let canvas = document.getElementById('msCanvas');
-        let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight, canvas);
+        let canvas = document.getElementById('simCenterContainer');
+        let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
         p5Canvas.position(0,0,'relative');
         p5.noLoop();
     
