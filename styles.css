@@ -137,7 +137,7 @@ Black: #000000
     height: 225px;
     position:relative;
     background-color: white;
-    border: 2px solid black;
+    border: 3px solid black;
  }
  .navStreak {
    margin: 10px auto;
