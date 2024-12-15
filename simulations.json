@@ -2,7 +2,7 @@
     "igl": {
         "name": "Ideal Gas Law",
         "short": "igl",
-        "navImg": "./assets/navImg/placeHolder.png",
+        "navImg": "./assets/navImg/iglHomePage.png",
         "instructions": "To interact with the simulation, move the sliders to see how volume, moles, and temperature, each relate to pressure.",
         "moreInfo": "The ideal gas law models the rudimentary relationship between pressure, temperature, volume, and moles of gasses in a sealed container.\n\nIn this simulation, temperature is shown as the speed of the molecules, volume is the size of the container, and moles are the number of molecules. Notice how changing these values affects the visualization and the pressure.",
         "instructionImg": "./assets/instructionImg/iglInstructions.png"
@@ -26,9 +26,9 @@
     "ms": {
         "name": "Microstates",
         "short": "ms",
-        "navImg": "./assets/navImg/placeHolder.png",
+        "navImg": "./assets/navImg/microHomePage.png",
         "instructions" : "THIS IS WHERE INSTRUCTIONS GO.",
-        "moreInfo": "THIS IS WHERE MORE INFORMATION GOES.",
+        "moreInfo": "The possible microstates of a molecule tell us the ways in which electrons can be distributed amongst energy levels. The number of possible microstates rapidly grows as the number of electrons and energy levels grow.",
         "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
     }
 }

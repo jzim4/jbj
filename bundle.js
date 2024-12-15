@@ -44127,37 +44127,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 var _reactP = _interopRequireDefault(require("react-p5"));
 function _interopRequireDefault(e) {
   return e && e.__esModule ? e : {
     "default": e
   };
-}
-function _getRequireWildcardCache(e) {
-  if ("function" != typeof WeakMap) return null;
-  var r = new WeakMap(),
-    t = new WeakMap();
-  return (_getRequireWildcardCache = function _getRequireWildcardCache(e) {
-    return e ? t : r;
-  })(e);
-}
-function _interopRequireWildcard(e, r) {
-  if (!r && e && e.__esModule) return e;
-  if (null === e || "object" != _typeof(e) && "function" != typeof e) return {
-    "default": e
-  };
-  var t = _getRequireWildcardCache(r);
-  if (t && t.has(e)) return t.get(e);
-  var n = {
-      __proto__: null
-    },
-    a = Object.defineProperty && Object.getOwnPropertyDescriptor;
-  for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) {
-    var i = a ? Object.getOwnPropertyDescriptor(e, u) : null;
-    i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u];
-  }
-  return n["default"] = e, t && t.set(e, n), n;
 }
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -44220,7 +44195,9 @@ function IGL() {
     p5Canvas.position(0, 0, 'relative');
     sliderContainer = document.getElementById('simCenterContainer');
     container = new Container(p5);
-    initializeSliders(p5);
+    if (p5Canvas.canvas.id == "defaultCanvas0") {
+      initializeSliders(p5);
+    }
     initializeAtoms();
     var font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
     p5.textFont(font);
@@ -44300,7 +44277,7 @@ function IGL() {
     }
   }
   function updateUI(p5) {
-    drawSliderLabel(volumeSlider, "Volume", "cm", p5);
+    drawSliderLabel(volumeSlider, "Volume", "cm^3", p5);
     drawSliderLabel(molesSlider, "Moles", "moles", p5);
     drawSliderLabel(temperatureSlider, "Temperature", "K", p5);
     calculatePressure();
@@ -44316,7 +44293,7 @@ function IGL() {
     p5.rect(canvasWidth * 0.55, canvasHeight * 0.9, canvasWidth * 0.02, -barHeight);
     p5.fill(0);
     p5.text("Pressure", canvasWidth * 0.565, canvasHeight * 0.9 + 20);
-    p5.text(pressure.toFixed(2), canvasWidth * 0.565, canvasHeight * 0.97);
+    p5.text(pressure.toFixed(2) + " atm", canvasWidth * 0.565, canvasHeight * 0.97);
   }
   function drawSliderLabel(slider, label, units, p5) {
     p5.fill(0);
@@ -44398,11 +44375,15 @@ function IGL() {
     function Atom(radius, p5) {
       _classCallCheck(this, Atom);
       var bounds = container.bounds;
-      this.x = Math.random(bounds.left + radius, bounds.right - radius);
-      this.y = Math.random(bounds.top + radius, bounds.bottom - radius);
+      var xMin = bounds.left + radius;
+      var xMax = bounds.right - radius;
+      this.x = Math.floor(Math.random() * (xMax - xMin + 1)) + xMin;
+      var yMin = bounds.top + radius;
+      var yMax = bounds.bottom - radius;
+      this.y = Math.floor(Math.random() * (yMax - yMin + 1)) + yMin;
 
       // Randomize initial speed directions while keeping magnitude constant
-      this.angle = Math.random(p5.TWO_PI); // Random angle in radians
+      this.angle = Math.floor(Math.random() * 2 * 3.14); // Random angle in radians
       this.speed = 3;
       this.xSpeed = this.speed * Math.cos(this.angle);
       this.ySpeed = this.speed * Math.sin(this.angle);
@@ -45281,7 +45262,7 @@ function Orbitals() {
     p5.fill(237, 91, 45);
     p5.textFont(font, 25);
     p5.noStroke();
-    p5.text("These orbitals \ndo not mix", 461, 250);
+    p5.text("These orbitals \ndo not \ninteract", 461, 230);
   }
 
   // draws reset button on canvas
@@ -45468,7 +45449,7 @@ module.exports={
     "igl": {
         "name": "Ideal Gas Law",
         "short": "igl",
-        "navImg": "./assets/navImg/placeHolder.png",
+        "navImg": "./assets/navImg/iglHomePage.png",
         "instructions": "To interact with the simulation, move the sliders to see how volume, moles, and temperature, each relate to pressure.",
         "moreInfo": "The ideal gas law models the rudimentary relationship between pressure, temperature, volume, and moles of gasses in a sealed container.\n\nIn this simulation, temperature is shown as the speed of the molecules, volume is the size of the container, and moles are the number of molecules. Notice how changing these values affects the visualization and the pressure.",
         "instructionImg": "./assets/instructionImg/iglInstructions.png"
@@ -45492,9 +45473,9 @@ module.exports={
     "ms": {
         "name": "Microstates",
         "short": "ms",
-        "navImg": "./assets/navImg/placeHolder.png",
+        "navImg": "./assets/navImg/microHomePage.png",
         "instructions" : "THIS IS WHERE INSTRUCTIONS GO.",
-        "moreInfo": "THIS IS WHERE MORE INFORMATION GOES.",
+        "moreInfo": "The possible microstates of a molecule tell us the ways in which electrons can be distributed amongst energy levels. The number of possible microstates rapidly grows as the number of electrons and energy levels grow.",
         "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
     }
 }

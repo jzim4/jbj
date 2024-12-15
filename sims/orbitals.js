@@ -324,7 +324,7 @@ function Orbitals() {
     p5.fill(237, 91, 45);
     p5.textFont(font, 25);
     p5.noStroke();
-    p5.text("These orbitals \ndo not mix", 461, 250);
+    p5.text("These orbitals \ndo not \ninteract", 461, 230);
   }
 
   // draws reset button on canvas

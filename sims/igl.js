@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Sketch from 'react-p5';
 function IGL() {
 
@@ -28,7 +28,10 @@ function IGL() {
         sliderContainer = document.getElementById('simCenterContainer');
         
         container = new Container(p5);
-        initializeSliders(p5);
+        
+        if (p5Canvas.canvas.id == "defaultCanvas0") {
+            initializeSliders(p5);
+        }
         initializeAtoms();
 
         let font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
@@ -56,8 +59,8 @@ function IGL() {
             previousVolume = volume;
         }
         drawDottedRectangle(p5);
-
     }
+
     function drawDottedRectangle(p5){
         p5.noFill();
         p5.stroke(0); // Black stroke for visibility
@@ -123,7 +126,7 @@ function IGL() {
     }
 
     function updateUI(p5) {
-        drawSliderLabel(volumeSlider, "Volume", "cm", p5);
+        drawSliderLabel(volumeSlider, "Volume", "cm^3", p5);
         drawSliderLabel(molesSlider, "Moles", "moles", p5);
         drawSliderLabel(temperatureSlider, "Temperature", "K", p5);
 
@@ -143,7 +146,7 @@ function IGL() {
         
         p5.fill(0);
         p5.text("Pressure", canvasWidth * 0.565, canvasHeight * 0.9 + 20);
-        p5.text(pressure.toFixed(2), canvasWidth * 0.565, canvasHeight * 0.97);
+        p5.text(pressure.toFixed(2) + " atm", canvasWidth * 0.565, canvasHeight * 0.97);
     }
 
     function drawSliderLabel(slider, label, units, p5) {
@@ -221,11 +224,15 @@ function IGL() {
     class Atom {
         constructor(radius, p5) {
             let bounds = container.bounds;
-            this.x = Math.random(bounds.left + radius, bounds.right - radius);
-            this.y = Math.random(bounds.top + radius, bounds.bottom - radius);
+            let xMin = bounds.left + radius;
+            let xMax = bounds.right - radius;
+            this.x = Math.floor(Math.random() * (xMax - xMin + 1)) + xMin;
+            let yMin = bounds.top + radius;
+            let yMax = bounds.bottom - radius;
+            this.y = Math.floor(Math.random() * (yMax - yMin + 1)) + yMin;
             
             // Randomize initial speed directions while keeping magnitude constant
-            this.angle = Math.random(p5.TWO_PI); // Random angle in radians
+            this.angle = Math.floor(Math.random() * 2 * 3.14); // Random angle in radians
             this.speed = 3; 
             this.xSpeed = this.speed * Math.cos(this.angle);
             this.ySpeed = this.speed * Math.sin(this.angle);
