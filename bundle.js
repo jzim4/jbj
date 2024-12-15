@@ -44547,41 +44547,70 @@ function Microstates() {
   var barchartWidth = 900;
   var barchartHeight = 125;
   var canvasWidth = 922;
-  var canvasHeight = 600;
+  var canvasHeight = 525;
   var x_offset = -75;
   var y_offset = 350;
 
   // cite
-  function findCombinations(q, p) {
-    var results = [];
-    function helper() {
-      var currentSum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var currentList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      if (currentList.length === p) {
-        if (currentSum === q) {
-          results.push(_toConsumableArray(currentList));
-        }
-        return;
-      }
-      for (var i = 0; i <= q - currentSum; i++) {
-        helper(currentSum + i, [].concat(_toConsumableArray(currentList), [i]));
+  function combinationSum(arr, sum) {
+    var ans = new Array();
+    var temp = new Array();
+    var set = new Set(_toConsumableArray(arr));
+    arr = _toConsumableArray(set);
+    arr.sort();
+    findNumbers(ans, arr, sum, 0, temp);
+    return ans;
+  }
+  function findNumbers(ans, arr, sum, index, temp) {
+    if (sum == 0) {
+      ans.push(_toConsumableArray(temp));
+      return;
+    }
+    for (var i = index; i < arr.length; i++) {
+      if (sum - arr[i] >= 0) {
+        temp.push(arr[i]);
+        findNumbers(ans, arr, sum - arr[i], i, temp);
+        temp.splice(temp.indexOf(arr[i]), 1);
       }
     }
-    helper();
-    return results;
+  }
+  function genArr(n) {
+    var newArr = [];
+    for (var i = 1; i < n + 1; i++) {
+      newArr.push(i);
+    }
+    return newArr;
+  }
+  function formatArr(distArr, p) {
+    var res = [];
+    var _iterator = _createForOfIteratorHelper(distArr),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var arr = _step.value;
+        var remainder = p - arr.length;
+        var a = arr.slice();
+        for (var i = 0; i < remainder; i++) {
+          a.push(0);
+        }
+        res.push(a);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    return res;
+  }
+  function genComb(q, p) {
+    var arr = genArr(q);
+    return formatArr(combinationSum(arr, q), p);
   }
   function fact(n) {
     var res = 1;
     if (n === 0) return 1;
     for (var i = 2; i <= n; i++) res = res * i;
     return res;
-  }
-  function genArr(n) {
-    var newArr = [];
-    for (var i = 0; i < n; i++) {
-      newArr.push(i);
-    }
-    return newArr;
   }
 
   // https://www.geeksforgeeks.org/transpose-a-two-dimensional-2d-array-in-javascript/#
@@ -44591,11 +44620,11 @@ function Microstates() {
 
   function freqMap(dist) {
     var freq = new Map();
-    var _iterator = _createForOfIteratorHelper(dist),
-      _step;
+    var _iterator2 = _createForOfIteratorHelper(dist),
+      _step2;
     try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var element = _step.value;
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var element = _step2.value;
         if (freq.has(element, 1)) {
           var val = freq.get(element);
           freq.set(element, val + 1);
@@ -44604,90 +44633,78 @@ function Microstates() {
         }
       }
     } catch (err) {
-      _iterator.e(err);
+      _iterator2.e(err);
     } finally {
-      _iterator.f();
+      _iterator2.f();
     }
     return freq;
   }
   function freqArr(distArr) {
     var arr = [];
-    var _iterator2 = _createForOfIteratorHelper(distArr),
-      _step2;
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var dist = _step2.value;
-        arr.push(freqMap(dist));
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-    return arr;
-  }
-  function combProb(dist, q) {
-    var denom = 1;
-    var freq = freqMap(dist, q);
-    var _iterator3 = _createForOfIteratorHelper(freq.keys()),
+    var _iterator3 = _createForOfIteratorHelper(distArr),
       _step3;
     try {
       for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var key = _step3.value;
-        denom *= fact(freq.get(key));
+        var dist = _step3.value;
+        arr.push(freqMap(dist));
       }
     } catch (err) {
       _iterator3.e(err);
     } finally {
       _iterator3.f();
     }
-    return fact(q) / denom;
+    return arr;
   }
-  function findTotalW(distArr, q) {
-    var W_tot = 0;
-    var _iterator4 = _createForOfIteratorHelper(distArr),
+  function combProb(dist, q) {
+    var denom = 1;
+    var freq = freqMap(dist, q);
+    var _iterator4 = _createForOfIteratorHelper(freq.keys()),
       _step4;
     try {
       for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-        var dist = _step4.value;
-        var W_d = combProb(dist, q);
-        W_tot += W_d;
+        var key = _step4.value;
+        denom *= fact(freq.get(key));
       }
     } catch (err) {
       _iterator4.e(err);
     } finally {
       _iterator4.f();
     }
-    return W_tot;
+    return fact(q) / denom;
   }
-  function findProbs(distArr, q) {
-    var arr = [];
-    var W_tot = findTotalW(distArr, q);
+  function findTotalW(distArr, q) {
+    var W_tot = 0;
     var _iterator5 = _createForOfIteratorHelper(distArr),
       _step5;
     try {
       for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
         var dist = _step5.value;
-        arr.push(combProb(dist, q) / W_tot);
+        var W_d = combProb(dist, q);
+        W_tot += W_d;
       }
     } catch (err) {
       _iterator5.e(err);
     } finally {
       _iterator5.f();
     }
-    return arr;
+    return W_tot;
   }
-  function genComb(q, p) {
-    var comb = findCombinations(q, p);
-    var combSet = new Set(comb.map(function (arr) {
-      return JSON.stringify(arr.sort(function (a, b) {
-        return a - b;
-      }));
-    }));
-    var uniqueComb = Array.from(combSet, function (str) {
-      return JSON.parse(str);
-    });
-    return uniqueComb;
+  function findProbs(distArr, q) {
+    var arr = [];
+    var W_tot = findTotalW(distArr, q);
+    var _iterator6 = _createForOfIteratorHelper(distArr),
+      _step6;
+    try {
+      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+        var dist = _step6.value;
+        arr.push(combProb(dist, q) / W_tot);
+      }
+    } catch (err) {
+      _iterator6.e(err);
+    } finally {
+      _iterator6.f();
+    }
+    return arr;
   }
   function combArr(fmap, q) {
     var arr = [];
@@ -44741,22 +44758,22 @@ function Microstates() {
   function reset1(p5) {
     //   p5.background(220);
     q += 1;
-    gen(q, p);
+    gen(p5, q, p);
   }
   function reset2(p5) {
     //   p5.background(220);
     q -= 1;
-    gen(q, p);
+    gen(p5, q, p);
   }
   function reset4(p5) {
     // p5.background(220);
     p -= 1;
-    gen(q, p);
+    gen(p5, q, p);
   }
   function reset3(p5) {
     // p5.background(220);
     p += 1;
-    gen(q, p);
+    gen(p5, q, p);
   }
   function genDist(p5, arr, x1, x2, y1, y2) {
     var j = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
@@ -44795,20 +44812,20 @@ function Microstates() {
     var temp2 = x2;
     var dx = x2 - x1;
     var j = 1;
-    var _iterator6 = _createForOfIteratorHelper(arr2d),
-      _step6;
+    var _iterator7 = _createForOfIteratorHelper(arr2d),
+      _step7;
     try {
-      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-        var arr = _step6.value;
+      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+        var arr = _step7.value;
         genDist(p5, arr, temp1, temp2, y1, y2, j);
         j += 1;
         temp1 = temp2 + padding;
         temp2 = temp1 + dx;
       }
     } catch (err) {
-      _iterator6.e(err);
+      _iterator7.e(err);
     } finally {
-      _iterator6.f();
+      _iterator7.f();
     }
   }
   function gen(p5, q, p) {
@@ -44835,7 +44852,7 @@ function Microstates() {
       p5.noStroke(); // No outline
       p5.rect(x, y, barWidth - 5, barHeight);
     }
-    p5.textAlign(CENTER, CENTER);
+    p5.textAlign(p5.CENTER, p5.CENTER);
     p5.textSize(10);
     p5.fill(0);
     for (var _i = 0; _i < data.length; _i++) {
@@ -44846,9 +44863,10 @@ function Microstates() {
     }
   }
   function draw(p5) {
-    p5.textSize(15);
+    // p5.textSize(15);
     p5.text('q', 30, 25);
     p5.text('p', 130, 25);
+    console.log(genComb(5, 9));
   }
   return /*#__PURE__*/_react["default"].createElement(_reactP["default"], {
     setup: setup,

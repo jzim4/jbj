@@ -5,30 +5,66 @@ function Microstates() {
     let barchartWidth = 900;
     let barchartHeight = 125;
     let canvasWidth = 922;
-    let canvasHeight = 600;
+    let canvasHeight = 525;
     let x_offset = -75;
     let y_offset = 350;
+    var q = 0;
+    var p = 1;
     
     // cite
-    function findCombinations(q, p) {
-      let results = [];
-  
-      function helper(currentSum = 0, currentList = []) {
-          if (currentList.length === p) {
-              if (currentSum === q) {
-                  results.push([...currentList]);
-              }
-              return;
-          }
-  
-          for (let i = 0; i <= q - currentSum; i++) {
-              helper(currentSum + i, [...currentList, i]);
-          }
-      }
-  
-      helper();
-      return results;
+    function combinationSum(arr, sum) {
+    let ans = new Array();
+    let temp = new Array();
+
+    let set = new Set([...arr]);
+    arr = [...set];
+    arr.sort()
+
+    findNumbers(ans, arr, sum, 0, temp);
+    return ans;
+}
+
+function findNumbers(ans, arr, sum, index, temp) {
+
+    if (sum == 0) {
+        ans.push([...temp]);
+        return;
+    }
+
+    for (let i = index; i < arr.length; i++) {
+        if ((sum - arr[i]) >= 0) {
+            temp.push(arr[i]);
+            findNumbers(ans, arr, sum - arr[i], i, temp);
+            temp.splice(temp.indexOf(arr[i]), 1);
+        }
+    }
+}
+
+function genArr(n) {
+        let newArr = [];
+        for (let i = 1; i < n+1; i++) {
+            newArr.push(i);
+        }
+        return newArr;
+}
+
+function formatArr(distArr, p){
+  let res = [];
+  for (const arr of distArr){
+    let remainder = p - arr.length;
+    let a = arr.slice();
+    for (let i=0; i<remainder; i++){
+      a.push(0);
+    }
+    res.push(a);
   }
+  return res;
+}
+
+function genComb(q,p){
+  let arr = genArr(q);
+  return(formatArr(combinationSum(arr, q), p));
+}
             
             function fact(n) { 
                 let res = 1; 
@@ -38,14 +74,6 @@ function Microstates() {
                     res = res * i; 
                 return res; 
             }
-    
-    function genArr(n) {
-        let newArr = [];
-        for (let i = 0; i < n; i++) {
-            newArr.push(i);
-        }
-        return newArr;
-    }
     
             // https://www.geeksforgeeks.org/transpose-a-two-dimensional-2d-array-in-javascript/#
             // function transpose(arrays) {
@@ -99,13 +127,6 @@ function Microstates() {
                 }
                 return arr;
             }
-            
-            function genComb(q, p){
-              var comb = findCombinations(q, p);
-              var combSet = new Set(comb.map(arr => JSON.stringify(arr.sort((a, b) => a - b))));
-              var uniqueComb = Array.from(combSet, str => JSON.parse(str));
-              return uniqueComb;
-            }
         
             function combArr(fmap, q){
               var arr = [];
@@ -134,9 +155,6 @@ function Microstates() {
             }
         return [labelx, res];
     }
-    
-    var q = 0;
-    var p = 1;
     
     function setup(p5) {
         let canvas = document.getElementById('simCenterContainer');
@@ -167,25 +185,25 @@ function Microstates() {
     function reset1(p5){
     //   p5.background(220);
       q += 1;
-      gen(q,p);
+      gen(p5, q,p);
     }
     
     function reset2(p5){
     //   p5.background(220);
         q -= 1;
-        gen(q,p);
+        gen(p5, q,p);
     }
     
     function reset4(p5){
         // p5.background(220);
         p -= 1;
-        gen(q, p);
+        gen(p5, q, p);
     }
     
     function reset3(p5){
         // p5.background(220);
       p += 1;
-      gen(q, p);
+      gen(p5, q, p);
     }
     
     function genDist(p5,arr, x1, x2, y1, y2, j=0){
@@ -263,7 +281,7 @@ function Microstates() {
             p5.rect(x, y, barWidth-5, barHeight);
         }
     
-        p5.textAlign(CENTER, CENTER);
+        p5.textAlign(p5.CENTER, p5.CENTER);
         p5.textSize(10);
         p5.fill(0);
         for (let i = 0; i < data.length; i++) {
@@ -275,7 +293,7 @@ function Microstates() {
     }
     
     function draw(p5) {
-        p5.textSize(15);
+        // p5.textSize(15);
         p5.text('q',30, 25);
         p5.text('p',130, 25);
       
