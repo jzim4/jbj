@@ -43207,6 +43207,8 @@ function SimulationNav(sim) {
   var key = sim["short"].concat("Nav");
   var link = '/'.concat(sim["short"]);
   var clickFunction = function clickFunction() {};
+
+  // due to simulation needing p5 to reload, force page to reload when opening coulomb
   if (sim["short"] == "coulomb") {
     var navigate = (0, _reactRouterDom.useNavigate)();
     clickFunction = function clickFunction() {
@@ -43232,6 +43234,8 @@ function SimulationNav(sim) {
     className: "navName"
   }, sim.name))));
 }
+
+// all thumbnails and links for home page
 function LandingPage() {
   var sims = [];
   for (var obj in simData["default"]) {
@@ -43248,7 +43252,7 @@ function LandingPage() {
   }));
 }
 
-},{"../simulations.json":30,"react":16,"react-router-dom":8}],23:[function(require,module,exports){
+},{"../simulations.json":29,"react":16,"react-router-dom":8}],23:[function(require,module,exports){
 "use strict";
 
 function _typeof(o) {
@@ -43321,16 +43325,11 @@ root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].Stric
     sim: data.coulomb
   })
 }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-  path: "/ms",
-  element: /*#__PURE__*/_react["default"].createElement(_simulationPage["default"], {
-    sim: data.ms
-  })
-}), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
   path: "*",
   element: /*#__PURE__*/_react["default"].createElement(_homePage["default"], null)
 })))));
 
-},{"../simulations.json":30,"./homePage.jsx":21,"./simulationPage.jsx":25,"react":16,"react-dom/client":5,"react-router-dom":8}],24:[function(require,module,exports){
+},{"../simulations.json":29,"./homePage.jsx":21,"./simulationPage.jsx":25,"react":16,"react-dom/client":5,"react-router-dom":8}],24:[function(require,module,exports){
 "use strict";
 
 function _typeof(o) {
@@ -43385,6 +43384,8 @@ function InstructionWindowContent(_ref) {
     id: "simInstructionExitButton"
   }, "Got it, lets go!"));
 }
+
+// pop-up screen with instructions
 function InstructionWindow(_ref2) {
   var sim = _ref2.sim;
   (0, _react.useEffect)(function () {
@@ -43428,7 +43429,6 @@ var _react = _interopRequireWildcard(require("react"));
 var _orbitals = _interopRequireDefault(require("../sims/orbitals.js"));
 var _coulomb = _interopRequireDefault(require("../sims/coulomb.js"));
 var _igl = _interopRequireDefault(require("../sims/igl.js"));
-var _micro = _interopRequireDefault(require("../sims/micro.js"));
 var _reactRouterDom = require("react-router-dom");
 var _instructionWindow = _interopRequireDefault(require("./instructionWindow.jsx"));
 function _interopRequireDefault(e) {
@@ -43481,13 +43481,14 @@ function Help(sim) {
     id: "helpContent"
   }, sim.moreInfo);
 }
+
+// button to make instructions pop-up reappear
 function InstructionButton() {
   (0, _react.useEffect)(function () {
     var button = document.getElementById("instructionsButton");
     var background = document.getElementById("instructionsContainer");
     if (button && background) {
       var showWindow = function showWindow() {
-        console.log("hi");
         background.style.visibility = "visible";
       };
       button.addEventListener("click", showWindow);
@@ -43528,6 +43529,8 @@ function AllSimulationContent(sim) {
     sim: sim
   }));
 }
+
+// determine which simulation to show
 function SimulationContent(sim) {
   sim = sim.sim;
   if (sim["short"] == "igl") {
@@ -43538,8 +43541,6 @@ function SimulationContent(sim) {
     return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("canvas", {
       id: "p5Canvas"
     }), /*#__PURE__*/_react["default"].createElement(_coulomb["default"], null));
-  } else if (sim["short"] == "ms") {
-    return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_micro["default"], null));
   }
 }
 function SimulationPage(sim) {
@@ -43551,7 +43552,7 @@ function SimulationPage(sim) {
   }), /*#__PURE__*/_react["default"].createElement(ErrorMessage, null));
 }
 
-},{"../sims/coulomb.js":26,"../sims/igl.js":27,"../sims/micro.js":28,"../sims/orbitals.js":29,"./instructionWindow.jsx":24,"react":16,"react-router-dom":8}],26:[function(require,module,exports){
+},{"../sims/coulomb.js":26,"../sims/igl.js":27,"../sims/orbitals.js":28,"./instructionWindow.jsx":24,"react":16,"react-router-dom":8}],26:[function(require,module,exports){
 "use strict";
 
 function _typeof(o) {
@@ -44492,443 +44493,6 @@ var _default = exports["default"] = IGL;
 },{"react":16,"react-p5":7}],28:[function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _react = _interopRequireDefault(require("react"));
-var _reactP = _interopRequireDefault(require("react-p5"));
-function _interopRequireDefault(e) {
-  return e && e.__esModule ? e : {
-    "default": e
-  };
-}
-function _createForOfIteratorHelper(r, e) {
-  var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
-  if (!t) {
-    if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
-      t && (r = t);
-      var _n = 0,
-        F = function F() {};
-      return {
-        s: F,
-        n: function n() {
-          return _n >= r.length ? {
-            done: !0
-          } : {
-            done: !1,
-            value: r[_n++]
-          };
-        },
-        e: function e(r) {
-          throw r;
-        },
-        f: F
-      };
-    }
-    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-  var o,
-    a = !0,
-    u = !1;
-  return {
-    s: function s() {
-      t = t.call(r);
-    },
-    n: function n() {
-      var r = t.next();
-      return a = r.done, r;
-    },
-    e: function e(r) {
-      u = !0, o = r;
-    },
-    f: function f() {
-      try {
-        a || null == t["return"] || t["return"]();
-      } finally {
-        if (u) throw o;
-      }
-    }
-  };
-}
-function _toConsumableArray(r) {
-  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-}
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-  }
-}
-function _iterableToArray(r) {
-  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-}
-function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return _arrayLikeToArray(r);
-}
-function _arrayLikeToArray(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-function Microstates() {
-  var barchartWidth = 900;
-  var barchartHeight = 125;
-  var canvasWidth = 922;
-  var canvasHeight = 525;
-  var x_offset = -75;
-  var y_offset = 350;
-  var q = 0;
-  var p = 1;
-
-  // cite
-  function combinationSum(arr, sum) {
-    var ans = new Array();
-    var temp = new Array();
-    var set = new Set(_toConsumableArray(arr));
-    arr = _toConsumableArray(set);
-    arr.sort();
-    findNumbers(ans, arr, sum, 0, temp);
-    return ans;
-  }
-  function findNumbers(ans, arr, sum, index, temp) {
-    if (sum == 0) {
-      ans.push(_toConsumableArray(temp));
-      return;
-    }
-    for (var i = index; i < arr.length; i++) {
-      if (sum - arr[i] >= 0) {
-        temp.push(arr[i]);
-        findNumbers(ans, arr, sum - arr[i], i, temp);
-        temp.splice(temp.indexOf(arr[i]), 1);
-      }
-    }
-  }
-  function genArr(n) {
-    var newArr = [];
-    for (var i = 1; i < n + 1; i++) {
-      newArr.push(i);
-    }
-    return newArr;
-  }
-  function formatArr(distArr, p) {
-    var res = [];
-    var _iterator = _createForOfIteratorHelper(distArr),
-      _step;
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var arr = _step.value;
-        var remainder = p - arr.length;
-        var a = arr.slice();
-        for (var i = 0; i < remainder; i++) {
-          a.push(0);
-        }
-        res.push(a);
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-    return res;
-  }
-  function genComb(q, p) {
-    var arr = genArr(q);
-    return formatArr(combinationSum(arr, q), p);
-  }
-  function fact(n) {
-    var res = 1;
-    if (n === 0) return 1;
-    for (var i = 2; i <= n; i++) res = res * i;
-    return res;
-  }
-
-  // https://www.geeksforgeeks.org/transpose-a-two-dimensional-2d-array-in-javascript/#
-  // function transpose(arrays) {
-  //     return arrays[0].map((_, i) => arrays.map(array => array[i]));
-  // }
-
-  function freqMap(dist) {
-    var freq = new Map();
-    var _iterator2 = _createForOfIteratorHelper(dist),
-      _step2;
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var element = _step2.value;
-        if (freq.has(element, 1)) {
-          var val = freq.get(element);
-          freq.set(element, val + 1);
-        } else {
-          freq.set(element, 1);
-        }
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-    return freq;
-  }
-  function freqArr(distArr) {
-    var arr = [];
-    var _iterator3 = _createForOfIteratorHelper(distArr),
-      _step3;
-    try {
-      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var dist = _step3.value;
-        arr.push(freqMap(dist));
-      }
-    } catch (err) {
-      _iterator3.e(err);
-    } finally {
-      _iterator3.f();
-    }
-    return arr;
-  }
-  function combProb(dist, q) {
-    var denom = 1;
-    var freq = freqMap(dist, q);
-    var _iterator4 = _createForOfIteratorHelper(freq.keys()),
-      _step4;
-    try {
-      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-        var key = _step4.value;
-        denom *= fact(freq.get(key));
-      }
-    } catch (err) {
-      _iterator4.e(err);
-    } finally {
-      _iterator4.f();
-    }
-    return fact(q) / denom;
-  }
-  function findTotalW(distArr, q) {
-    var W_tot = 0;
-    var _iterator5 = _createForOfIteratorHelper(distArr),
-      _step5;
-    try {
-      for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-        var dist = _step5.value;
-        var W_d = combProb(dist, q);
-        W_tot += W_d;
-      }
-    } catch (err) {
-      _iterator5.e(err);
-    } finally {
-      _iterator5.f();
-    }
-    return W_tot;
-  }
-  function findProbs(distArr, q) {
-    var arr = [];
-    var W_tot = findTotalW(distArr, q);
-    var _iterator6 = _createForOfIteratorHelper(distArr),
-      _step6;
-    try {
-      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-        var dist = _step6.value;
-        arr.push(combProb(dist, q) / W_tot);
-      }
-    } catch (err) {
-      _iterator6.e(err);
-    } finally {
-      _iterator6.f();
-    }
-    return arr;
-  }
-  function combArr(fmap, q) {
-    var arr = [];
-    for (var i = 0; i < q + 1; i++) {
-      if (fmap.has(i)) {
-        arr.push(fmap.get(i));
-      } else {
-        arr.push(0);
-      }
-    }
-    return arr;
-  }
-  function finalCombTable(distArr, q) {
-    var arr = freqArr(distArr);
-    var res = [];
-    var labely = [];
-    var labelx = [];
-    for (var i = 0; i < arr.length; i++) {
-      var x = combArr(arr[i], q);
-      labelx.push(i + 1);
-      res.push(x);
-      if (i < arr.length - 1) {
-        labely.push(i);
-      }
-    }
-    return [labelx, res];
-  }
-  function setup(p5) {
-    var canvas = document.getElementById('simCenterContainer');
-    var p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
-    p5Canvas.position(0, 0, 'relative');
-    p5.noLoop();
-    var font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
-    p5.textFont(font);
-    p5.textSize(19);
-
-    // Add color options with names and values.
-
-    makeButtons(p5);
-  }
-  function mousePressed(p5) {
-    if (p5.mouseY >= 5 && p5.mouseY <= 25) {
-      if (p5.mouseX >= 50 && p5.mouseX <= 70) {
-        reset1(p5);
-      } else if (p5.mouseX >= 80 && p5.mouseX <= 100) {
-        reset2(p5);
-      } else if (p5.mouseX >= 180 && p5.mouseX <= 200) {
-        reset3(p5);
-      } else if (p5.mouseX >= 210 && p5.mouseX <= 230) {
-        reset4(p5);
-      }
-    }
-  }
-  function makeButtons(p5) {
-    p5.textSize(30);
-    p5.text("Quanta:", 5, 20);
-    p5.rect(50, 5, 20, 20);
-    p5.text("+", 57, 20);
-    p5.rect(80, 5, 20, 20);
-    p5.text("-", 87, 20);
-    p5.text("Particles:", 120, 20);
-    p5.rect(180, 5, 20, 20);
-    p5.text("+", 187, 20);
-    p5.rect(210, 5, 20, 20);
-    p5.text("-", 217, 20);
-  }
-  function reset1(p5) {
-    //   p5.background(220);
-    q += 1;
-    gen(p5, q, p);
-  }
-  function reset2(p5) {
-    //   p5.background(220);
-    q -= 1;
-    gen(p5, q, p);
-  }
-  function reset4(p5) {
-    // p5.background(220);
-    p -= 1;
-    gen(p5, q, p);
-  }
-  function reset3(p5) {
-    // p5.background(220);
-    p += 1;
-    gen(p5, q, p);
-  }
-  function genDist(p5, arr, x1, x2, y1, y2) {
-    var j = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
-    console.log(p5);
-    var fontSize = 13.5;
-    var tableTop = y1;
-    var tableBottom = y2;
-    var rows = arr.length;
-    p5.textSize(fontSize);
-    for (var i = 0; i < rows; i++) {
-      var y = p5.map(i, 0, rows, tableTop, tableBottom);
-      if (i == 0) {
-        if (j == 0) {
-          p5.text('Quanta', x1 - 8, y);
-        } else {
-          p5.text('Dist. ' + j, x1, y);
-        }
-      }
-      if (j == 0) {
-        p5.fill(0);
-        p5.text(arr[rows - 1 - i], x1 + 2, y + 1.1 * fontSize);
-      } else {
-        if (arr[rows - 1 - i] > 0) {
-          p5.fill('tomato');
-          p5.text(arr[rows - 1 - i], x1 + 2, y + 1.1 * fontSize);
-        } else {
-          p5.fill(100, 150, 255);
-          p5.text(arr[rows - 1 - i], x1 + 2, y + 1.1 * fontSize);
-        }
-      }
-      p5.fill(0);
-      p5.line(x1, y + 1.2 * fontSize, x2, y + 1.2 * fontSize);
-    }
-  }
-  function genDists(p5, arr2d, x1, x2, y1, y2, padding) {
-    var temp1 = x1;
-    var temp2 = x2;
-    var dx = x2 - x1;
-    var j = 1;
-    var _iterator7 = _createForOfIteratorHelper(arr2d),
-      _step7;
-    try {
-      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-        var arr = _step7.value;
-        genDist(p5, arr, temp1, temp2, y1, y2, j);
-        j += 1;
-        temp1 = temp2 + padding;
-        temp2 = temp1 + dx;
-      }
-    } catch (err) {
-      _iterator7.e(err);
-    } finally {
-      _iterator7.f();
-    }
-  }
-  function gen(p5, q, p) {
-    var com = genComb(q, p);
-    var data = findProbs(com, q);
-    var arr = finalCombTable(com, q);
-    var label = genArr(q + 1);
-    genDist(p5, label, 30, 60, 70, 300);
-    genDists(p5, arr[1], 80, 110, 70, 300, 23);
-    drawBar(p5, data, arr[0]);
-  }
-  function drawBar(p5, data, labels) {
-    var chartWidth = barchartWidth * 0.8; // 80% of canvas width
-    var chartHeight = barchartHeight * 0.8; // 80% of canvas height
-    var barWidth = chartWidth / data.length; // Calculate bar width
-    var maxDataValue = p5.max(data); // Find the maximum data value
-
-    // Draw bars
-    for (var i = 0; i < data.length; i++) {
-      var barHeight = p5.map(data[i], 0, maxDataValue, 0, chartHeight); // Scale bar height
-      var x = x_offset + barchartWidth * 0.2 + i * barWidth;
-      var y = y_offset + barchartHeight * 0.9 - barHeight;
-      p5.fill(100, 150, 255); // Bar color
-      p5.noStroke(); // No outline
-      p5.rect(x, y, barWidth - 5, barHeight);
-    }
-    p5.textAlign(p5.CENTER, p5.CENTER);
-    p5.textSize(10);
-    p5.fill(0);
-    for (var _i = 0; _i < data.length; _i++) {
-      var _x = x_offset + barchartWidth * 0.2 + _i * barWidth + (barWidth - 5) / 2;
-      var _y = y_offset + barchartHeight * 0.95;
-      p5.text(data[_i].toFixed(2), _x, _y); // Display data value below each bar
-      p5.text(labels[_i], _x, _y + 15); // Display data value below each bar
-    }
-  }
-  function draw(p5) {
-    // p5.textSize(15);
-    p5.text('q', 30, 25);
-    p5.text('p', 130, 25);
-  }
-  return /*#__PURE__*/_react["default"].createElement(_reactP["default"], {
-    setup: setup,
-    mousePressed: mousePressed,
-    draw: draw
-  });
-}
-var _default = exports["default"] = Microstates;
-
-},{"react":16,"react-p5":7}],29:[function(require,module,exports){
-"use strict";
-
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -45514,8 +45078,16 @@ function Orbitals() {
 }
 var _default = exports["default"] = Orbitals;
 
-},{"react":16,"react-p5":7}],30:[function(require,module,exports){
+},{"react":16,"react-p5":7}],29:[function(require,module,exports){
 module.exports={
+    "coulomb": {
+        "name": "Coulomb's Law",
+        "short": "coulomb",
+        "navImg": "./assets/navImg/coulombHomePage.png",
+        "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
+        "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
+        "instructionImg": "./assets/instructionImg/coulombInstructions.png"
+    },
     "igl": {
         "name": "Ideal Gas Law",
         "short": "igl",
@@ -45531,22 +45103,6 @@ module.exports={
         "instructions" : "To test your knowledge of orbital combinations, click on one orbital on each side, and see their combination in the center.",
         "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.",
         "instructionImg": "./assets/instructionImg/orbitalsInstructions.png"
-    },
-    "coulomb": {
-        "name": "Coulomb's Law",
-        "short": "coulomb",
-        "navImg": "./assets/navImg/coulombHomePage.png",
-        "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
-        "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
-        "instructionImg": "./assets/instructionImg/coulombInstructions.png"
-    },
-    "ms": {
-        "name": "Microstates",
-        "short": "ms",
-        "navImg": "./assets/navImg/microHomePage.png",
-        "instructions" : "THIS IS WHERE INSTRUCTIONS GO.",
-        "moreInfo": "The possible microstates of a molecule tell us the ways in which electrons can be distributed amongst energy levels. The number of possible microstates rapidly grows as the number of electrons and energy levels grow.",
-        "instructionImg": "./assets/instructionImg/instructionsPlaceholder.png"
     }
 }
 },{}]},{},[23]);

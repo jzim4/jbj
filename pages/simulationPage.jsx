@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Orbitals from '../sims/orbitals.js';
 import Coulomb from '../sims/coulomb.js';
 import IGL from '../sims/igl.js';
-import Microstates from '../sims/micro.js';
 import { Link } from 'react-router-dom';
 import InstructionWindow from './instructionWindow.jsx';
 
@@ -25,18 +24,16 @@ function Help(sim) {
     return <div id="helpContent">{sim.moreInfo}</div>
 }
 
+// button to make instructions pop-up reappear
 function InstructionButton() {
     useEffect(() => {
-        
         const button = document.getElementById("instructionsButton");
         const background = document.getElementById("instructionsContainer");
 
         if (button && background) {
             const showWindow = () => {
-                console.log("hi")
                 background.style.visibility = "visible";
             };
-
             button.addEventListener("click", showWindow);
         }
     }, []);
@@ -63,6 +60,7 @@ function AllSimulationContent(sim) {
             </div>
 }
 
+// determine which simulation to show
 function SimulationContent(sim) {
     sim = sim.sim;
     if (sim.short == "igl") {
@@ -75,11 +73,6 @@ function SimulationContent(sim) {
         return <>
         <canvas id="p5Canvas"></canvas>
         <Coulomb/>
-        </>
-    }
-    else if (sim.short == "ms") {
-        return <>
-        <Microstates/>
         </>
     }
 }

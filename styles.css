@@ -111,17 +111,17 @@ Black: #000000
 
    /* Navs */
  #homePageAllNavs {
-   margin: 0 auto;
+   margin: 30px auto 0;
    display: flex;
+   gap: 4vw;
    justify-content: space-evenly;
    flex-wrap: wrap;
    max-width: 1200px;
  }
  .homePageNavContainer {
    display: flex;
-   margin: 10px 5vw;
    position: relative;
-   max-width: 300px;
+   /* max-width: 250px; */
    height: fit-content;
  }
  .homePageNavLink:hover {
@@ -132,9 +132,11 @@ Black: #000000
    border: 1px #182628 dashed !important;
  }
  .homePageNavImg {
-    width: 300px;
+    width: 20vw;
+    min-width: 250px;
     max-width: 90vw;
-    height: 225px;
+    height: 15vw;
+    min-height: 187px;
     position:relative;
     background-color: white;
     border: 3px solid black;

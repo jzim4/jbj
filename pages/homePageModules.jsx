@@ -9,6 +9,7 @@ function SimulationNav (sim) {
     let link = '/'.concat(sim.short);
     let clickFunction = () => {};
     
+    // due to simulation needing p5 to reload, force page to reload when opening coulomb
     if (sim.short == "coulomb") {
         const navigate = useNavigate();
         clickFunction = () => {
@@ -26,6 +27,7 @@ function SimulationNav (sim) {
     </div>)
 }
 
+// all thumbnails and links for home page
 export default function LandingPage() {
     let sims = [];
     for (const obj in simData.default) {

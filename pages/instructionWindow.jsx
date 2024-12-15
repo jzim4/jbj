@@ -8,6 +8,7 @@ function InstructionWindowContent({sim}) {
     </div>
 }
 
+// pop-up screen with instructions
 export default function InstructionWindow({sim}) {
     useEffect(() => {
         const button = document.getElementById("simInstructionExitButton");
