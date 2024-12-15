@@ -44531,6 +44531,8 @@ function Microstates() {
   var canvasHeight = 525;
   var x_offset = -75;
   var y_offset = 350;
+  var q = 0;
+  var p = 1;
 
   // cite
   function combinationSum(arr, sum) {
@@ -44713,28 +44715,44 @@ function Microstates() {
     }
     return [labelx, res];
   }
-  var q = 0;
-  var p = 1;
   function setup(p5) {
     var canvas = document.getElementById('simCenterContainer');
     var p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
     p5Canvas.position(0, 0, 'relative');
     p5.noLoop();
+    var font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
+    p5.textFont(font);
+    p5.textSize(19);
 
     // Add color options with names and values.
 
-    var b1 = p5.createButton('+');
-    b1.position(50, 10);
-    b1.mousePressed(reset1);
-    var b2 = p5.createButton('-');
-    b2.position(100, 10);
-    b2.mousePressed(reset2);
-    var b3 = p5.createButton('+');
-    b3.position(150, 10);
-    b3.mousePressed(reset3);
-    var b4 = p5.createButton('-');
-    b4.position(200, 10);
-    b4.mousePressed(reset4);
+    makeButtons(p5);
+  }
+  function mousePressed(p5) {
+    if (p5.mouseY >= 5 && p5.mouseY <= 25) {
+      if (p5.mouseX >= 50 && p5.mouseX <= 70) {
+        reset1(p5);
+      } else if (p5.mouseX >= 80 && p5.mouseX <= 100) {
+        reset2(p5);
+      } else if (p5.mouseX >= 180 && p5.mouseX <= 200) {
+        reset3(p5);
+      } else if (p5.mouseX >= 210 && p5.mouseX <= 230) {
+        reset4(p5);
+      }
+    }
+  }
+  function makeButtons(p5) {
+    p5.textSize(30);
+    p5.text("Quanta:", 5, 20);
+    p5.rect(50, 5, 20, 20);
+    p5.text("+", 57, 20);
+    p5.rect(80, 5, 20, 20);
+    p5.text("-", 87, 20);
+    p5.text("Particles:", 120, 20);
+    p5.rect(180, 5, 20, 20);
+    p5.text("+", 187, 20);
+    p5.rect(210, 5, 20, 20);
+    p5.text("-", 217, 20);
   }
   function reset1(p5) {
     //   p5.background(220);
@@ -44758,6 +44776,7 @@ function Microstates() {
   }
   function genDist(p5, arr, x1, x2, y1, y2) {
     var j = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
+    console.log(p5);
     var fontSize = 13.5;
     var tableTop = y1;
     var tableBottom = y2;
@@ -44847,10 +44866,10 @@ function Microstates() {
     // p5.textSize(15);
     p5.text('q', 30, 25);
     p5.text('p', 130, 25);
-    console.log(genComb(5, 9));
   }
   return /*#__PURE__*/_react["default"].createElement(_reactP["default"], {
     setup: setup,
+    mousePressed: mousePressed,
     draw: draw
   });
 }
