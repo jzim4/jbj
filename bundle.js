@@ -45081,6 +45081,14 @@ var _default = exports["default"] = Orbitals;
 
 },{"react":16,"react-p5":7}],29:[function(require,module,exports){
 module.exports={
+    "orbital": {
+        "name": "Orbital Combinations",
+        "short": "orbital",
+        "navImg": "./assets/navImg/orbitalsHomePage.png",
+        "instructions" : "To test your knowledge of orbital combinations, click on one orbital on each side, and see their combination in the center.",
+        "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.",
+        "instructionImg": "./assets/instructionImg/orbitalsInstructions.png"
+    },
     "coulomb": {
         "name": "Coulomb's Law",
         "short": "coulomb",
@@ -45096,14 +45104,6 @@ module.exports={
         "instructions": "To interact with the simulation, move the sliders to see how volume, moles, and temperature, each relate to pressure.",
         "moreInfo": "The ideal gas law models the rudimentary relationship between pressure, temperature, volume, and moles of gasses in a sealed container.\n\nIn this simulation, temperature is shown as the speed of the molecules, volume is the size of the container, and moles are the number of molecules. Notice how changing these values affects the visualization and the pressure.",
         "instructionImg": "./assets/instructionImg/iglInstructions.png"
-    },
-    "orbital": {
-        "name": "Orbital Combinations",
-        "short": "orbital",
-        "navImg": "./assets/navImg/orbitalsHomePage.png",
-        "instructions" : "To test your knowledge of orbital combinations, click on one orbital on each side, and see their combination in the center.",
-        "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.",
-        "instructionImg": "./assets/instructionImg/orbitalsInstructions.png"
     }
 }
 },{}]},{},[23]);
