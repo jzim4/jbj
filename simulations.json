@@ -7,14 +7,6 @@
         "moreInfo": "Orbitals demonstrate the likely position of an electron in a molecule. When molecules bond, their orbitals combine to form new orbitals.\n\nThe light part of the orbital represents the positive lobe, and the dark part represents the negative lobe.",
         "instructionImg": "./assets/instructionImg/orbitalsInstructions.png"
     },
-    "coulomb": {
-        "name": "Coulomb's Law",
-        "short": "coulomb",
-        "navImg": "./assets/navImg/coulombHomePage.png",
-        "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
-        "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
-        "instructionImg": "./assets/instructionImg/coulombInstructions.png"
-    },
     "igl": {
         "name": "Ideal Gas Law",
         "short": "igl",
@@ -22,5 +14,13 @@
         "instructions": "To interact with the simulation, move the sliders to see how volume, moles, and temperature, each relate to pressure.",
         "moreInfo": "The ideal gas law models the rudimentary relationship between pressure, temperature, volume, and moles of gasses in a sealed container.\n\nIn this simulation, temperature is shown as the speed of the molecules, volume is the size of the container, and moles are the number of molecules. Notice how changing these values affects the visualization and the pressure.",
         "instructionImg": "./assets/instructionImg/iglInstructions.png"
+    },
+    "coulomb": {
+        "name": "Coulomb's Law",
+        "short": "coulomb",
+        "navImg": "./assets/navImg/coulombHomePage.png",
+        "instructions" : "Move the atoms and change the signs and magnitudes to see how they impact the force.",
+        "moreInfo": "Coulomb's Law is the equation that determines how much force charged particles enact on each other according to their distance and respective charges.\n\nAttraction means they are forced towards each other and repulsion means they are forced directly away.\n\nNotice how the distance is measured from the centers and because they cannot overlap it is never zero.",
+        "instructionImg": "./assets/instructionImg/coulombInstructions.png"
     }
 }
