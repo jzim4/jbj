@@ -21,12 +21,15 @@ function IGL() {
     let previousVolume = volume;
     
     function setup(p5) {
+        // placing canvas for simulation onto the webpage
         let canvas = document.getElementById('simCenterContainer');
         let p5Canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvas);
         p5Canvas.position(0,0,'relative');
         
+       
         sliderContainer = document.getElementById('simCenterContainer');
         
+        //creating container where all atom movements will happen
         container = new Container(p5);
         
         if (p5Canvas.canvas.id == "defaultCanvas0") {
@@ -34,26 +37,30 @@ function IGL() {
         }
         initializeAtoms();
 
+        //font stlye for simulation 
         let font = p5.loadFont('./assets/fonts/Oswald-Medium.ttf');
         p5.textFont(font)
         p5.textSize(19);
     }
 
+    // p5 draw function which is continously looping
     function draw(p5) {
         p5.rect(50,50,container.maxWidth, container.maxHeight,5);
         p5.background(220);
 
+        //create visuals around sliders that 
         drawControlPanel(p5);
         container.draw(p5);
-        
+
+        //drawing atoms of the canvas that match user input
         let moles = molesSlider.sliderValue;
         let temperature = temperatureSlider.sliderValue;
         drawAtoms(moles,temperature, p5);
         updateUI(p5);
         
+        //drawing container to match user input
         volume = volumeSlider.sliderValue;
         container.updateCoordinates(volume);
-
         if (previousVolume !== volume) {
             initializeAtoms(p5);
             previousVolume = volume;
@@ -61,6 +68,8 @@ function IGL() {
         drawDottedRectangle(p5);
     }
 
+    //draw a static dotted rectanlge around the max volume for the container
+    //only serves as a visual
     function drawDottedRectangle(p5){
         p5.noFill();
         p5.stroke(0); // Black stroke for visibility
@@ -70,6 +79,7 @@ function IGL() {
         p5.drawingContext.setLineDash([]); 
     }
 
+    //visuals that surround the control sliders
     function drawControlPanel(p5) {
         // Set the panel's position and dimensions
         let panelX = canvasWidth * 0.5;
@@ -91,6 +101,8 @@ function IGL() {
         p5.text("Control Panel", panelX + panelWidth / 2, 10);
       }
 
+    //initializing the control slides for each variable (volume, tempature, and moles)
+    // R is a constant so no slider
     function initializeSliders(p5) {
         const initialX = canvasWidth*0.55;
         const sliderSpacing = canvasWidth * 0.10; 
@@ -100,11 +112,13 @@ function IGL() {
         temperatureSlider = createControlSlider(0, 300, molesSlider.sliderXPosition + sliderSpacing, p5);
     }
 
+    //calling the slider class to create sliders
     function createControlSlider(lowerBound, upperBound, xPosition, p5) {
         let slider = new ControlSlider(lowerBound, upperBound, xPosition, p5);
         return slider;
     }
 
+    //initalizing all of the atoms that will be created in the simulation
     function initializeAtoms() {
         atoms = [];
         for (let i = 0; i < numOfAtoms; i++) {
@@ -112,6 +126,9 @@ function IGL() {
         }
     }
 
+    //drawing all the initialized atoms, while taking into consideration the number of moles the user has inputed
+    //excess atoms are drawn to match the background color of the container
+    // only needed atoms are drawn yellow
     function drawAtoms(moles, temperature, p5) {
         let displayedAtoms = Math.floor(moles * 15);
         for (let i = 0; i < numOfAtoms; i++) {
@@ -125,6 +142,7 @@ function IGL() {
         }
     }
 
+    //changing the variable and pressure values to match the slider values
     function updateUI(p5) {
         drawSliderLabel(volumeSlider, "Volume", "cm^3", p5);
         drawSliderLabel(molesSlider, "Moles", "moles", p5);
@@ -134,11 +152,14 @@ function IGL() {
         drawPressureBar(p5);
     }
 
+    //calculating the presssure 
+    // R is the J/mol*k
     function calculatePressure() {
         const R = 8.31;
         pressure = (temperatureSlider.sliderValue * molesSlider.sliderValue * R) / volumeSlider.sliderValue;
     }
 
+    //creating the visual for the pressure bar
     function drawPressureBar(p5) {
         let barHeight = p5.map(pressure, 0, 26000, 0, canvasHeight * 0.8);
         p5.fill(237, 91, 45);
@@ -149,6 +170,7 @@ function IGL() {
         p5.text(pressure.toFixed(2) + " atm", canvasWidth * 0.565, canvasHeight * 0.97);
     }
 
+    //drawing the variable values specifically, since their positions are relative to each other
     function drawSliderLabel(slider, label, units, p5) {
         p5.fill(0);
         p5.noStroke();
@@ -156,8 +178,8 @@ function IGL() {
         p5.textAlign(p5.CENTER, p5.CENTER); // Center align horizontally and vertically
       
         // Center the label relative to the slider's position
-        let xPosition = slider.sliderXPosition + 140; // Centered above the slider
-        let yPosition = slider.sliderYPosition + 175; // Adjust for label position
+        let xPosition = slider.sliderXPosition + 140; 
+        let yPosition = slider.sliderYPosition + 175;
       
         // Draw the label
         p5.text(label, xPosition, yPosition - 30); 
@@ -165,7 +187,9 @@ function IGL() {
 
     }
 
+    //class to make the control sliders
     class ControlSlider {
+        //setting value restriction for the sliders
         constructor(lowerBound, upperBound, xPosition, p5) {
             this.sliderLowerBound = lowerBound;
             this.sliderUpperBound = upperBound;
@@ -176,6 +200,8 @@ function IGL() {
             this.createVariableSlider(p5);
         }
     
+        //overriding some of the default slider properties
+        //css file contains code for overriding slider properties
         createVariableSlider(p5) {
             this.slider = p5.createSlider(this.sliderLowerBound, this.sliderUpperBound, 5).parent(sliderContainer);
             this.slider.position(this.sliderXPosition - 60, this.sliderYPosition + 35);
@@ -188,6 +214,7 @@ function IGL() {
         }
     }
 
+    //container class that will update the bounds for atom movement and visual apperance of the container
     class Container {
         constructor(p5) {
             this.centerX = canvasWidth * 0.25;
@@ -203,6 +230,7 @@ function IGL() {
             p5.rect(this.x, this.y, this.width, this.height, 5);
         }
     
+        //updating the rectanlge coordinates 
         updateCoordinates(volume) {
             let scale = volume * 0.1;
             this.x = this.centerX - (scale * this.maxWidth) / 2;
@@ -210,7 +238,8 @@ function IGL() {
             this.width = scale * this.maxWidth;
             this.height = scale * this.maxHeight;
         }
-    
+
+        //getter function for all of the containers bounds
         get bounds() {
             return {
             left: this.x,
@@ -220,15 +249,19 @@ function IGL() {
             };
         }
         }
-    
+
+    //atom class that is updating atoms position and speed and enforcing containers bounds
     class Atom {
         constructor(radius, p5) {
+            //setting the bounds for the atoms movements 
             let bounds = container.bounds;
             let xMin = bounds.left + radius;
             let xMax = bounds.right - radius;
-            this.x = Math.floor(Math.random() * (xMax - xMin + 1)) + xMin;
             let yMin = bounds.top + radius;
             let yMax = bounds.bottom - radius;
+
+            //random intial position for the atoms
+            this.x = Math.floor(Math.random() * (xMax - xMin + 1)) + xMin;
             this.y = Math.floor(Math.random() * (yMax - yMin + 1)) + yMin;
             
             // Randomize initial speed directions while keeping magnitude constant
@@ -273,7 +306,6 @@ function IGL() {
                 this.ySpeed = (this.ySpeed / magnitude) * this.speed;
             }
         }
-
     
         draw(radius, r, g, b, p5) {
             p5.fill(r, g, b);
