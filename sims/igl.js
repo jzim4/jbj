@@ -107,14 +107,14 @@ function IGL() {
         const initialX = canvasWidth*0.55;
         const sliderSpacing = canvasWidth * 0.10; 
 
-        volumeSlider = createControlSlider(1, 10, initialX, p5);
-        molesSlider = createControlSlider(0, 10, volumeSlider.sliderXPosition + sliderSpacing, p5);
-        temperatureSlider = createControlSlider(0, 300, molesSlider.sliderXPosition + sliderSpacing, p5);
+        volumeSlider = createControlSlider(1, 10, initialX, 5, p5);
+        molesSlider = createControlSlider(0, 10, volumeSlider.sliderXPosition + sliderSpacing, 5, p5);
+        temperatureSlider = createControlSlider(0, 300, molesSlider.sliderXPosition + sliderSpacing, 100, p5);
     }
 
     //calling the slider class to create sliders
-    function createControlSlider(lowerBound, upperBound, xPosition, p5) {
-        let slider = new ControlSlider(lowerBound, upperBound, xPosition, p5);
+    function createControlSlider(lowerBound, upperBound, xPosition, defaultValue, p5) {
+        let slider = new ControlSlider(lowerBound, upperBound, xPosition, defaultValue, p5);
         return slider;
     }
 
@@ -190,12 +190,14 @@ function IGL() {
     //class to make the control sliders
     class ControlSlider {
         //setting value restriction for the sliders
-        constructor(lowerBound, upperBound, xPosition, p5) {
+        constructor(lowerBound, upperBound, xPosition, defaultValue, p5) {
             this.sliderLowerBound = lowerBound;
             this.sliderUpperBound = upperBound;
             this.sliderXPosition = xPosition;
             this.sliderYPosition = canvasHeight * 0.65;
             this.barMaxHeight = canvasHeight * 0.45;
+
+            this.defaultValue = defaultValue;
     
             this.createVariableSlider(p5);
         }
@@ -203,7 +205,7 @@ function IGL() {
         //overriding some of the default slider properties
         //css file contains code for overriding slider properties
         createVariableSlider(p5) {
-            this.slider = p5.createSlider(this.sliderLowerBound, this.sliderUpperBound, 5).parent(sliderContainer);
+            this.slider = p5.createSlider(this.sliderLowerBound, this.sliderUpperBound, this.defaultValue).parent(sliderContainer);
             this.slider.position(this.sliderXPosition - 60, this.sliderYPosition + 35);
             this.slider.style('transform', 'rotate(270deg)');
             this.slider.class('mySliders');
