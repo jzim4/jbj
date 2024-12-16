@@ -25,6 +25,9 @@ When a user clicks on any of the thumbnails on the home page, they are brought t
 
 Finally, simulationPage.jsx calls the files that draw on the canvas and therefore create the simulation. The code that creates the simulations is located in the directory sims.
 
-## Microstates
+## Moving forward
+### Accessibility
+First, we would want to make this site even more accessible. In the oribitals simulation, you can use only the keyboard to interact with every element of the simulation. We did not have time to do the same for the Coulomb's law and ideal gas simulations, but we would want to allow the user to type values instead of only being able to slide and click buttons.
 
-The Microstates simulator was in the process of development toward the end of the semester but it was not successfully implemented into the final website. Microstates describe the possible ways that energy (quanta) can be distributed and transferred among particles in a system. A prototype for the simulator that runs in the online p5.js editor can be found [here](https://editor.p5js.org/jbradley5/sketches/KO2DY6-Ap). A collection of microstates (15 maximum) will appear in the center of the canvas for a given number of quanta (q) and particles (p) that can be changed with the buttons in the upper left. The bar chart below the microstates shows the probability of a given microstate appearing.
+### Microstates
+The Microstates simulator was in the process of development toward the end of the semester, but it was not successfully implemented into the final website. Microstates describe the possible ways that energy (quanta) can be distributed and transferred among particles in a system. A prototype for the simulator that runs in the online p5.js editor can be found [here](https://editor.p5js.org/jbradley5/sketches/KO2DY6-Ap). A collection of microstates (15 maximum) will appear in the center of the canvas for a given number of quanta (q) and particles (p) that can be changed with the buttons in the upper left. The bar chart below the microstates shows the probability of a given microstate appearing.
