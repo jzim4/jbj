@@ -27,4 +27,4 @@ Finally, simulationPage.jsx calls the files that draw on the canvas and therefor
 
 ## Microstates
 
-The Microstates activity was in the process of development toward the end of the semester but was not successfully implemented into the final website. A prototype that runs in the p5.js editor can be found here: https://editor.p5js.org/jbradley5/sketches/KO2DY6-Ap
+The Microstates simulator was in the process of development toward the end of the semester but was not successfully implemented into the final website. Microstates describe the possible ways that energy (quanta) can be distributed and transferred among particles in a system. A prototype of the simulator (runs in the online p5.js editor) can be found here: https://editor.p5js.org/jbradley5/sketches/KO2DY6-Ap
